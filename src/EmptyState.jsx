@@ -1,5 +1,9 @@
 import Logo from './Logo';
 
+const imgBackground = "http://localhost:3845/assets/dad49abaf748c2f75ced1fce762c9657e2207e8d.svg";
+const imgRectangle = "http://localhost:3845/assets/fb2c471b593c1ec871510dc8ba7797ce750439ff.svg";
+const imgLines = "http://localhost:3845/assets/30ea34eed075295b4fab5ac36e248b3f222e1390.svg";
+
 export default function EmptyState({ onOpenModal }) {
 
   return (
@@ -103,15 +107,30 @@ export default function EmptyState({ onOpenModal }) {
       <div className="basis-0 box-border content-stretch flex flex-col grow items-start min-h-px min-w-px overflow-clip pb-[40px] pt-0 px-[40px] relative shrink-0 w-full z-[1]">
         <div className="basis-0 bg-white border border-[#97c3f0] border-solid box-border content-stretch flex flex-col gap-[16px] grow items-center justify-center min-h-px min-w-px p-[8px] relative rounded-[6px] shrink-0 w-full">
           {/* Illustration */}
-          <div className="h-[116px] relative shrink-0 w-[216px]">
-            {/* Chart illustration would go here */}
-            <div className="flex items-center justify-center h-full">
-              <svg width="116" height="116" viewBox="0 0 116 116" fill="none">
-                <rect x="14" y="56" width="24" height="60" stroke="#0b6bcb" strokeWidth="2" fill="white" rx="4"/>
-                <rect x="46" y="30" width="24" height="86" stroke="#0b6bcb" strokeWidth="2" fill="white" rx="4"/>
-                <rect x="78" y="81" width="24" height="35" stroke="#0b6bcb" strokeWidth="2" fill="white" rx="4"/>
-                <line x1="0" y1="115" x2="116" y2="115" stroke="#0b6bcb" strokeWidth="2"/>
-              </svg>
+          <div className="h-[116px] relative shrink-0 w-[216px]" data-name="Health outcome or behaviour" data-node-id="10375:30088">
+            <div className="absolute bottom-[6.03%] left-0 right-0 top-[33.62%]" data-name="Background" data-node-id="10375:30089">
+              <img alt="" className="block max-w-none size-full" src={imgBackground} />
+            </div>
+            <div className="absolute flex h-[116px] items-center justify-center left-[64px] top-0 w-[116px]">
+              <div className="flex-none rotate-90">
+                <div className="relative size-[116px]" data-node-id="10375:30092">
+                  <div className="absolute content-stretch flex gap-[8px] items-end left-[14px] top-[30px]" data-node-id="10375:30093">
+                    <div className="bg-white border-2 border-[#0b6bcb] border-solid h-[60px] rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-[24px]" data-node-id="10375:30094" />
+                    <div className="bg-white border-2 border-[#0b6bcb] border-solid h-[86px] rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-[24px]" data-node-id="10375:30095" />
+                    <div className="bg-white border-2 border-[#0b6bcb] border-solid h-[35px] rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-[24px]" data-node-id="10375:30096" />
+                  </div>
+                  <div className="absolute h-0 left-0 top-[115px] w-[116px]" data-name="Rectangle" data-node-id="10375:30097">
+                    <div className="absolute inset-[-1.25px_-1.08%]">
+                      <img alt="" className="block max-w-none size-full" src={imgRectangle} />
+                    </div>
+                  </div>
+                  <div className="absolute bottom-[85.56%] left-[calc(50%+0.05px)] top-0 translate-x-[-50%] w-[84.1px]" data-name="lines" data-node-id="10375:30098">
+                    <div className="absolute inset-[-7.46%_-1.49%]">
+                      <img alt="" className="block max-w-none size-full" src={imgLines} />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
