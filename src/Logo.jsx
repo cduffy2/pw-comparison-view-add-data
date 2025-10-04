@@ -1,31 +1,49 @@
-// New Pathways Logo Component
+const img = "http://localhost:3845/assets/573838568d0f6704da66fe5cde4ba93d6ae32001.svg";
+const img1 = "http://localhost:3845/assets/e703b19d71ee2ec8b79f24e112c00f6d1596b30d.svg";
+const img2 = "http://localhost:3845/assets/10aa74c20ef0a75145c38c11486aa67ae33b50d7.svg";
+const img3 = "http://localhost:3845/assets/60de2532d966b737579a2ee4997f6956ddb37a0a.svg";
+const img4 = "http://localhost:3845/assets/10f24d180a1f49d9fc572898db9f6a79a3277828.svg";
+const img5 = "http://localhost:3845/assets/38014a16f1c337d6717f8876ee4d6b73973df01f.svg";
+const img6 = "http://localhost:3845/assets/7db3e5c32b14ad4ebcbfb2267be17b09681b407f.svg";
+const img7 = "http://localhost:3845/assets/a58a06d318de7d253b946bbe8d78938417f02744.svg";
+const img8 = "http://localhost:3845/assets/e6bde62a6d25bc4fc5b0c4527f9ca2c6626da3c4.svg";
+
 export default function Logo() {
   return (
-    <div className="content-stretch flex gap-[8px] h-[36px] items-center overflow-clip relative shrink-0">
-      <svg width="137" height="30" viewBox="0 0 137 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-        {/* Circle with P */}
-        <circle cx="15" cy="15" r="15" fill="#000C24"/>
-        <path d="M10 8C10 7.44772 10.4477 7 11 7H15.5C18.5376 7 21 9.46243 21 12.5C21 15.5376 18.5376 18 15.5 18H13V22C13 22.5523 12.5523 23 12 23C11.4477 23 11 22.5523 11 22V8H10Z" fill="white"/>
-        <path d="M13 15H15.5C16.8807 15 18 13.8807 18 12.5C18 11.1193 16.8807 10 15.5 10H13V15Z" fill="white"/>
-
-        {/* Pathways text */}
-        <path d="M42 8C42 6.89543 42.8954 6 44 6H48C51.3137 6 54 8.68629 54 12C54 15.3137 51.3137 18 48 18H46V23C46 24.1046 45.1046 25 44 25C42.8954 25 42 24.1046 42 23V8Z" fill="#000C24"/>
-        <path d="M46 15H48C49.6569 15 51 13.6569 51 12C51 10.3431 49.6569 9 48 9H46V15Z" fill="#000C24"/>
-
-        <path d="M58.5 19C58.5 18.1716 59.1716 17.5 60 17.5C60.8284 17.5 61.5 18.1716 61.5 19C61.5 19.8284 60.8284 20.5 60 20.5C59.1716 20.5 58.5 19.8284 58.5 19Z" fill="#000C24"/>
-
-        <path d="M68 10H70V8C70 6.89543 70.8954 6 72 6C73.1046 6 74 6.89543 74 8V10H76C77.6569 10 79 11.3431 79 13V15C79 16.1046 78.1046 17 77 17H76C74.3431 17 73 15.6569 73 14V10H74V14C74 15.1046 74.8954 16 76 16H77C77.5523 16 78 15.5523 78 15V13C78 11.8954 77.1046 11 76 11H74V8C74 7.44772 73.5523 7 73 7H72C71.4477 7 71 7.44772 71 8V23C71 24.1046 70.1046 25 69 25C67.8954 25 67 24.1046 67 23V10H68Z" fill="#000C24"/>
-
-        <path d="M84 2C85.1046 2 86 2.89543 86 4V9H88C91.3137 9 94 11.6863 94 15C94 18.3137 91.3137 21 88 21H86V23C86 24.1046 85.1046 25 84 25C82.8954 25 82 24.1046 82 23V4C82 2.89543 82.8954 2 84 2ZM86 18H88C89.6569 18 91 16.6569 91 15C91 13.3431 89.6569 12 88 12H86V18Z" fill="#000C24"/>
-
-        <path d="M99 10L102 21L105 10L108 21L111 10H114L109 25H105.5L102.5 14L99.5 25H96L91 10H94Z" fill="#000C24"/>
-
-        <path d="M118.5 19C118.5 18.1716 119.172 17.5 120 17.5C120.828 17.5 121.5 18.1716 121.5 19C121.5 19.8284 120.828 20.5 120 20.5C119.172 20.5 118.5 19.8284 118.5 19Z" fill="#000C24"/>
-
-        <path d="M127 10L130 20L133 10H136L131 25C130.5 26.5 129 28 126.5 28H125V25H126.5C127.5 25 128 24.5 128.3 23.5L128.8 22L123 10H127Z" fill="#000C24"/>
-
-        <path d="M137 18.5C137 16.567 138.567 15 140.5 15C142.433 15 144 16.567 144 18.5C144 20.433 142.433 22 140.5 22C138.567 22 137 20.433 137 18.5Z" fill="#000C24"/>
-      </svg>
+    <div className="content-stretch flex gap-[8px] items-center relative size-full" data-name="Logo" data-node-id="I10714:36894;939:1635">
+      <div className="flex flex-row items-center self-stretch">
+        <div className="aspect-[137.37/30] h-full overflow-clip relative shrink-0" data-name="Pathways_logo_horizontal_black 1" data-node-id="undefined">
+          <div className="absolute bottom-0 left-0 right-[78.16%] top-0" data-name="Vector" data-node-id="undefined">
+            <img alt="" className="block max-w-none size-full" src={img} />
+          </div>
+          <div className="absolute bottom-[6.89%] contents left-[26.27%] right-0 top-[19.11%]" data-name="Group" data-node-id="undefined">
+            <div className="absolute inset-[19.11%_65.2%_25.18%_26.27%]" data-name="Vector" data-node-id="undefined">
+              <img alt="" className="block max-w-none size-full" src={img1} />
+            </div>
+            <div className="absolute inset-[33.84%_56.21%_24.23%_35.36%]" data-name="Vector" data-node-id="undefined">
+              <img alt="" className="block max-w-none size-full" src={img2} />
+            </div>
+            <div className="absolute inset-[24.92%_49.61%_24.23%_44.83%]" data-name="Vector" data-node-id="undefined">
+              <img alt="" className="block max-w-none size-full" src={img3} />
+            </div>
+            <div className="absolute inset-[19.11%_40.56%_25.18%_51.83%]" data-name="Vector" data-node-id="undefined">
+              <img alt="" className="block max-w-none size-full" src={img4} />
+            </div>
+            <div className="absolute inset-[34.79%_25.92%_25.18%_60.14%]" data-name="Vector" data-node-id="undefined">
+              <img alt="" className="block max-w-none size-full" src={img5} />
+            </div>
+            <div className="absolute inset-[33.84%_17.16%_24.23%_74.41%]" data-name="Vector" data-node-id="undefined">
+              <img alt="" className="block max-w-none size-full" src={img6} />
+            </div>
+            <div className="absolute inset-[34.78%_7.62%_6.89%_83.64%]" data-name="Vector" data-node-id="undefined">
+              <img alt="" className="block max-w-none size-full" src={img7} />
+            </div>
+            <div className="absolute bottom-[24.23%] left-[92.44%] right-0 top-[33.82%]" data-name="Vector" data-node-id="undefined">
+              <img alt="" className="block max-w-none size-full" src={img8} />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
