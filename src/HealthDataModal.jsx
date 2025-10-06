@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import InfoOutlinedSvg from './assets/InfoOutlined.svg';
 
 // Inline SVG icons as components
 const SearchIcon = () => (
@@ -14,10 +15,7 @@ const ChevronDownIcon = () => (
 );
 
 const InfoIcon = () => (
-  <svg className="size-full" viewBox="0 0 24 24" fill="none">
-    <circle cx="12" cy="12" r="9" stroke="#636b74" strokeWidth="2"/>
-    <path d="M12 16V12M12 8H12.01" stroke="#636b74" strokeWidth="2" strokeLinecap="round"/>
-  </svg>
+  <img src={InfoOutlinedSvg} alt="Info" className="size-full" />
 );
 
 const ArrowRightIcon = () => (
@@ -199,6 +197,7 @@ export default function HealthDataModal({ onClose }) {
   const [domainFilterOpen, setDomainFilterOpen] = useState(false);
   const [selectedDomain, setSelectedDomain] = useState('Show all');
   const [factorView, setFactorView] = useState('Suggested'); // 'Suggested', 'Differentiating', 'All factors'
+  const [hoveredTooltip, setHoveredTooltip] = useState(null); // null, 'suggested', 'differentiating', 'all'
 
   // Step 1 functions
   const toggleItem = (id) => {
@@ -516,32 +515,71 @@ export default function HealthDataModal({ onClose }) {
               {/* View Switcher for Step 2 */}
               {currentStep === 2 && (
                 <div className="border border-[#97c3f0] border-solid relative rounded-[6px] shrink-0 w-full">
-                  <div className="content-stretch flex items-start overflow-clip relative w-full">
+                  <div className="content-stretch flex items-start relative w-full">
                     <button
                       onClick={() => setFactorView('Suggested')}
-                      className={`basis-0 ${factorView === 'Suggested' ? 'bg-[#c7dff7]' : ''} box-border content-stretch flex gap-[6px] grow items-center justify-center min-h-[32px] min-w-px px-[12px] py-[2px] relative shrink-0`}
+                      onMouseEnter={() => setHoveredTooltip('suggested')}
+                      onMouseLeave={() => setHoveredTooltip(null)}
+                      className={`basis-0 ${factorView === 'Suggested' ? 'bg-[#c7dff7]' : ''} box-border content-stretch flex gap-[6px] grow items-center justify-center min-h-[32px] min-w-px px-[12px] py-[2px] relative shrink-0 hover:bg-[#c7dff7] transition-colors`}
                     >
                       <p className={`font-['Inter'] font-semibold leading-[14px] not-italic relative shrink-0 text-[14px] text-nowrap whitespace-pre ${factorView === 'Suggested' ? 'text-[#0857a7]' : 'text-[#0b6bcb]'}`}>
                         Suggested
                       </p>
+                      <div className="overflow-clip relative shrink-0 size-[16px]">
+                        <div className="absolute inset-[8.333%]">
+                          <InfoIcon />
+                        </div>
+                      </div>
+                      {hoveredTooltip === 'suggested' && (
+                        <div className="absolute bg-[#171a1c] text-white text-[14px] font-['Inter'] font-normal leading-[1.5] px-[12px] py-[8px] rounded-[6px] shadow-lg z-50 top-[calc(100%+8px)] left-0 w-[320px] text-left">
+                          Factors are suggested because they show strong statistical correlation with your selected health outcome or behaviours from step #1.
+                        </div>
+                      )}
                     </button>
                     <div className="bg-[#97c3f0] self-stretch shrink-0 w-px" />
                     <button
                       onClick={() => setFactorView('Differentiating')}
-                      className={`basis-0 ${factorView === 'Differentiating' ? 'bg-[#c7dff7]' : ''} box-border content-stretch flex gap-[6px] grow items-center justify-center min-h-[32px] min-w-px px-[12px] py-[2px] relative shrink-0`}
+                      onMouseEnter={() => setHoveredTooltip('differentiating')}
+                      onMouseLeave={() => setHoveredTooltip(null)}
+                      className={`basis-0 ${factorView === 'Differentiating' ? 'bg-[#c7dff7]' : ''} box-border content-stretch flex gap-[6px] grow items-center justify-center min-h-[32px] min-w-px px-[12px] py-[2px] relative shrink-0 hover:bg-[#c7dff7] transition-colors`}
                     >
                       <p className={`font-['Inter'] font-semibold leading-[14px] not-italic relative shrink-0 text-[14px] text-nowrap whitespace-pre ${factorView === 'Differentiating' ? 'text-[#0857a7]' : 'text-[#0b6bcb]'}`}>
                         Differentiating
                       </p>
+                      <div className="overflow-clip relative shrink-0 size-[16px]">
+                        <div className="absolute inset-[8.333%]">
+                          <InfoIcon />
+                        </div>
+                      </div>
+                      {hoveredTooltip === 'differentiating' && (
+                        <div className="absolute bg-[#171a1c] text-white text-[14px] font-['Inter'] font-normal leading-[1.5] px-[12px] py-[8px] rounded-[6px] shadow-lg z-50 top-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-[320px] text-left">
+                          Differentiating factors are important because they are associated with multiple outcomes and because they determine the segments. Note:<br />
+                          1. There are many vulnerability factors that are predictive of health outcomes that don't get to be differentiating variables.<br />
+                          2. Differentiating factors are not causal to health outcomes.<br />
+                          3. Differentiating factors are also selected on the additional criteria that they show to biggest levels of variability in the data.
+                        </div>
+                      )}
                     </button>
                     <div className="bg-[#97c3f0] self-stretch shrink-0 w-px" />
                     <button
                       onClick={() => setFactorView('All factors')}
-                      className={`basis-0 ${factorView === 'All factors' ? 'bg-[#c7dff7]' : ''} box-border content-stretch flex gap-[6px] grow items-center justify-center min-h-[32px] min-w-px px-[12px] py-[2px] relative shrink-0`}
+                      onMouseEnter={() => setHoveredTooltip('all')}
+                      onMouseLeave={() => setHoveredTooltip(null)}
+                      className={`basis-0 ${factorView === 'All factors' ? 'bg-[#c7dff7]' : ''} box-border content-stretch flex gap-[6px] grow items-center justify-center min-h-[32px] min-w-px px-[12px] py-[2px] relative shrink-0 hover:bg-[#c7dff7] transition-colors`}
                     >
                       <p className={`font-['Inter'] font-semibold leading-[14px] not-italic relative shrink-0 text-[14px] text-nowrap whitespace-pre ${factorView === 'All factors' ? 'text-[#0857a7]' : 'text-[#0b6bcb]'}`}>
                         All factors
                       </p>
+                      <div className="overflow-clip relative shrink-0 size-[16px]">
+                        <div className="absolute inset-[8.333%]">
+                          <InfoIcon />
+                        </div>
+                      </div>
+                      {hoveredTooltip === 'all' && (
+                        <div className="absolute bg-[#171a1c] text-white text-[14px] font-['Inter'] font-normal leading-[1.5] px-[12px] py-[8px] rounded-[6px] shadow-lg z-50 top-[calc(100%+8px)] right-0 w-[280px] text-left">
+                          All vulnerability factors included in the segmentation
+                        </div>
+                      )}
                     </button>
                   </div>
                 </div>
