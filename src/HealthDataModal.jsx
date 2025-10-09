@@ -182,17 +182,16 @@ const ALL_FACTORS = [
 ];
 
 export default function HealthDataModal({ onClose }) {
-  // Step navigation
-  const [currentStep, setCurrentStep] = useState(1);
+  // Tab navigation - 'all', 'health', 'vulnerability'
+  const [activeTab, setActiveTab] = useState('all');
 
-  // Step 1 - Health outcomes
+  // Search and filter
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedItems, setSelectedItems] = useState([]);
   const [filterMenuOpen, setFilterMenuOpen] = useState(false);
   const [selectedHealthArea, setSelectedHealthArea] = useState('Show all');
 
-  // Step 2 - Vulnerability factors
-  const [vulnerabilitySearchTerm, setVulnerabilitySearchTerm] = useState('');
+  // Vulnerability factors
   const [selectedVulnerabilities, setSelectedVulnerabilities] = useState([]);
   const [domainFilterOpen, setDomainFilterOpen] = useState(false);
   const [selectedDomain, setSelectedDomain] = useState('Show all');
@@ -255,22 +254,19 @@ export default function HealthDataModal({ onClose }) {
     }
   };
 
-  // Get current search term (unified for both steps)
-  const currentSearchTerm = currentStep === 1 ? searchTerm : vulnerabilitySearchTerm;
-
-  // Filtered data for Step 1
+  // Filtered data for health outcomes
   const filteredData = HEALTH_DATA.filter(item => {
-    const matchesSearch = item.label.toLowerCase().includes(currentSearchTerm.toLowerCase());
+    const matchesSearch = item.label.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesArea = selectedHealthArea === 'Show all' || item.area === selectedHealthArea;
     return matchesSearch && matchesArea;
   });
 
   const selectedData = HEALTH_DATA.filter(item => selectedItems.includes(item.id)).reverse();
 
-  // Filtered data for Step 2
+  // Filtered data for vulnerability factors
   const vulnerabilityData = getVulnerabilityData();
   const filteredVulnerabilities = vulnerabilityData.filter(item => {
-    const matchesSearch = item.label.toLowerCase().includes(currentSearchTerm.toLowerCase());
+    const matchesSearch = item.label.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesDomain = selectedDomain === 'Show all' || item.domain === selectedDomain;
     return matchesSearch && matchesDomain;
   });
@@ -279,8 +275,9 @@ export default function HealthDataModal({ onClose }) {
     selectedVulnerabilities.includes(item.id)
   ).reverse();
 
-  // Check if there's a search term to show combined results
-  const hasSearch = currentSearchTerm.length > 0;
+  // Determine what to show based on active tab
+  const showHealthData = activeTab === 'all' || activeTab === 'health';
+  const showVulnerabilityData = activeTab === 'all' || activeTab === 'vulnerability';
 
   // Get correlation info for a vulnerability factor based on selected health outcomes
   const getCorrelationInfo = (factorId) => {
@@ -322,34 +319,41 @@ export default function HealthDataModal({ onClose }) {
           <div className="bg-white border border-[#97c3f0] border-solid box-border content-stretch flex flex-col items-start relative rounded-[16px] w-full h-[750px]">
       <div className="basis-0 content-stretch flex flex-col grow items-start min-h-px min-w-px relative rounded-[16px] shrink-0 w-full">
         <div className="basis-0 content-stretch flex grow items-start min-h-px min-w-px relative rounded-[16px] shrink-0 w-full">
-          {/* Left Panel */}
-          <div className="basis-0 bg-[#f0f4f8] box-border content-stretch flex flex-col gap-[40px] grow h-full items-start min-h-px min-w-px overflow-clip pl-[24px] pr-0 py-[24px] relative rounded-bl-[16px] rounded-tl-[16px] shrink-0">
+          {/* Left Panel - Selected Data */}
+          <div className="basis-0 bg-[#f0f4f8] box-border content-stretch flex flex-col gap-[24px] grow h-full items-start min-h-px min-w-px overflow-clip pl-[24px] pr-0 py-[24px] relative rounded-bl-[16px] rounded-tl-[16px] shrink-0">
             <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full">
               <p className="font-['Inter'] font-semibold leading-[1.5] not-italic relative shrink-0 text-[#171a1c] text-[24px] w-full">
-                Uncover health insights across segments
+                Selected data
               </p>
             </div>
 
-            <div className="content-stretch flex flex-col items-start relative shrink-0 w-full">
-              {/* Step 1 */}
-              <div className={`${currentStep === 1 ? 'bg-white border-[#0b6bcb]' : 'border-[#97c3f0]'} border-[0px_0px_0px_4px] border-solid box-border content-stretch flex gap-[16px] items-start p-[16px] relative shrink-0 w-full`}>
-                <div className={`${currentStep === 1 ? 'bg-[#0b6bcb]' : 'bg-white border-2 border-[#97c3f0] border-solid box-border'} content-stretch flex flex-col gap-[8px] items-center justify-center relative rounded-[10000px] shrink-0 size-[32px]`}>
-                  <p className={`aspect-[32/32] font-['Inter'] font-semibold leading-[1.66] not-italic relative shrink-0 text-[18px] text-center ${currentStep === 1 ? 'text-white' : 'text-[#555e68]'} w-full`}>1</p>
+            <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full overflow-y-auto pr-[24px]" style={{ maxHeight: 'calc(100% - 100px)' }}>
+              {/* Show empty state or selected items */}
+              {selectedData.length === 0 && selectedVulnerabilitiesData.length === 0 ? (
+                <div className="flex items-center justify-center w-full h-[200px]">
+                  <p className="font-['Inter'] font-normal leading-[1.5] text-[#555e68] text-[16px]">
+                    No data selected
+                  </p>
                 </div>
-                <div className="basis-0 content-stretch flex flex-col gap-[8px] grow items-start min-h-px min-w-px relative shrink-0">
-                  <div className="content-stretch flex flex-col items-start not-italic relative shrink-0">
-                    <p className="font-['Inter'] font-semibold leading-[1.66] relative shrink-0 text-[#171a1c] text-[18px] text-nowrap whitespace-pre">
-                      Select health outcomes and behaviours
-                    </p>
-                    <p className="font-['Inter'] font-normal leading-[1.5] relative shrink-0 text-[#555e68] text-[16px] w-[457px]">
-                      Measurable health statuses or action that can be observed, tracked, or reported
-                    </p>
-                  </div>
-
-                  {/* Selected chips */}
+              ) : (
+                <>
+                  {/* Health outcomes section */}
                   {selectedData.length > 0 && (
-                    <div className={`content-stretch flex gap-[8px] items-start relative shrink-0 ${selectedData.length > 2 ? 'border border-[#cdd7e1] border-solid rounded-[4px]' : ''}`}>
-                      <div className={`content-start flex flex-wrap gap-[8px] items-start overflow-clip relative shrink-0 ${selectedData.length > 2 ? 'max-h-[104px] overflow-y-auto p-[8px]' : ''} w-[522px]`}>
+                    <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full">
+                      <div className="content-stretch flex items-center justify-between w-full">
+                        <p className="font-['Inter'] font-semibold leading-[1.42] not-italic relative shrink-0 text-[#171a1c] text-[14px]">
+                          Health outcomes and behaviours ({selectedData.length})
+                        </p>
+                        {selectedData.length > 0 && (
+                          <button
+                            onClick={clearAll}
+                            className="font-['Inter'] font-semibold leading-[14px] not-italic text-[#0b6bcb] text-[12px] hover:underline"
+                          >
+                            Clear all
+                          </button>
+                        )}
+                      </div>
+                      <div className="content-start flex flex-wrap gap-[8px] items-start relative shrink-0 w-full">
                         {selectedData.map(item => (
                           <div key={item.id} className="bg-[#e3effb] box-border content-stretch flex gap-[6px] items-center min-h-[24px] px-[8px] py-0 relative rounded-[24px] shrink-0">
                             <p className="font-['Inter'] font-medium leading-[1.5] not-italic relative shrink-0 text-[#12467b] text-[14px] text-nowrap whitespace-pre">
@@ -367,27 +371,24 @@ export default function HealthDataModal({ onClose }) {
                       </div>
                     </div>
                   )}
-                </div>
-              </div>
 
-              {/* Step 2 */}
-              <div className={`${currentStep === 2 ? 'bg-white border-[#0b6bcb]' : 'border-[#97c3f0]'} border-[0px_0px_0px_4px] border-solid box-border content-stretch flex gap-[16px] items-start p-[16px] relative shrink-0 w-full`}>
-                <div className={`${currentStep === 2 ? 'bg-[#0b6bcb]' : 'bg-white border-2 border-[#97c3f0] border-solid box-border'} content-stretch flex flex-col gap-[8px] items-center justify-center relative rounded-[10000px] shrink-0 size-[32px]`}>
-                  <p className={`aspect-[32/32] font-['Inter'] font-semibold leading-[1.66] not-italic relative shrink-0 text-[18px] text-center ${currentStep === 2 ? 'text-white' : 'text-[#555e68]'} w-full`}>2</p>
-                </div>
-                <div className="basis-0 content-stretch flex flex-col gap-[8px] grow items-start min-h-px min-w-px relative shrink-0">
-                  <div className="content-stretch flex flex-col items-start not-italic relative shrink-0 w-full">
-                    <p className={`font-['Inter'] font-semibold leading-[1.66] relative shrink-0 text-[18px] text-nowrap whitespace-pre ${currentStep === 2 ? 'text-[#171a1c]' : 'text-[#555e68]'}`}>
-                      Select vulnerability factors
-                    </p>
-                    <p className={`font-['Inter'] font-normal leading-[1.5] min-w-full relative shrink-0 text-[16px] ${currentStep === 2 ? 'text-[#171a1c]' : 'text-[#555e68]'}`} style={{ width: "min-content" }}>
-                      Risks of poor health outcomes due to social, cultural, behavioural, economic, and environmental factors
-                    </p>
-                  </div>
-                  {/* Selected vulnerability chips */}
+                  {/* Vulnerability factors section */}
                   {selectedVulnerabilitiesData.length > 0 && (
-                    <div className={`content-stretch flex gap-[8px] items-start relative shrink-0 ${selectedVulnerabilitiesData.length > 2 ? 'border border-[#cdd7e1] border-solid rounded-[4px]' : ''}`}>
-                      <div className={`content-start flex flex-wrap gap-[8px] items-start overflow-clip relative shrink-0 ${selectedVulnerabilitiesData.length > 2 ? 'max-h-[104px] overflow-y-auto p-[8px]' : ''} w-[522px]`}>
+                    <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full">
+                      <div className="content-stretch flex items-center justify-between w-full">
+                        <p className="font-['Inter'] font-semibold leading-[1.42] not-italic relative shrink-0 text-[#171a1c] text-[14px]">
+                          Vulnerability factors ({selectedVulnerabilitiesData.length})
+                        </p>
+                        {selectedVulnerabilitiesData.length > 0 && (
+                          <button
+                            onClick={clearAllVulnerabilities}
+                            className="font-['Inter'] font-semibold leading-[14px] not-italic text-[#0b6bcb] text-[12px] hover:underline"
+                          >
+                            Clear all
+                          </button>
+                        )}
+                      </div>
+                      <div className="content-start flex flex-wrap gap-[8px] items-start relative shrink-0 w-full">
                         {selectedVulnerabilitiesData.map(item => (
                           <div key={item.id} className="bg-[#dfe7fd] box-border content-stretch flex gap-[6px] items-center min-h-[24px] px-[8px] py-0 relative rounded-[24px] shrink-0">
                             <p className="font-['Inter'] font-medium leading-[1.5] not-italic relative shrink-0 text-[#12467b] text-[14px] text-nowrap whitespace-pre">
@@ -405,38 +406,62 @@ export default function HealthDataModal({ onClose }) {
                       </div>
                     </div>
                   )}
-                </div>
-              </div>
+                </>
+              )}
             </div>
           </div>
 
           {/* Right Panel */}
           <div className="basis-0 content-stretch flex flex-col grow h-full items-start min-h-px min-w-px overflow-clip relative rounded-br-[16px] rounded-tr-[16px] shrink-0">
             <div className="basis-0 box-border content-stretch flex flex-col gap-[16px] grow items-start min-h-px min-w-px pb-0 pt-[24px] px-[24px] relative shrink-0 w-full">
+              {/* Tab Navigation */}
+              <div className="content-stretch flex items-center gap-[8px] relative shrink-0 w-full">
+                <button
+                  onClick={() => setActiveTab('all')}
+                  className={`px-[16px] py-[8px] rounded-[6px] font-['Inter'] font-semibold text-[14px] transition-colors ${
+                    activeTab === 'all'
+                      ? 'bg-[#c7dff7] text-[#0857a7]'
+                      : 'bg-transparent text-[#0b6bcb] hover:bg-[#e3effb]'
+                  }`}
+                >
+                  All data
+                </button>
+                <button
+                  onClick={() => setActiveTab('health')}
+                  className={`px-[16px] py-[8px] rounded-[6px] font-['Inter'] font-semibold text-[14px] transition-colors ${
+                    activeTab === 'health'
+                      ? 'bg-[#c7dff7] text-[#0857a7]'
+                      : 'bg-transparent text-[#0b6bcb] hover:bg-[#e3effb]'
+                  }`}
+                >
+                  Health outcomes and behaviours
+                </button>
+                <button
+                  onClick={() => setActiveTab('vulnerability')}
+                  className={`px-[16px] py-[8px] rounded-[6px] font-['Inter'] font-semibold text-[14px] transition-colors ${
+                    activeTab === 'vulnerability'
+                      ? 'bg-[#c7dff7] text-[#0857a7]'
+                      : 'bg-transparent text-[#0b6bcb] hover:bg-[#e3effb]'
+                  }`}
+                >
+                  Vulnerability factors
+                </button>
+              </div>
+
               {/* Search and Filter */}
               <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
                 <div className="content-stretch flex flex-col items-start relative shrink-0 w-[320px]">
-                  <div className={`box-border content-stretch flex gap-[8px] items-start overflow-clip px-[12px] py-[8px] relative rounded-[6px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08)] shrink-0 w-full ${currentSearchTerm ? 'bg-[#e3effb] border-2 border-[#0b6bcb] border-solid' : 'bg-[#e3effb]'}`}>
+                  <div className={`box-border content-stretch flex gap-[8px] items-start overflow-clip px-[12px] py-[8px] relative rounded-[6px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08)] shrink-0 w-full ${searchTerm ? 'bg-[#e3effb] border-2 border-[#0b6bcb] border-solid' : 'bg-[#e3effb]'}`}>
                     <input
                       type="text"
-                      value={currentSearchTerm}
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        if (currentStep === 1) {
-                          setSearchTerm(value);
-                        } else {
-                          setVulnerabilitySearchTerm(value);
-                        }
-                      }}
-                      placeholder="Search data to compare"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      placeholder="Search for anything"
                       className="basis-0 font-['Inter'] font-normal grow leading-[1.5] min-h-px min-w-px not-italic bg-transparent outline-none text-[#12467b] text-[16px] placeholder:opacity-[0.64]"
                     />
                     <div className="content-stretch flex gap-[10px] items-center relative shrink-0">
-                      {currentSearchTerm ? (
-                        <button onClick={() => {
-                          setSearchTerm('');
-                          setVulnerabilitySearchTerm('');
-                        }} className="overflow-clip relative shrink-0 size-[24px]">
+                      {searchTerm ? (
+                        <button onClick={() => setSearchTerm('')} className="overflow-clip relative shrink-0 size-[24px]">
                           <div className="absolute inset-[8.333%]">
                             <ClearSearchIcon />
                           </div>
@@ -453,14 +478,23 @@ export default function HealthDataModal({ onClose }) {
                 </div>
 
                 <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+                  <p className="font-['Inter'] font-normal text-[14px] text-[#555e68] mr-[8px]">Filter:</p>
                   <button
-                    onClick={() => currentStep === 1 ? setFilterMenuOpen(!filterMenuOpen) : setDomainFilterOpen(!domainFilterOpen)}
+                    onClick={() => {
+                      if (activeTab === 'health' || (activeTab === 'all' && !domainFilterOpen)) {
+                        setFilterMenuOpen(!filterMenuOpen);
+                        setDomainFilterOpen(false);
+                      } else {
+                        setDomainFilterOpen(!domainFilterOpen);
+                        setFilterMenuOpen(false);
+                      }
+                    }}
                     className="box-border content-stretch flex gap-[6px] items-center justify-center min-h-[32px] px-[12px] py-[2px] relative rounded-[6px] shrink-0"
                   >
                     <p className="font-['Inter'] font-semibold leading-[14px] not-italic relative shrink-0 text-[#0b6bcb] text-[14px] text-nowrap whitespace-pre">
-                      {currentStep === 1
-                        ? (selectedHealthArea === 'Show all' ? 'Health area' : selectedHealthArea)
-                        : (selectedDomain === 'Show all' ? 'Domain' : selectedDomain)
+                      {activeTab === 'health'
+                        ? (selectedHealthArea === 'Show all' ? 'All categories' : selectedHealthArea)
+                        : (selectedDomain === 'Show all' ? 'All categories' : selectedDomain)
                       }
                     </p>
                     <div className="relative shrink-0 size-[20px]">
@@ -473,8 +507,8 @@ export default function HealthDataModal({ onClose }) {
               </div>
 
               {/* Health Area Filter Menu */}
-              {filterMenuOpen && currentStep === 1 && (
-                <div className="absolute bg-[#fbfcfe] box-border content-stretch flex flex-col items-start left-[386px] px-0 py-[6px] rounded-[8px] shadow-[0px_2px_8px_-2px_rgba(21,21,21,0.08),0px_6px_12px_-2px_rgba(21,21,21,0.08)] top-[60px] z-10">
+              {filterMenuOpen && (
+                <div className="absolute bg-[#fbfcfe] box-border content-stretch flex flex-col items-start right-[24px] px-0 py-[6px] rounded-[8px] shadow-[0px_2px_8px_-2px_rgba(21,21,21,0.08),0px_6px_12px_-2px_rgba(21,21,21,0.08)] top-[120px] z-10">
                   {HEALTH_AREAS.map(area => (
                     <button
                       key={area}
@@ -493,8 +527,8 @@ export default function HealthDataModal({ onClose }) {
               )}
 
               {/* Domain Filter Menu */}
-              {domainFilterOpen && currentStep === 2 && (
-                <div className="absolute bg-[#fbfcfe] box-border content-stretch flex flex-col items-start left-[386px] px-0 py-[6px] rounded-[8px] shadow-[0px_2px_8px_-2px_rgba(21,21,21,0.08),0px_6px_12px_-2px_rgba(21,21,21,0.08)] top-[60px] z-10">
+              {domainFilterOpen && (
+                <div className="absolute bg-[#fbfcfe] box-border content-stretch flex flex-col items-start right-[24px] px-0 py-[6px] rounded-[8px] shadow-[0px_2px_8px_-2px_rgba(21,21,21,0.08),0px_6px_12px_-2px_rgba(21,21,21,0.08)] top-[120px] z-10">
                   {VULNERABILITY_DOMAINS.map(domain => (
                     <button
                       key={domain}
@@ -512,8 +546,8 @@ export default function HealthDataModal({ onClose }) {
                 </div>
               )}
 
-              {/* View Switcher for Step 2 */}
-              {currentStep === 2 && (
+              {/* View Switcher for Vulnerability Factors */}
+              {activeTab === 'vulnerability' && (
                 <div className="border border-[#97c3f0] border-solid relative rounded-[6px] shrink-0 w-full">
                   <div className="content-stretch flex items-start relative w-full">
                     <button
@@ -590,9 +624,9 @@ export default function HealthDataModal({ onClose }) {
                 <div className="content-stretch flex flex-col items-start overflow-clip relative size-full">
                   <div className="bg-[#dde7ee] border-[#97c3f0] border-[0px_0px_1px] border-solid box-border content-stretch flex h-[32px] items-center justify-between pb-0 pt-px px-[16px] relative shrink-0 w-full">
                     <p className="font-['Inter'] font-semibold leading-[1.42] not-italic relative shrink-0 text-[#555e68] text-[14px] text-nowrap whitespace-pre">
-                      {hasSearch
-                        ? `Search results (${filteredData.length + filteredVulnerabilities.length})`
-                        : currentStep === 1
+                      {activeTab === 'all'
+                        ? `All data (${filteredData.length + filteredVulnerabilities.length})`
+                        : activeTab === 'health'
                           ? `Health outcomes and behaviours (${filteredData.length})`
                           : `Vulnerability factors (${filteredVulnerabilities.length})`
                       }
@@ -615,8 +649,8 @@ export default function HealthDataModal({ onClose }) {
                   </div>
 
                   <div className="basis-0 content-stretch flex grow items-start justify-between min-h-px min-w-px relative shrink-0 w-full overflow-hidden">
-                    {/* Combined Search Results */}
-                    {hasSearch && (
+                    {/* All Data Tab - Shows both health outcomes and vulnerability factors */}
+                    {activeTab === 'all' && (
                       <div className="basis-0 content-stretch flex flex-col grow items-start min-h-px min-w-px relative shrink-0 overflow-y-auto h-full">
                         {/* Health outcomes section */}
                         {filteredData.length > 0 && (
@@ -644,7 +678,7 @@ export default function HealthDataModal({ onClose }) {
                                     <p className="font-['Inter'] font-normal leading-[1.42] not-italic relative shrink-0 text-[#171a1c] text-[14px] text-nowrap whitespace-pre">
                                       <span dangerouslySetInnerHTML={{
                                         __html: item.label.replace(
-                                          new RegExp(`(${currentSearchTerm})`, 'gi'),
+                                          new RegExp(`(${searchTerm})`, 'gi'),
                                           '<span class="font-bold">$1</span>'
                                         )
                                       }} />
@@ -691,7 +725,7 @@ export default function HealthDataModal({ onClose }) {
                                       <p className="font-['Inter'] font-normal leading-[1.42] not-italic relative shrink-0 text-[#171a1c] text-[14px] text-nowrap whitespace-pre">
                                         <span dangerouslySetInnerHTML={{
                                           __html: item.label.replace(
-                                            new RegExp(`(${currentSearchTerm})`, 'gi'),
+                                            new RegExp(`(${searchTerm})`, 'gi'),
                                             '<span class="font-bold">$1</span>'
                                           )
                                         }} />
@@ -740,8 +774,8 @@ export default function HealthDataModal({ onClose }) {
                       </div>
                     )}
 
-                    {/* Step 1 List (no search) */}
-                    {!hasSearch && currentStep === 1 && (
+                    {/* Health Outcomes Tab */}
+                    {activeTab === 'health' && (
                       <div className="basis-0 content-stretch flex flex-col grow items-start min-h-px min-w-px relative shrink-0 overflow-y-auto h-full">
                         {filteredData.length > 0 ? filteredData.map((item, index) => (
                           <button
@@ -787,8 +821,8 @@ export default function HealthDataModal({ onClose }) {
                       </div>
                     )}
 
-                    {/* Step 2 List (no search) */}
-                    {!hasSearch && currentStep === 2 && (
+                    {/* Vulnerability Factors Tab */}
+                    {activeTab === 'vulnerability' && (
                       <div className="basis-0 content-stretch flex flex-col grow items-start min-h-px min-w-px relative shrink-0 overflow-y-auto h-full">
                         {filteredVulnerabilities.length > 0 ? filteredVulnerabilities.map((item, index) => {
                           const correlationInfo = getCorrelationInfo(item.id);
@@ -808,10 +842,10 @@ export default function HealthDataModal({ onClose }) {
                                     </div>
                                   </div>
                                   <p className="font-['Inter'] font-normal leading-[1.42] not-italic relative shrink-0 text-[#171a1c] text-[14px] text-nowrap whitespace-pre">
-                                    {currentSearchTerm ? (
+                                    {searchTerm ? (
                                       <span dangerouslySetInnerHTML={{
                                         __html: item.label.replace(
-                                          new RegExp(`(${currentSearchTerm})`, 'gi'),
+                                          new RegExp(`(${searchTerm})`, 'gi'),
                                           '<span class="font-bold">$1</span>'
                                         )
                                       }} />
@@ -860,50 +894,21 @@ export default function HealthDataModal({ onClose }) {
               </div>
             </div>
 
-            {/* Bottom Buttons */}
-            <div className="box-border content-stretch flex items-start justify-between px-[24px] py-[16px] relative shrink-0 w-full">
-              {currentStep === 2 && (
-                <button
-                  onClick={() => setCurrentStep(1)}
-                  className="border border-[#97c3f0] border-solid box-border content-stretch cursor-pointer flex gap-[8px] items-center justify-center min-h-[40px] px-[16px] py-[4px] relative rounded-[6px] shrink-0 hover:bg-[#f0f4f8] transition-colors"
-                >
-                  <div className="size-[24px]" style={{ transform: 'rotate(180deg)' }}>
+            {/* Bottom Button */}
+            <div className="box-border content-stretch flex items-center justify-end px-[24px] py-[16px] relative shrink-0 w-full">
+              <button
+                onClick={() => onClose(true)}
+                className="bg-[#0b6bcb] box-border content-stretch cursor-pointer flex gap-[8px] items-center justify-center min-h-[40px] px-[16px] py-[4px] relative rounded-[6px] shrink-0 hover:bg-[#0a5fb0] transition-colors"
+              >
+                <p className="font-['Inter'] font-semibold leading-[14px] not-italic relative shrink-0 text-[14px] text-nowrap text-white whitespace-pre">
+                  Compare
+                </p>
+                <div className="overflow-clip relative shrink-0 size-[24px]">
+                  <div className="absolute inset-[16.667%]">
                     <ArrowRightIcon />
                   </div>
-                  <p className="font-['Inter'] font-semibold leading-[14px] not-italic relative shrink-0 text-[#0b6bcb] text-[14px] text-nowrap whitespace-pre">
-                    Back
-                  </p>
-                </button>
-              )}
-              {currentStep === 1 ? (
-                <button
-                  onClick={() => setCurrentStep(2)}
-                  className="bg-[#0b6bcb] box-border content-stretch cursor-pointer flex gap-[8px] items-center justify-center min-h-[40px] ml-auto px-[16px] py-[4px] relative rounded-[6px] shrink-0 hover:bg-[#0a5fb0] transition-colors"
-                >
-                  <p className="font-['Inter'] font-semibold leading-[14px] not-italic relative shrink-0 text-[14px] text-nowrap text-white whitespace-pre">
-                    Select vulnerability factors
-                  </p>
-                  <div className="overflow-clip relative shrink-0 size-[24px]">
-                    <div className="absolute inset-[16.667%]">
-                      <ArrowRightIcon />
-                    </div>
-                  </div>
-                </button>
-              ) : (
-                <button
-                  onClick={() => onClose(true)}
-                  className="bg-[#0b6bcb] box-border content-stretch cursor-pointer flex gap-[8px] items-center justify-center min-h-[40px] px-[16px] py-[4px] relative rounded-[6px] shrink-0 hover:bg-[#0a5fb0] transition-colors"
-                >
-                  <p className="font-['Inter'] font-semibold leading-[14px] not-italic relative shrink-0 text-[14px] text-nowrap text-white whitespace-pre">
-                    Compare
-                  </p>
-                  <div className="overflow-clip relative shrink-0 size-[24px]">
-                    <div className="absolute inset-[16.667%]">
-                      <ArrowRightIcon />
-                    </div>
-                  </div>
-                </button>
-              )}
+                </div>
+              </button>
             </div>
           </div>
         </div>
