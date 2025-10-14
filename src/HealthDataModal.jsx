@@ -1,25 +1,21 @@
 import { useState } from 'react';
-import InfoOutlinedSvg from './assets/InfoOutlined.svg';
 
-// Inline SVG icons as components
+// SVG Icons
 const SearchIcon = () => (
   <svg className="size-full" viewBox="0 0 24 24" fill="none">
     <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="#12467b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
-const ChevronDownIcon = () => (
-  <svg className="size-full" viewBox="0 0 24 24" fill="none">
-    <path d="M6 9L12 15L18 9" stroke="#0b6bcb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+const InfoIcon = () => (
+  <svg className="size-full" viewBox="0 0 20 20" fill="none">
+    <circle cx="10" cy="10" r="9" stroke="#9FA6AD" strokeWidth="1.5"/>
+    <path d="M10 10V14M10 6V7" stroke="#9FA6AD" strokeWidth="1.5" strokeLinecap="round"/>
   </svg>
 );
 
-const InfoIcon = () => (
-  <img src={InfoOutlinedSvg} alt="Info" className="size-full" />
-);
-
-const ArrowRightIcon = () => (
-  <svg className="size-full" viewBox="0 0 24 24" fill="white">
+const ArrowForwardIcon = () => (
+  <svg className="size-full" viewBox="0 0 24 24" fill="none">
     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
@@ -30,905 +26,531 @@ const CloseIcon = () => (
   </svg>
 );
 
-const CheckboxCheckedIcon = () => (
-  <svg className="size-full" viewBox="0 0 20 20" fill="none">
-    <rect width="20" height="20" rx="4" fill="#0b6bcb"/>
-    <path d="M5 10L8.5 13.5L15 7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const ClearSearchIcon = () => (
-  <svg className="size-full" viewBox="0 0 24 24" fill="none">
-    <circle cx="12" cy="12" r="10" fill="#12467b"/>
-    <path d="M15 9L9 15M9 9L15 15" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const HEALTH_AREAS = ['Show all', 'Family planning', 'Child health', 'Immunisation', 'Nutrition', 'Maternal health'];
-
-const VULNERABILITY_DOMAINS = ['Show all', 'Socioeconomic', 'Demographics', 'Health access', 'Household', 'Education', 'Relationship'];
-
+// Health outcomes and behaviours data
 const HEALTH_DATA = [
-  { id: 1, label: 'Less than 4 ANC visits', area: 'Maternal health' },
-  { id: 2, label: 'No PNC for newborn', area: 'Child health' },
-  { id: 3, label: 'Never breastfed', area: 'Maternal health' },
-  { id: 4, label: 'Pregnancy ended in stillbirth', area: 'Maternal health' },
-  { id: 5, label: 'Death of a child before 1 yr', area: 'Child health' },
-  { id: 6, label: 'Death of a child before 5 yrs', area: 'Child health' },
-  { id: 7, label: 'No current modern FP use', area: 'Family planning' },
-  { id: 8, label: 'Latest birth delivered at home', area: 'Maternal health' },
-  { id: 9, label: 'Not fully immunized with DPT', area: 'Immunisation' },
-  { id: 10, label: 'Not immunized with MMR', area: 'Immunisation' },
-  { id: 11, label: 'Not immunized with polio', area: 'Immunisation' },
-  { id: 12, label: 'Zero-dose child', area: 'Immunisation' },
-  { id: 13, label: 'Overweight child', area: 'Nutrition' },
-  { id: 14, label: 'Stunted child', area: 'Nutrition' },
-  { id: 15, label: 'Underweight child', area: 'Nutrition' },
-  { id: 16, label: 'Wasted child', area: 'Nutrition' },
-  { id: 17, label: 'No. of children who have died', area: 'Child health' },
-  { id: 18, label: 'No. of children who have died (3 category)', area: 'Child health' },
-  { id: 19, label: 'Death of a child', area: 'Child health' },
-  { id: 20, label: 'No PNC for mother', area: 'Maternal health' },
+  { id: 'h1', label: 'Less than 4 ANC visits', type: 'health' },
+  { id: 'h2', label: 'No PNC for newborn', type: 'health' },
+  { id: 'h3', label: 'Never breastfed', type: 'health' },
+  { id: 'h4', label: 'Pregnancy ended in stillbirth', type: 'health' },
+  { id: 'h5', label: 'Death of a child before 1 yr', type: 'health' },
+  { id: 'h6', label: 'Death of a child before 5 yrs', type: 'health' },
+  { id: 'h7', label: 'No current modern FP use', type: 'health' },
+  { id: 'h8', label: 'Latest birth delivered at home', type: 'health' },
+  { id: 'h9', label: 'Not fully immunized with DPT', type: 'health' },
+  { id: 'h10', label: 'Not immunized with MMR', type: 'health' },
+  { id: 'h11', label: 'Not immunized with polio', type: 'health' },
+  { id: 'h12', label: 'Zero-dose child', type: 'health' },
+  { id: 'h13', label: 'Overweight child', type: 'health' },
+  { id: 'h14', label: 'Stunted child', type: 'health' },
+  { id: 'h15', label: 'Underweight child', type: 'health' },
+  { id: 'h16', label: 'Wasted child', type: 'health' },
+  { id: 'h17', label: 'No. of children who have died', type: 'health' },
+  { id: 'h18', label: 'No. of children who have died (3 category)', type: 'health' },
+  { id: 'h19', label: 'Death of a child', type: 'health' },
+  { id: 'h20', label: 'No PNC for mother', type: 'health' },
 ];
 
-// Correlation mapping: vulnerability factor ID -> health outcome IDs it correlates with
-const CORRELATIONS = {
-  101: { healthOutcomes: [1, 8, 2, 5, 6, 17, 18, 19], strength: 'Very strong', value: 0.9 }, // Educational attainment -> Multiple maternal and child health outcomes
-  102: { healthOutcomes: [9, 10, 11, 12], strength: 'Strong', value: 0.8 }, // HH electricity -> Immunisation outcomes
-  103: { healthOutcomes: [7, 3, 4], strength: 'Very strong', value: 0.85 }, // Currently employed -> FP and maternal health
-  104: { healthOutcomes: [1, 2, 20], strength: 'Strong', value: 0.75 }, // At least primary education -> ANC and PNC
-  105: { healthOutcomes: [7, 3, 4], strength: 'Moderate', value: 0.65 }, // Marital status -> FP and maternal outcomes
-  106: { healthOutcomes: [9, 12, 10, 11], strength: 'Moderate', value: 0.6 }, // Religion -> Immunisation
-  107: { healthOutcomes: [1, 8, 20, 2], strength: 'Very strong', value: 0.9 }, // Access problem: distance to HF -> Maternal and child health access
-  108: { healthOutcomes: [13, 14, 15, 16], strength: 'Strong', value: 0.7 }, // Any media exposure -> Nutrition outcomes
-  109: { healthOutcomes: [4, 3], strength: 'Moderate', value: 0.55 }, // Female circumcision -> Maternal health
-  110: { healthOutcomes: [7, 1, 3], strength: 'Strong', value: 0.75 }, // Bank account (woman) -> FP and maternal health
-  111: { healthOutcomes: [13, 14, 16, 15], strength: 'Strong', value: 0.8 }, // HH clean cooking fuel -> Nutrition
-  112: { healthOutcomes: [1, 8, 20, 2], strength: 'Strong', value: 0.7 }, // HH motor transport -> Access to health services
-};
-
-// Suggested factors (subset)
-const SUGGESTED_FACTORS = [
-  { id: 101, label: 'Educational attainment', domain: 'Education', type: 'suggested' },
-  { id: 102, label: 'HH electricity', domain: 'Household', type: 'suggested' },
-  { id: 103, label: 'Currently employed', domain: 'Socioeconomic', type: 'suggested' },
-  { id: 104, label: 'At least primary education', domain: 'Education', type: 'suggested' },
-  { id: 105, label: 'Marital status', domain: 'Demographics', type: 'suggested' },
-  { id: 106, label: 'Religion', domain: 'Demographics', type: 'suggested' },
-  { id: 107, label: 'Access problem: distance to HF', domain: 'Health access', type: 'suggested' },
+// Vulnerability factors data
+const VULNERABILITY_DATA = [
+  { id: 'v1', label: 'Any media exposure', type: 'vulnerability' },
+  { id: 'v2', label: 'Female circumcision', type: 'vulnerability' },
+  { id: 'v3', label: 'Bank account (woman)', type: 'vulnerability' },
+  { id: 'v4', label: 'HH clean cooking fuel', type: 'vulnerability' },
+  { id: 'v5', label: 'HH electricity', type: 'vulnerability' },
+  { id: 'v6', label: 'HH motor transport', type: 'vulnerability' },
+  { id: 'v7', label: 'HH member of savings club', type: 'vulnerability' },
+  { id: 'v8', label: 'HW visit in last yr', type: 'vulnerability' },
+  { id: 'v9', label: 'Media exposure: internet', type: 'vulnerability' },
+  { id: 'v10', label: 'Access problem: travel alone', type: 'vulnerability' },
+  { id: 'v11', label: 'Mobile phone used for finances', type: 'vulnerability' },
+  { id: 'v12', label: 'Not living w/ partner', type: 'vulnerability' },
+  { id: 'v13', label: 'Currently employed', type: 'vulnerability' },
+  { id: 'v14', label: 'Age at first birth (3 category)', type: 'vulnerability' },
+  { id: 'v15', label: 'Age at first sex (4 category)', type: 'vulnerability' },
+  { id: 'v16', label: 'Decision maker: family planning', type: 'vulnerability' },
+  { id: 'v17', label: 'Decision maker: HH purchases', type: 'vulnerability' },
+  { id: 'v18', label: 'Decision maker: own income', type: 'vulnerability' },
+  { id: 'v19', label: 'Educational attainment', type: 'vulnerability' },
+  { id: 'v20', label: 'Preferred next birth interval', type: 'vulnerability' },
+  { id: 'v21', label: 'Partner opposition to FP use', type: 'vulnerability' },
+  { id: 'v22', label: 'Sex of the head of HH', type: 'vulnerability' },
+  { id: 'v23', label: 'HH received money', type: 'vulnerability' },
+  { id: 'v24', label: 'HH slum residence (UN definition)', type: 'vulnerability' },
+  { id: 'v25', label: 'HH water source interrupted', type: 'vulnerability' },
+  { id: 'v26', label: 'Joint decision making index', type: 'vulnerability' },
+  { id: 'v27', label: 'HH in malaria zone', type: 'vulnerability' },
+  { id: 'v28', label: 'Marital status', type: 'vulnerability' },
+  { id: 'v29', label: 'No. <5 yrs in HH (4 category)', type: 'vulnerability' },
+  { id: 'v30', label: 'Total lifetime sex partners', type: 'vulnerability' },
+  { id: 'v31', label: 'Wife rank', type: 'vulnerability' },
+  { id: 'v32', label: 'Employment continuity', type: 'vulnerability' },
+  { id: 'v33', label: 'Education level (partner)', type: 'vulnerability' },
+  { id: 'v34', label: 'Employment status', type: 'vulnerability' },
+  { id: 'v35', label: 'IPV justification', type: 'vulnerability' },
+  { id: 'v36', label: 'Religion', type: 'vulnerability' },
+  { id: 'v37', label: 'Age at first cohabitation (3 category)', type: 'vulnerability' },
+  { id: 'v38', label: 'Age at first birth', type: 'vulnerability' },
+  { id: 'v39', label: 'Age at first cohabitation', type: 'vulnerability' },
+  { id: 'v40', label: 'Age at first sex', type: 'vulnerability' },
+  { id: 'v41', label: 'Child given beans/peas/lentils', type: 'vulnerability' },
+  { id: 'v42', label: 'Child given fortified food', type: 'vulnerability' },
+  { id: 'v43', label: 'Child given meat', type: 'vulnerability' },
+  { id: 'v44', label: 'Child given solid/soft food', type: 'vulnerability' },
+  { id: 'v45', label: 'Child given sweet snacks', type: 'vulnerability' },
+  { id: 'v46', label: 'Decision maker: family visits', type: 'vulnerability' },
+  { id: 'v47', label: 'Child treated for diarrhea', type: 'vulnerability' },
+  { id: 'v48', label: 'HH member w/ disability', type: 'vulnerability' },
+  { id: 'v49', label: 'Earnings relative to partner', type: 'vulnerability' },
+  { id: 'v50', label: 'At least primary education', type: 'vulnerability' },
+  { id: 'v51', label: 'Educational attainment (binary)', type: 'vulnerability' },
+  { id: 'v52', label: 'Fertility preference', type: 'vulnerability' },
+  { id: 'v53', label: 'Media exposure: news/journal', type: 'vulnerability' },
+  { id: 'v54', label: 'Media exposure: radio', type: 'vulnerability' },
+  { id: 'v55', label: 'Female circumcision: genital nicked', type: 'vulnerability' },
+  { id: 'v56', label: 'Female circumcision: genital sewn', type: 'vulnerability' },
+  { id: 'v57', label: 'Female circumcision: flesh removed', type: 'vulnerability' },
+  { id: 'v58', label: 'HH received other state support', type: 'vulnerability' },
+  { id: 'v59', label: 'HH car', type: 'vulnerability' },
+  { id: 'v60', label: 'HH animal-drawn cart', type: 'vulnerability' },
+  { id: 'v61', label: 'HH internet', type: 'vulnerability' },
+  { id: 'v62', label: 'HH child to woman ratio', type: 'vulnerability' },
+  { id: 'v63', label: 'HH motorcycle or scooter', type: 'vulnerability' },
+  { id: 'v64', label: 'Age at first birth (5 category)', type: 'vulnerability' },
+  { id: 'v65', label: 'At least primary education', type: 'vulnerability' },
+  { id: 'v66', label: 'HH rudimentary or natural floor', type: 'vulnerability' },
+  { id: 'v67', label: 'Any birth registered/declared', type: 'vulnerability' },
+  { id: 'v68', label: 'HH water not treated', type: 'vulnerability' },
+  { id: 'v69', label: 'HH radio', type: 'vulnerability' },
+  { id: 'v70', label: 'Condom use during last sex', type: 'vulnerability' },
+  { id: 'v71', label: 'Decision maker: woman\'s health', type: 'vulnerability' },
+  { id: 'v72', label: 'HH refrigerator', type: 'vulnerability' },
+  { id: 'v73', label: 'HH sanitation (3 category)', type: 'vulnerability' },
+  { id: 'v74', label: 'Provider for woman\'s PNC', type: 'vulnerability' },
+  { id: 'v75', label: 'HH member sends money', type: 'vulnerability' },
+  { id: 'v76', label: 'HH shares toilet', type: 'vulnerability' },
+  { id: 'v77', label: 'HH stove', type: 'vulnerability' },
+  { id: 'v78', label: 'HH television', type: 'vulnerability' },
+  { id: 'v79', label: 'HH VCR/DVD/CD player', type: 'vulnerability' },
+  { id: 'v80', label: 'Polygamy status', type: 'vulnerability' },
+  { id: 'v81', label: 'Where HH cooks food (6 category)', type: 'vulnerability' },
+  { id: 'v82', label: 'Media exposure: TV', type: 'vulnerability' },
+  { id: 'v83', label: 'Phone ownership (woman)', type: 'vulnerability' },
+  { id: 'v84', label: 'HH highest education', type: 'vulnerability' },
+  { id: 'v85', label: 'HH owns animals', type: 'vulnerability' },
+  { id: 'v86', label: 'Bank account (household)', type: 'vulnerability' },
+  { id: 'v87', label: 'HH bicycle', type: 'vulnerability' },
+  { id: 'v88', label: 'Fecundity status', type: 'vulnerability' },
+  { id: 'v89', label: 'Family security grants', type: 'vulnerability' },
+  { id: 'v90', label: 'HH computer', type: 'vulnerability' },
+  { id: 'v91', label: 'Home ownership', type: 'vulnerability' },
+  { id: 'v92', label: 'Land ownership', type: 'vulnerability' },
+  { id: 'v93', label: 'HH cooks food inside', type: 'vulnerability' },
+  { id: 'v94', label: 'HH unimproved toilet', type: 'vulnerability' },
+  { id: 'v95', label: 'Child <15yrs lives away', type: 'vulnerability' },
+  { id: 'v96', label: 'Age at first birth (partner)', type: 'vulnerability' },
+  { id: 'v97', label: 'HH house ownership', type: 'vulnerability' },
+  { id: 'v98', label: 'Decides partner income (partner)', type: 'vulnerability' },
+  { id: 'v99', label: 'Decides HH purchases (partner)', type: 'vulnerability' },
+  { id: 'v100', label: 'Partner no. of wives/partners', type: 'vulnerability' },
+  { id: 'v101', label: 'HH agricultural land ownership', type: 'vulnerability' },
+  { id: 'v102', label: 'HH member w/o insurance', type: 'vulnerability' },
+  { id: 'v103', label: 'Married or living w/ partner', type: 'vulnerability' },
+  { id: 'v104', label: 'HH unimproved or shared facility', type: 'vulnerability' },
+  { id: 'v105', label: 'HH member receives money', type: 'vulnerability' },
+  { id: 'v106', label: 'HH member sends money (binary)', type: 'vulnerability' },
+  { id: 'v107', label: 'Where HH cooks food (3 category)', type: 'vulnerability' },
+  { id: 'v108', label: 'HH highest education: 7+', type: 'vulnerability' },
+  { id: 'v109', label: 'Child <3yr given micronutrient', type: 'vulnerability' },
+  { id: 'v110', label: 'HW talked about FP', type: 'vulnerability' },
+  { id: 'v111', label: 'Religion: Islam', type: 'vulnerability' },
+  { id: 'v112', label: 'Heard of FGM', type: 'vulnerability' },
+  { id: 'v113', label: 'Partner FP information', type: 'vulnerability' },
+  { id: 'v114', label: 'Access problem: treatment cost', type: 'vulnerability' },
+  { id: 'v115', label: 'Access problem: distance to HF', type: 'vulnerability' },
+  { id: 'v116', label: 'Access problem: permission', type: 'vulnerability' },
+  { id: 'v117', label: 'No. over 15+ yrs', type: 'vulnerability' },
+  { id: 'v118', label: 'No. of living children', type: 'vulnerability' },
+  { id: 'v119', label: 'No. of living children (4 category)', type: 'vulnerability' },
+  { id: 'v120', label: 'No. of pregnancies', type: 'vulnerability' },
+  { id: 'v121', label: 'Child <2yr given solid/soft food', type: 'vulnerability' },
+  { id: 'v122', label: 'No. <15 yrs', type: 'vulnerability' },
+  { id: 'v123', label: 'No. <5 yrs', type: 'vulnerability' },
+  { id: 'v124', label: 'Occupation', type: 'vulnerability' },
+  { id: 'v125', label: 'Employment status (partner)', type: 'vulnerability' },
+  { id: 'v126', label: 'HH has toilet facility', type: 'vulnerability' },
+  { id: 'v127', label: 'No. over 15+ yrs (4 category)', type: 'vulnerability' },
+  { id: 'v128', label: 'No. of pregnancies (2 category)', type: 'vulnerability' },
+  { id: 'v129', label: 'No. <15 yrs (4 category)', type: 'vulnerability' },
+  { id: 'v130', label: 'Employer type', type: 'vulnerability' },
+  { id: 'v131', label: 'Occupation (7 category)', type: 'vulnerability' },
+  { id: 'v132', label: 'Occupation (partner)', type: 'vulnerability' },
+  { id: 'v133', label: 'Literacy program language', type: 'vulnerability' },
+  { id: 'v134', label: 'Partner age (4 category)', type: 'vulnerability' },
+  { id: 'v135', label: 'At least primary education (partner) (4 category)', type: 'vulnerability' },
+  { id: 'v136', label: 'Partner\'s desire for children', type: 'vulnerability' },
+  { id: 'v137', label: 'HH unimproved water source', type: 'vulnerability' },
+  { id: 'v138', label: 'At least secondary education (partner)', type: 'vulnerability' },
+  { id: 'v139', label: 'Occupation (partner) (7 category)', type: 'vulnerability' },
+  { id: 'v140', label: 'Polygamous relationship', type: 'vulnerability' },
+  { id: 'v141', label: 'More than one union', type: 'vulnerability' },
+  { id: 'v142', label: 'Decision-making index', type: 'vulnerability' },
+  { id: 'v143', label: 'Duration of current union', type: 'vulnerability' },
 ];
 
-// Differentiating factors (larger subset)
-const DIFFERENTIATING_FACTORS = [
-  ...SUGGESTED_FACTORS,
-  { id: 108, label: 'Any media exposure', domain: 'Socioeconomic', type: 'differentiating' },
-  { id: 109, label: 'Female circumcision', domain: 'Demographics', type: 'differentiating' },
-  { id: 110, label: 'Bank account (woman)', domain: 'Socioeconomic', type: 'differentiating' },
-  { id: 111, label: 'HH clean cooking fuel', domain: 'Household', type: 'differentiating' },
-  { id: 112, label: 'HH motor transport', domain: 'Household', type: 'differentiating' },
-  { id: 113, label: 'Media exposure: internet', domain: 'Socioeconomic', type: 'differentiating' },
-  { id: 114, label: 'Access problem: travel alone', domain: 'Health access', type: 'differentiating' },
-  { id: 115, label: 'Not living w/ partner', domain: 'Relationship', type: 'differentiating' },
-  { id: 116, label: 'Age at first birth (3 category)', domain: 'Demographics', type: 'differentiating' },
-  { id: 117, label: 'Decision maker: family planning', domain: 'Relationship', type: 'differentiating' },
-  { id: 118, label: 'Decision maker: HH purchases', domain: 'Relationship', type: 'differentiating' },
-  { id: 119, label: 'Preferred next birth interval', domain: 'Demographics', type: 'differentiating' },
-];
-
-// All factors (complete list)
-const ALL_FACTORS = [
-  ...DIFFERENTIATING_FACTORS,
-  { id: 120, label: 'HW visit in last yr', domain: 'Health access', type: 'all' },
-  { id: 121, label: 'Mobile phone used for finances', domain: 'Socioeconomic', type: 'all' },
-  { id: 122, label: 'Age at first sex (4 category)', domain: 'Demographics', type: 'all' },
-  { id: 123, label: 'Decision maker: own income', domain: 'Relationship', type: 'all' },
-  { id: 124, label: 'Partner opposition to FP use', domain: 'Relationship', type: 'all' },
-  { id: 125, label: 'Sex of the head of HH', domain: 'Demographics', type: 'all' },
-  { id: 126, label: 'HH received money', domain: 'Socioeconomic', type: 'all' },
-  { id: 127, label: 'HH slum residence (UN definition)', domain: 'Household', type: 'all' },
-  { id: 128, label: 'HH water source interrupted', domain: 'Household', type: 'all' },
-  { id: 129, label: 'Joint decision making index', domain: 'Relationship', type: 'all' },
-  { id: 130, label: 'HH in malaria zone', domain: 'Household', type: 'all' },
-  { id: 131, label: 'No. <5 yrs in HH (4 category)', domain: 'Demographics', type: 'all' },
-  { id: 132, label: 'Total lifetime sex partners', domain: 'Demographics', type: 'all' },
-  { id: 133, label: 'Wife rank', domain: 'Relationship', type: 'all' },
-  { id: 134, label: 'Employment continuity', domain: 'Socioeconomic', type: 'all' },
-  { id: 135, label: 'Education level (partner)', domain: 'Education', type: 'all' },
-  { id: 136, label: 'Employment status', domain: 'Socioeconomic', type: 'all' },
-  { id: 137, label: 'IPV justification', domain: 'Relationship', type: 'all' },
-  { id: 138, label: 'Age at first cohabitation (3 category)', domain: 'Demographics', type: 'all' },
-  { id: 139, label: 'Age at first birth', domain: 'Demographics', type: 'all' },
-  { id: 140, label: 'Age at first cohabitation', domain: 'Demographics', type: 'all' },
-  { id: 141, label: 'Age at first sex', domain: 'Demographics', type: 'all' },
-  { id: 142, label: 'HH member w/ disability', domain: 'Demographics', type: 'all' },
-  { id: 143, label: 'Earnings relative to partner', domain: 'Socioeconomic', type: 'all' },
-  { id: 144, label: 'Educational attainment (binary)', domain: 'Education', type: 'all' },
-  { id: 145, label: 'Fertility preference', domain: 'Demographics', type: 'all' },
-  { id: 146, label: 'Media exposure: news/journal', domain: 'Socioeconomic', type: 'all' },
-  { id: 147, label: 'Media exposure: radio', domain: 'Socioeconomic', type: 'all' },
-  { id: 148, label: 'HH received other state support', domain: 'Socioeconomic', type: 'all' },
-  { id: 149, label: 'HH car', domain: 'Household', type: 'all' },
-  { id: 150, label: 'HH internet', domain: 'Household', type: 'all' },
-  { id: 151, label: 'HH motorcycle or scooter', domain: 'Household', type: 'all' },
-  { id: 152, label: 'Age at first birth (5 category)', domain: 'Demographics', type: 'all' },
-  { id: 153, label: 'HH rudimentary or natural floor', domain: 'Household', type: 'all' },
-  { id: 154, label: 'Any birth registered/declared', domain: 'Demographics', type: 'all' },
-  { id: 155, label: 'HH water not treated', domain: 'Household', type: 'all' },
-  { id: 156, label: 'HH radio', domain: 'Household', type: 'all' },
-  { id: 157, label: 'Decision maker: woman\'s health', domain: 'Relationship', type: 'all' },
-  { id: 158, label: 'HH refrigerator', domain: 'Household', type: 'all' },
-  { id: 159, label: 'HH sanitation (3 category)', domain: 'Household', type: 'all' },
-  { id: 160, label: 'HH shares toilet', domain: 'Household', type: 'all' },
-  { id: 161, label: 'HH stove', domain: 'Household', type: 'all' },
-  { id: 162, label: 'HH television', domain: 'Household', type: 'all' },
-  { id: 163, label: 'Polygamy status', domain: 'Relationship', type: 'all' },
-  { id: 164, label: 'Media exposure: TV', domain: 'Socioeconomic', type: 'all' },
-  { id: 165, label: 'Phone ownership (woman)', domain: 'Socioeconomic', type: 'all' },
-  { id: 166, label: 'HH highest education', domain: 'Education', type: 'all' },
-  { id: 167, label: 'HH owns animals', domain: 'Household', type: 'all' },
-  { id: 168, label: 'Bank account (household)', domain: 'Socioeconomic', type: 'all' },
-  { id: 169, label: 'HH bicycle', domain: 'Household', type: 'all' },
-  { id: 170, label: 'Home ownership', domain: 'Household', type: 'all' },
-  { id: 171, label: 'Land ownership', domain: 'Household', type: 'all' },
-  { id: 172, label: 'HH cooks food inside', domain: 'Household', type: 'all' },
-  { id: 173, label: 'HH unimproved toilet', domain: 'Household', type: 'all' },
-  { id: 174, label: 'Married or living w/ partner', domain: 'Relationship', type: 'all' },
-  { id: 175, label: 'No. of living children', domain: 'Demographics', type: 'all' },
-  { id: 176, label: 'No. of living children (4 category)', domain: 'Demographics', type: 'all' },
-  { id: 177, label: 'No. of pregnancies', domain: 'Demographics', type: 'all' },
-  { id: 178, label: 'Occupation', domain: 'Socioeconomic', type: 'all' },
-  { id: 179, label: 'Employment status (partner)', domain: 'Socioeconomic', type: 'all' },
-  { id: 180, label: 'HH has toilet facility', domain: 'Household', type: 'all' },
-];
+// Combined data
+const ALL_DATA = [...HEALTH_DATA, ...VULNERABILITY_DATA];
 
 export default function HealthDataModal({ onClose }) {
-  // Tab navigation - 'all', 'health', 'vulnerability'
-  const [activeTab, setActiveTab] = useState('all');
-
-  // Search and filter
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedItems, setSelectedItems] = useState([]);
-  const [filterMenuOpen, setFilterMenuOpen] = useState(false);
-  const [selectedHealthArea, setSelectedHealthArea] = useState('Show all');
+  const [activeTab, setActiveTab] = useState('all'); // 'all', 'health', 'vulnerability'
 
-  // Vulnerability factors
-  const [selectedVulnerabilities, setSelectedVulnerabilities] = useState([]);
-  const [domainFilterOpen, setDomainFilterOpen] = useState(false);
-  const [selectedDomain, setSelectedDomain] = useState('Show all');
-  const [factorView, setFactorView] = useState('Suggested'); // 'Suggested', 'Differentiating', 'All factors'
-  const [hoveredTooltip, setHoveredTooltip] = useState(null); // null, 'suggested', 'differentiating', 'all'
-
-  // Step 1 functions
   const toggleItem = (id) => {
     setSelectedItems(prev =>
       prev.includes(id) ? prev.filter(itemId => itemId !== id) : [...prev, id]
     );
   };
 
-  const removeItem = (id) => {
-    setSelectedItems(prev => prev.filter(itemId => itemId !== id));
-  };
-
   const clearAll = () => {
     setSelectedItems([]);
   };
 
-  // Step 2 functions
-  const toggleVulnerability = (id) => {
-    setSelectedVulnerabilities(prev =>
-      prev.includes(id) ? prev.filter(itemId => itemId !== id) : [...prev, id]
-    );
-  };
-
-  const removeVulnerability = (id) => {
-    setSelectedVulnerabilities(prev => prev.filter(itemId => itemId !== id));
-  };
-
-  const clearAllVulnerabilities = () => {
-    setSelectedVulnerabilities([]);
-  };
-
-  // Get vulnerability data based on selected view
-  const getVulnerabilityData = () => {
-    let baseData;
-    switch (factorView) {
-      case 'Suggested':
-        baseData = SUGGESTED_FACTORS;
-        // Filter to only show factors that have correlations with selected health outcomes
-        if (selectedItems.length > 0) {
-          const filtered = baseData.filter(factor => {
-            const correlation = CORRELATIONS[factor.id];
-            if (!correlation) return false;
-            return selectedItems.some(id => correlation.healthOutcomes.includes(id));
-          });
-          // If no correlations found, return at least the first suggested factor
-          return filtered.length > 0 ? filtered : [baseData[0]];
-        }
-        return baseData;
-      case 'Differentiating':
-        return DIFFERENTIATING_FACTORS;
-      case 'All factors':
-        return ALL_FACTORS;
-      default:
-        return SUGGESTED_FACTORS;
+  // Helper function to highlight search term in text
+  const highlightSearchTerm = (text) => {
+    if (!searchTerm.trim()) {
+      return text;
     }
+
+    const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    const parts = text.split(regex);
+
+    return parts.map((part, index) => {
+      if (regex.test(part)) {
+        return <span key={index} className="font-semibold">{part}</span>;
+      }
+      return part;
+    });
   };
 
-  // Filtered data for health outcomes
-  const filteredData = HEALTH_DATA.filter(item => {
-    const matchesSearch = item.label.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesArea = selectedHealthArea === 'Show all' || item.area === selectedHealthArea;
-    return matchesSearch && matchesArea;
-  });
+  // Filter data based on active tab and search term
+  const getFilteredData = () => {
+    let dataToFilter;
+    if (activeTab === 'health') {
+      dataToFilter = HEALTH_DATA;
+    } else if (activeTab === 'vulnerability') {
+      dataToFilter = VULNERABILITY_DATA;
+    } else {
+      dataToFilter = ALL_DATA;
+    }
 
-  const selectedData = HEALTH_DATA.filter(item => selectedItems.includes(item.id)).reverse();
-
-  // Filtered data for vulnerability factors
-  const vulnerabilityData = getVulnerabilityData();
-  const filteredVulnerabilities = vulnerabilityData.filter(item => {
-    const matchesSearch = item.label.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesDomain = selectedDomain === 'Show all' || item.domain === selectedDomain;
-    return matchesSearch && matchesDomain;
-  });
-
-  const selectedVulnerabilitiesData = vulnerabilityData.filter(item =>
-    selectedVulnerabilities.includes(item.id)
-  ).reverse();
-
-  // Determine what to show based on active tab
-  const showHealthData = activeTab === 'all' || activeTab === 'health';
-  const showVulnerabilityData = activeTab === 'all' || activeTab === 'vulnerability';
-
-  // Get correlation info for a vulnerability factor based on selected health outcomes
-  const getCorrelationInfo = (factorId) => {
-    const correlation = CORRELATIONS[factorId];
-    if (!correlation || selectedItems.length === 0) return null;
-
-    // Find which selected health outcomes this factor correlates with
-    const correlatedOutcomes = selectedItems.filter(id =>
-      correlation.healthOutcomes.includes(id)
+    return dataToFilter.filter(item =>
+      item.label.toLowerCase().includes(searchTerm.toLowerCase())
     );
-
-    if (correlatedOutcomes.length === 0) return null;
-
-    // Get the first correlated outcome to display
-    const outcomeId = correlatedOutcomes[0];
-    const outcome = HEALTH_DATA.find(item => item.id === outcomeId);
-
-    return {
-      strength: correlation.strength,
-      value: correlation.value,
-      outcomeName: outcome?.label || ''
-    };
   };
+
+  const filteredData = getFilteredData();
+  const filteredHealthData = filteredData.filter(item => item.type === 'health');
+  const filteredVulnerabilityData = filteredData.filter(item => item.type === 'vulnerability');
+
+  const selectedData = ALL_DATA.filter(item => selectedItems.includes(item.id));
 
   return (
     <>
-      {/* Overlay with blur */}
+      {/* Overlay */}
       <div
         className="fixed inset-0 z-40 backdrop-blur-sm"
         style={{ backgroundColor: 'rgba(0, 12, 36, 0.85)' }}
-        onClick={() => onClose(false)}
+        onClick={onClose}
       />
 
-      {/* Modal with slide-up animation */}
+      {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none p-8">
-        <div
-          className="pointer-events-auto w-full max-w-[1260px] bg-white rounded-[16px] shadow-2xl animate-slide-up max-h-[90vh] overflow-visible relative"
-        >
-          <div className="bg-white border border-[#97c3f0] border-solid box-border content-stretch flex flex-col items-start relative rounded-[16px] w-full h-[750px]">
-      <div className="basis-0 content-stretch flex flex-col grow items-start min-h-px min-w-px relative rounded-[16px] shrink-0 w-full">
-        <div className="basis-0 content-stretch flex grow items-start min-h-px min-w-px relative rounded-[16px] shrink-0 w-full">
-          {/* Left Panel - Selected Data */}
-          <div className="basis-0 bg-[#f0f4f8] box-border content-stretch flex flex-col gap-[24px] grow h-full items-start min-h-px min-w-px overflow-clip pl-[24px] pr-0 py-[24px] relative rounded-bl-[16px] rounded-tl-[16px] shrink-0">
-            <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full">
-              <p className="font-['Inter'] font-semibold leading-[1.5] not-italic relative shrink-0 text-[#171a1c] text-[24px] w-full">
-                Selected data
-              </p>
-            </div>
+        <div className="pointer-events-auto w-full max-w-[1260px] h-[750px] bg-white rounded-[16px] border border-[#97c3f0] shadow-2xl relative">
 
-            <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full overflow-y-auto pr-[24px]" style={{ maxHeight: 'calc(100% - 100px)' }}>
-              {/* Show empty state or selected items */}
-              {selectedData.length === 0 && selectedVulnerabilitiesData.length === 0 ? (
-                <div className="flex items-center justify-center w-full h-[200px]">
-                  <p className="font-['Inter'] font-normal leading-[1.5] text-[#555e68] text-[16px]">
-                    No data selected
-                  </p>
+          {/* Close Button */}
+          <button
+            onClick={onClose}
+            className="absolute right-[-24px] top-[-24px] bg-white border border-[#97c3f0] rounded-full w-[48px] h-[48px] flex items-center justify-center hover:bg-[#f0f4f8] transition-colors z-10"
+          >
+            <div className="w-[20px] h-[20px]">
+              <CloseIcon />
+            </div>
+          </button>
+
+          {/* Two Column Layout */}
+          <div className="flex h-full rounded-[16px] overflow-hidden">
+
+            {/* Left Column - Data Selection */}
+            <div className="w-[860px] flex flex-col gap-[16px] px-[24px] pt-[24px] pb-[72px] overflow-hidden">
+
+              {/* Title + Search */}
+              <div className="flex items-start justify-between w-full">
+                <h2 className="font-['Inter'] font-semibold text-[24px] leading-[1.5] text-[#171a1c]">
+                  Select data to compare
+                </h2>
+
+                <div className="w-[320px] bg-[#e3effb] rounded-[6px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08)] px-[12px] py-[8px] flex items-center gap-[8px]">
+                  <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Search for anything"
+                    className="flex-1 bg-transparent outline-none font-['Inter'] text-[16px] leading-[1.5] text-[#12467b] placeholder:opacity-[0.64]"
+                  />
+                  <div className="w-[24px] h-[24px] flex items-center justify-center">
+                    <div className="w-[17.5px] h-[17.5px]">
+                      <SearchIcon />
+                    </div>
+                  </div>
                 </div>
-              ) : (
-                <>
-                  {/* Health outcomes section */}
-                  {selectedData.length > 0 && (
-                    <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full">
-                      <div className="content-stretch flex items-center justify-between w-full">
-                        <p className="font-['Inter'] font-semibold leading-[1.42] not-italic relative shrink-0 text-[#171a1c] text-[14px]">
-                          Health outcomes and behaviours ({selectedData.length})
-                        </p>
-                        {selectedData.length > 0 && (
-                          <button
-                            onClick={clearAll}
-                            className="font-['Inter'] font-semibold leading-[14px] not-italic text-[#0b6bcb] text-[12px] hover:underline"
-                          >
-                            Clear all
-                          </button>
-                        )}
-                      </div>
-                      <div className="content-start flex flex-wrap gap-[8px] items-start relative shrink-0 w-full">
-                        {selectedData.map(item => (
-                          <div key={item.id} className="bg-[#e3effb] box-border content-stretch flex gap-[6px] items-center min-h-[24px] px-[8px] py-0 relative rounded-[24px] shrink-0">
-                            <p className="font-['Inter'] font-medium leading-[1.5] not-italic relative shrink-0 text-[#12467b] text-[14px] text-nowrap whitespace-pre">
-                              {item.label}
-                            </p>
-                            <button onClick={() => removeItem(item.id)} className="content-stretch flex items-center justify-center relative rounded-[6px] shrink-0">
-                              <div className="overflow-clip relative shrink-0 size-[20px]">
-                                <div className="absolute inset-[20.833%]">
-                                  <CloseIcon />
-                                </div>
-                              </div>
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+              </div>
 
-                  {/* Vulnerability factors section */}
-                  {selectedVulnerabilitiesData.length > 0 && (
-                    <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full">
-                      <div className="content-stretch flex items-center justify-between w-full">
-                        <p className="font-['Inter'] font-semibold leading-[1.42] not-italic relative shrink-0 text-[#171a1c] text-[14px]">
-                          Vulnerability factors ({selectedVulnerabilitiesData.length})
-                        </p>
-                        {selectedVulnerabilitiesData.length > 0 && (
-                          <button
-                            onClick={clearAllVulnerabilities}
-                            className="font-['Inter'] font-semibold leading-[14px] not-italic text-[#0b6bcb] text-[12px] hover:underline"
-                          >
-                            Clear all
-                          </button>
-                        )}
-                      </div>
-                      <div className="content-start flex flex-wrap gap-[8px] items-start relative shrink-0 w-full">
-                        {selectedVulnerabilitiesData.map(item => (
-                          <div key={item.id} className="bg-[#dfe7fd] box-border content-stretch flex gap-[6px] items-center min-h-[24px] px-[8px] py-0 relative rounded-[24px] shrink-0">
-                            <p className="font-['Inter'] font-medium leading-[1.5] not-italic relative shrink-0 text-[#12467b] text-[14px] text-nowrap whitespace-pre">
-                              {item.label}
-                            </p>
-                            <button onClick={() => removeVulnerability(item.id)} className="content-stretch flex items-center justify-center relative rounded-[6px] shrink-0">
-                              <div className="overflow-clip relative shrink-0 size-[20px]">
-                                <div className="absolute inset-[20.833%]">
-                                  <CloseIcon />
-                                </div>
-                              </div>
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* Right Panel */}
-          <div className="basis-0 content-stretch flex flex-col grow h-full items-start min-h-px min-w-px overflow-clip relative rounded-br-[16px] rounded-tr-[16px] shrink-0">
-            <div className="basis-0 box-border content-stretch flex flex-col gap-[16px] grow items-start min-h-px min-w-px pb-0 pt-[24px] px-[24px] relative shrink-0 w-full">
-              {/* Tab Navigation */}
-              <div className="content-stretch flex items-center gap-[8px] relative shrink-0 w-full">
+              {/* Tab Buttons */}
+              <div className="border border-[#97c3f0] rounded-[6px] overflow-hidden flex">
                 <button
                   onClick={() => setActiveTab('all')}
-                  className={`px-[16px] py-[8px] rounded-[6px] font-['Inter'] font-semibold text-[14px] transition-colors ${
-                    activeTab === 'all'
-                      ? 'bg-[#c7dff7] text-[#0857a7]'
-                      : 'bg-transparent text-[#0b6bcb] hover:bg-[#e3effb]'
+                  className={`flex-1 px-[16px] py-[4px] min-h-[40px] flex items-center justify-center ${
+                    activeTab === 'all' ? 'bg-[#c7dff7]' : 'hover:bg-[#e3effb]'
                   }`}
                 >
-                  All data
+                  <span className={`font-['Inter'] font-semibold text-[14px] leading-[14px] ${
+                    activeTab === 'all' ? 'text-[#0857a7]' : 'text-[#0b6bcb]'
+                  }`}>
+                    All data
+                  </span>
                 </button>
+                <div className="w-px bg-[#97c3f0]" />
                 <button
                   onClick={() => setActiveTab('health')}
-                  className={`px-[16px] py-[8px] rounded-[6px] font-['Inter'] font-semibold text-[14px] transition-colors ${
-                    activeTab === 'health'
-                      ? 'bg-[#c7dff7] text-[#0857a7]'
-                      : 'bg-transparent text-[#0b6bcb] hover:bg-[#e3effb]'
+                  className={`flex-1 px-[16px] py-[4px] min-h-[40px] flex items-center justify-center ${
+                    activeTab === 'health' ? 'bg-[#c7dff7]' : 'hover:bg-[#e3effb]'
                   }`}
                 >
-                  Health outcomes and behaviours
+                  <span className={`font-['Inter'] font-semibold text-[14px] leading-[14px] ${
+                    activeTab === 'health' ? 'text-[#0857a7]' : 'text-[#0b6bcb]'
+                  }`}>
+                    Health outcomes and behaviours
+                  </span>
                 </button>
+                <div className="w-px bg-[#97c3f0]" />
                 <button
                   onClick={() => setActiveTab('vulnerability')}
-                  className={`px-[16px] py-[8px] rounded-[6px] font-['Inter'] font-semibold text-[14px] transition-colors ${
-                    activeTab === 'vulnerability'
-                      ? 'bg-[#c7dff7] text-[#0857a7]'
-                      : 'bg-transparent text-[#0b6bcb] hover:bg-[#e3effb]'
+                  className={`flex-1 px-[16px] py-[4px] min-h-[40px] flex items-center justify-center ${
+                    activeTab === 'vulnerability' ? 'bg-[#c7dff7]' : 'hover:bg-[#e3effb]'
                   }`}
                 >
-                  Vulnerability factors
+                  <span className={`font-['Inter'] font-semibold text-[14px] leading-[14px] ${
+                    activeTab === 'vulnerability' ? 'text-[#0857a7]' : 'text-[#0b6bcb]'
+                  }`}>
+                    Vulnerability factors
+                  </span>
                 </button>
               </div>
 
-              {/* Search and Filter */}
-              <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-                <div className="content-stretch flex flex-col items-start relative shrink-0 w-[320px]">
-                  <div className={`box-border content-stretch flex gap-[8px] items-start overflow-clip px-[12px] py-[8px] relative rounded-[6px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08)] shrink-0 w-full ${searchTerm ? 'bg-[#e3effb] border-2 border-[#0b6bcb] border-solid' : 'bg-[#e3effb]'}`}>
-                    <input
-                      type="text"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      placeholder="Search for anything"
-                      className="basis-0 font-['Inter'] font-normal grow leading-[1.5] min-h-px min-w-px not-italic bg-transparent outline-none text-[#12467b] text-[16px] placeholder:opacity-[0.64]"
-                    />
-                    <div className="content-stretch flex gap-[10px] items-center relative shrink-0">
-                      {searchTerm ? (
-                        <button onClick={() => setSearchTerm('')} className="overflow-clip relative shrink-0 size-[24px]">
-                          <div className="absolute inset-[8.333%]">
-                            <ClearSearchIcon />
-                          </div>
-                        </button>
-                      ) : (
-                        <div className="overflow-clip relative shrink-0 size-[24px]">
-                          <div className="absolute inset-[13.563%]">
-                            <SearchIcon />
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
+              {/* Container */}
+              <div className="flex-1 border border-[#97c3f0] rounded-[6px] flex flex-col overflow-hidden min-h-0">
 
-                <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-                  <p className="font-['Inter'] font-normal text-[14px] text-[#555e68] mr-[8px]">Filter:</p>
-                  <button
-                    onClick={() => {
-                      if (activeTab === 'health' || (activeTab === 'all' && !domainFilterOpen)) {
-                        setFilterMenuOpen(!filterMenuOpen);
-                        setDomainFilterOpen(false);
-                      } else {
-                        setDomainFilterOpen(!domainFilterOpen);
-                        setFilterMenuOpen(false);
-                      }
-                    }}
-                    className="box-border content-stretch flex gap-[6px] items-center justify-center min-h-[32px] px-[12px] py-[2px] relative rounded-[6px] shrink-0"
-                  >
-                    <p className="font-['Inter'] font-semibold leading-[14px] not-italic relative shrink-0 text-[#0b6bcb] text-[14px] text-nowrap whitespace-pre">
-                      {activeTab === 'health'
-                        ? (selectedHealthArea === 'Show all' ? 'All categories' : selectedHealthArea)
-                        : (selectedDomain === 'Show all' ? 'All categories' : selectedDomain)
-                      }
-                    </p>
-                    <div className="relative shrink-0 size-[20px]">
-                      <div className="absolute bottom-1/4 left-[12.5%] right-[12.5%] top-1/4">
-                        <ChevronDownIcon />
-                      </div>
-                    </div>
-                  </button>
-                </div>
-              </div>
-
-              {/* Health Area Filter Menu */}
-              {filterMenuOpen && (
-                <div className="absolute bg-[#fbfcfe] box-border content-stretch flex flex-col items-start right-[24px] px-0 py-[6px] rounded-[8px] shadow-[0px_2px_8px_-2px_rgba(21,21,21,0.08),0px_6px_12px_-2px_rgba(21,21,21,0.08)] top-[120px] z-10">
-                  {HEALTH_AREAS.map(area => (
-                    <button
-                      key={area}
-                      onClick={() => {
-                        setSelectedHealthArea(area);
-                        setFilterMenuOpen(false);
-                      }}
-                      className="box-border content-stretch flex gap-[14px] items-center min-h-[36px] px-[12px] py-[4px] relative shrink-0 w-[220px] hover:bg-[#f0f4f8]"
-                    >
-                      <p className="basis-0 font-['Inter'] font-normal grow leading-[1.5] min-h-px min-w-px not-italic relative shrink-0 text-[#32383e] text-[16px]">
-                        {area}
-                      </p>
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* Domain Filter Menu */}
-              {domainFilterOpen && (
-                <div className="absolute bg-[#fbfcfe] box-border content-stretch flex flex-col items-start right-[24px] px-0 py-[6px] rounded-[8px] shadow-[0px_2px_8px_-2px_rgba(21,21,21,0.08),0px_6px_12px_-2px_rgba(21,21,21,0.08)] top-[120px] z-10">
-                  {VULNERABILITY_DOMAINS.map(domain => (
-                    <button
-                      key={domain}
-                      onClick={() => {
-                        setSelectedDomain(domain);
-                        setDomainFilterOpen(false);
-                      }}
-                      className="box-border content-stretch flex gap-[14px] items-center min-h-[36px] px-[12px] py-[4px] relative shrink-0 w-[220px] hover:bg-[#f0f4f8]"
-                    >
-                      <p className="basis-0 font-['Inter'] font-normal grow leading-[1.5] min-h-px min-w-px not-italic relative shrink-0 text-[#32383e] text-[16px]">
-                        {domain}
-                      </p>
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* View Switcher for Vulnerability Factors */}
-              {activeTab === 'vulnerability' && (
-                <div className="border border-[#97c3f0] border-solid relative rounded-[6px] shrink-0 w-full">
-                  <div className="content-stretch flex items-start relative w-full">
-                    <button
-                      onClick={() => setFactorView('Suggested')}
-                      onMouseEnter={() => setHoveredTooltip('suggested')}
-                      onMouseLeave={() => setHoveredTooltip(null)}
-                      className={`basis-0 ${factorView === 'Suggested' ? 'bg-[#c7dff7]' : ''} box-border content-stretch flex gap-[6px] grow items-center justify-center min-h-[32px] min-w-px px-[12px] py-[2px] relative shrink-0 hover:bg-[#c7dff7] transition-colors`}
-                    >
-                      <p className={`font-['Inter'] font-semibold leading-[14px] not-italic relative shrink-0 text-[14px] text-nowrap whitespace-pre ${factorView === 'Suggested' ? 'text-[#0857a7]' : 'text-[#0b6bcb]'}`}>
-                        Suggested
-                      </p>
-                      <div className="overflow-clip relative shrink-0 size-[16px]">
-                        <div className="absolute inset-[8.333%]">
-                          <InfoIcon />
-                        </div>
-                      </div>
-                      {hoveredTooltip === 'suggested' && (
-                        <div className="absolute bg-[#171a1c] text-white text-[14px] font-['Inter'] font-normal leading-[1.5] px-[12px] py-[8px] rounded-[6px] shadow-lg z-50 top-[calc(100%+8px)] left-0 w-[320px] text-left">
-                          Factors are suggested because they show strong statistical correlation with your selected health outcome or behaviours from step #1.
-                        </div>
-                      )}
-                    </button>
-                    <div className="bg-[#97c3f0] self-stretch shrink-0 w-px" />
-                    <button
-                      onClick={() => setFactorView('Differentiating')}
-                      onMouseEnter={() => setHoveredTooltip('differentiating')}
-                      onMouseLeave={() => setHoveredTooltip(null)}
-                      className={`basis-0 ${factorView === 'Differentiating' ? 'bg-[#c7dff7]' : ''} box-border content-stretch flex gap-[6px] grow items-center justify-center min-h-[32px] min-w-px px-[12px] py-[2px] relative shrink-0 hover:bg-[#c7dff7] transition-colors`}
-                    >
-                      <p className={`font-['Inter'] font-semibold leading-[14px] not-italic relative shrink-0 text-[14px] text-nowrap whitespace-pre ${factorView === 'Differentiating' ? 'text-[#0857a7]' : 'text-[#0b6bcb]'}`}>
-                        Differentiating
-                      </p>
-                      <div className="overflow-clip relative shrink-0 size-[16px]">
-                        <div className="absolute inset-[8.333%]">
-                          <InfoIcon />
-                        </div>
-                      </div>
-                      {hoveredTooltip === 'differentiating' && (
-                        <div className="absolute bg-[#171a1c] text-white text-[14px] font-['Inter'] font-normal leading-[1.5] px-[12px] py-[8px] rounded-[6px] shadow-lg z-50 top-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-[320px] text-left">
-                          Differentiating factors are important because they are associated with multiple outcomes and because they determine the segments. Note:<br />
-                          1. There are many vulnerability factors that are predictive of health outcomes that don't get to be differentiating variables.<br />
-                          2. Differentiating factors are not causal to health outcomes.<br />
-                          3. Differentiating factors are also selected on the additional criteria that they show to biggest levels of variability in the data.
-                        </div>
-                      )}
-                    </button>
-                    <div className="bg-[#97c3f0] self-stretch shrink-0 w-px" />
-                    <button
-                      onClick={() => setFactorView('All factors')}
-                      onMouseEnter={() => setHoveredTooltip('all')}
-                      onMouseLeave={() => setHoveredTooltip(null)}
-                      className={`basis-0 ${factorView === 'All factors' ? 'bg-[#c7dff7]' : ''} box-border content-stretch flex gap-[6px] grow items-center justify-center min-h-[32px] min-w-px px-[12px] py-[2px] relative shrink-0 hover:bg-[#c7dff7] transition-colors`}
-                    >
-                      <p className={`font-['Inter'] font-semibold leading-[14px] not-italic relative shrink-0 text-[14px] text-nowrap whitespace-pre ${factorView === 'All factors' ? 'text-[#0857a7]' : 'text-[#0b6bcb]'}`}>
-                        All factors
-                      </p>
-                      <div className="overflow-clip relative shrink-0 size-[16px]">
-                        <div className="absolute inset-[8.333%]">
-                          <InfoIcon />
-                        </div>
-                      </div>
-                      {hoveredTooltip === 'all' && (
-                        <div className="absolute bg-[#171a1c] text-white text-[14px] font-['Inter'] font-normal leading-[1.5] px-[12px] py-[8px] rounded-[6px] shadow-lg z-50 top-[calc(100%+8px)] right-0 w-[280px] text-left">
-                          All vulnerability factors included in the segmentation
-                        </div>
-                      )}
+                {/* Header with Filter */}
+                <div className="bg-[#dde7ee] border-b border-[#97c3f0] h-[32px] px-[16px] flex items-center justify-between">
+                  <span className="font-['Inter'] font-semibold text-[14px] leading-[1.42] text-[#555e68]">
+                    {activeTab === 'all' && `All data (${ALL_DATA.length})`}
+                    {activeTab === 'health' && `Health outcomes and behaviours (${HEALTH_DATA.length})`}
+                    {activeTab === 'vulnerability' && `Vulnerability factors (${VULNERABILITY_DATA.length})`}
+                  </span>
+                  <div className="flex items-center gap-[4px]">
+                    <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#555e68]">
+                      Filter:
+                    </span>
+                    <button className="px-[8px] py-[6px] h-[24px] flex items-center justify-center rounded-[6px] hover:bg-[#c7dff7]">
+                      <span className="font-['Inter'] font-semibold text-[14px] leading-[14px] text-[#0b6bcb]">
+                        All categories
+                      </span>
                     </button>
                   </div>
                 </div>
-              )}
 
-              {/* List Container */}
-              <div className="basis-0 border border-[#97c3f0] border-solid grow min-h-px min-w-px relative rounded-[6px] shrink-0 w-full">
-                <div className="content-stretch flex flex-col items-start overflow-clip relative size-full">
-                  <div className="bg-[#dde7ee] border-[#97c3f0] border-[0px_0px_1px] border-solid box-border content-stretch flex h-[32px] items-center justify-between pb-0 pt-px px-[16px] relative shrink-0 w-full">
-                    <p className="font-['Inter'] font-semibold leading-[1.42] not-italic relative shrink-0 text-[#555e68] text-[14px] text-nowrap whitespace-pre">
-                      {activeTab === 'all'
-                        ? `All data (${filteredData.length + filteredVulnerabilities.length})`
-                        : activeTab === 'health'
-                          ? `Health outcomes and behaviours (${filteredData.length})`
-                          : `Vulnerability factors (${filteredVulnerabilities.length})`
-                      }
-                    </p>
-                    {((selectedItems.length > 0) || (selectedVulnerabilities.length > 0)) && (
-                      <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-                        <button
-                          onClick={() => {
-                            clearAll();
-                            clearAllVulnerabilities();
-                          }}
-                          className="box-border content-stretch flex gap-[6px] h-[24px] items-center justify-center min-h-[24px] px-[8px] py-[6px] relative rounded-[6px] shrink-0"
-                        >
-                          <p className="font-['Inter'] font-semibold leading-[14px] not-italic relative shrink-0 text-[#0b6bcb] text-[14px] text-nowrap whitespace-pre">
-                            Clear all
-                          </p>
-                        </button>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="basis-0 content-stretch flex grow items-start justify-between min-h-px min-w-px relative shrink-0 w-full overflow-hidden">
-                    {/* All Data Tab - Shows both health outcomes and vulnerability factors */}
+                {/* Scrollable List */}
+                <div className="flex-1 overflow-y-auto flex">
+                  <div className="flex-1">
+                    {/* Show both sections when 'all' tab is active */}
                     {activeTab === 'all' && (
-                      <div className="basis-0 content-stretch flex flex-col grow items-start min-h-px min-w-px relative shrink-0 overflow-y-auto h-full">
+                      <div>
                         {/* Health outcomes section */}
-                        {filteredData.length > 0 && (
-                          <>
-                            <div className="bg-[#dde7ee] border-[#97c3f0] border-[0px_0px_1px] border-solid box-border content-stretch flex h-[28px] items-center px-[16px] relative shrink-0 w-full sticky top-0 z-10">
-                              <p className="font-['Inter'] font-semibold leading-[1.42] not-italic relative shrink-0 text-[#555e68] text-[12px] text-nowrap whitespace-pre">
-                                Health outcomes and behaviours ({filteredData.length})
-                              </p>
+                        {filteredHealthData.length > 0 && (
+                          <div>
+                            <div className="bg-[#f0f4f8] border-b border-[#97c3f0] h-[32px] px-[16px] flex items-center sticky top-0 z-10">
+                              <span className="font-['Inter'] font-semibold text-[14px] leading-[1.42] text-[#555e68]">
+                                Health outcomes and behaviours ({filteredHealthData.length})
+                              </span>
                             </div>
-                            {filteredData.map((item, index) => (
+                            {filteredHealthData.map((item, index) => (
                               <button
                                 key={item.id}
                                 onClick={() => toggleItem(item.id)}
-                                className={`box-border content-stretch flex flex-col gap-[8px] items-start p-[16px] relative shrink-0 w-full border-[#97c3f0] border-[0px_0px_1px] border-solid hover:bg-[#dde7ee] ${index % 2 === 0 ? 'bg-[#fbfcfe]' : 'bg-[#f0f4f8]'}`}
+                                className={`w-full p-[16px] border-b border-[#97c3f0] flex items-center justify-between hover:bg-[#dde7ee] transition-colors ${
+                                  index % 2 === 0 ? 'bg-[#fbfcfe]' : 'bg-[#f0f4f8]'
+                                }`}
                               >
-                                <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-                                  <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
-                                    <div className="content-stretch flex gap-[10px] items-center relative shrink-0">
-                                      <div className={`relative shrink-0 size-[20px] ${selectedItems.includes(item.id) ? '' : 'bg-[#fbfcfe] border border-[#97c3f0] border-solid rounded-[4px]'}`}>
-                                        {selectedItems.includes(item.id) && (
-                                          <CheckboxCheckedIcon />
-                                        )}
-                                      </div>
-                                    </div>
-                                    <p className="font-['Inter'] font-normal leading-[1.42] not-italic relative shrink-0 text-[#171a1c] text-[14px] text-nowrap whitespace-pre">
-                                      <span dangerouslySetInnerHTML={{
-                                        __html: item.label.replace(
-                                          new RegExp(`(${searchTerm})`, 'gi'),
-                                          '<span class="font-bold">$1</span>'
-                                        )
-                                      }} />
-                                    </p>
+                                <div className="flex items-center gap-[8px]">
+                                  <div className={`w-[20px] h-[20px] rounded-[4px] border flex items-center justify-center ${
+                                    selectedItems.includes(item.id)
+                                      ? 'bg-[#0b6bcb] border-[#0b6bcb]'
+                                      : 'bg-[#fbfcfe] border-[#97c3f0]'
+                                  }`}>
+                                    {selectedItems.includes(item.id) && (
+                                      <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
+                                        <path d="M1 4.5L4.5 8L11 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                      </svg>
+                                    )}
                                   </div>
-                                  <div className="content-stretch flex items-start relative shrink-0">
-                                    <div className="overflow-clip relative shrink-0 size-[20px]">
-                                      <div className="absolute inset-[8.333%]">
-                                        <InfoIcon />
-                                      </div>
-                                    </div>
-                                  </div>
+                                  <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#171a1c]">
+                                    {highlightSearchTerm(item.label)}
+                                  </span>
+                                </div>
+                                <div className="w-[20px] h-[20px] flex-shrink-0">
+                                  <InfoIcon />
                                 </div>
                               </button>
                             ))}
-                          </>
+                          </div>
                         )}
 
                         {/* Vulnerability factors section */}
-                        {filteredVulnerabilities.length > 0 && (
-                          <>
-                            <div className="bg-[#dde7ee] border-[#97c3f0] border-[0px_0px_1px] border-solid box-border content-stretch flex h-[28px] items-center px-[16px] relative shrink-0 w-full sticky top-0 z-10">
-                              <p className="font-['Inter'] font-semibold leading-[1.42] not-italic relative shrink-0 text-[#555e68] text-[12px] text-nowrap whitespace-pre">
-                                Vulnerability factors ({filteredVulnerabilities.length})
-                              </p>
+                        {filteredVulnerabilityData.length > 0 && (
+                          <div>
+                            <div className="bg-[#f0f4f8] border-b border-[#97c3f0] h-[32px] px-[16px] flex items-center sticky top-0 z-10">
+                              <span className="font-['Inter'] font-semibold text-[14px] leading-[1.42] text-[#555e68]">
+                                Vulnerability factors ({filteredVulnerabilityData.length})
+                              </span>
                             </div>
-                            {filteredVulnerabilities.map((item, index) => {
-                              const correlationInfo = getCorrelationInfo(item.id);
-                              return (
-                                <button
-                                  key={item.id}
-                                  onClick={() => toggleVulnerability(item.id)}
-                                  className={`box-border content-stretch flex flex-col gap-[8px] items-start p-[16px] relative shrink-0 w-full border-[#97c3f0] border-[0px_0px_1px] border-solid hover:bg-[#dde7ee] ${index % 2 === 0 ? 'bg-[#fbfcfe]' : 'bg-[#f0f4f8]'}`}
-                                >
-                                  <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-                                    <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
-                                      <div className="content-stretch flex gap-[10px] items-center relative shrink-0">
-                                        <div className={`relative shrink-0 size-[20px] ${selectedVulnerabilities.includes(item.id) ? '' : 'bg-[#fbfcfe] border border-[#97c3f0] border-solid rounded-[4px]'}`}>
-                                          {selectedVulnerabilities.includes(item.id) && (
-                                            <CheckboxCheckedIcon />
-                                          )}
-                                        </div>
-                                      </div>
-                                      <p className="font-['Inter'] font-normal leading-[1.42] not-italic relative shrink-0 text-[#171a1c] text-[14px] text-nowrap whitespace-pre">
-                                        <span dangerouslySetInnerHTML={{
-                                          __html: item.label.replace(
-                                            new RegExp(`(${searchTerm})`, 'gi'),
-                                            '<span class="font-bold">$1</span>'
-                                          )
-                                        }} />
-                                      </p>
-                                    </div>
-                                    <div className="content-stretch flex items-start relative shrink-0">
-                                      <div className="overflow-clip relative shrink-0 size-[20px]">
-                                        <div className="absolute inset-[8.333%]">
-                                          <InfoIcon />
-                                        </div>
-                                      </div>
-                                    </div>
+                            {filteredVulnerabilityData.map((item, index) => (
+                              <button
+                                key={item.id}
+                                onClick={() => toggleItem(item.id)}
+                                className={`w-full p-[16px] border-b border-[#97c3f0] flex items-center justify-between hover:bg-[#dde7ee] transition-colors ${
+                                  index % 2 === 0 ? 'bg-[#fbfcfe]' : 'bg-[#f0f4f8]'
+                                }`}
+                              >
+                                <div className="flex items-center gap-[8px]">
+                                  <div className={`w-[20px] h-[20px] rounded-[4px] border flex items-center justify-center ${
+                                    selectedItems.includes(item.id)
+                                      ? 'bg-[#0b6bcb] border-[#0b6bcb]'
+                                      : 'bg-[#fbfcfe] border-[#97c3f0]'
+                                  }`}>
+                                    {selectedItems.includes(item.id) && (
+                                      <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
+                                        <path d="M1 4.5L4.5 8L11 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                      </svg>
+                                    )}
                                   </div>
-                                  {/* Correlation badge */}
-                                  {correlationInfo && (
-                                    <div className="bg-[#f0f4f8] border border-[#97c3f0] border-solid box-border content-baseline flex flex-wrap gap-[8px] items-baseline p-[8px] relative rounded-[4px] shrink-0 w-full">
-                                      <div className="basis-0 content-center flex flex-wrap gap-[4px] grow items-center min-h-px min-w-px not-italic relative shrink-0">
-                                        <p className="font-['Inter'] font-semibold leading-[1.66] relative shrink-0 text-[#555e68] text-[12px] text-nowrap whitespace-pre">
-                                          Based on:
-                                        </p>
-                                        <p className="font-['Inter'] font-semibold leading-[1.66] relative shrink-0 text-[12px] text-[rgba(10,71,10,0.6)] text-nowrap whitespace-pre">
-                                          {correlationInfo.strength} ({correlationInfo.value})
-                                        </p>
-                                        <p className="font-['Inter'] font-normal leading-[1.42] relative shrink-0 text-[#555e68] text-[14px]">
-                                          statistical correlation with:
-                                        </p>
-                                        <p className="font-['Inter'] font-normal leading-[1.42] relative shrink-0 text-[#171a1c] text-[14px]">
-                                          {correlationInfo.outcomeName}
-                                        </p>
-                                      </div>
-                                    </div>
-                                  )}
-                                </button>
-                              );
-                            })}
-                          </>
-                        )}
-
-                        {/* Empty state when no search results */}
-                        {filteredData.length === 0 && filteredVulnerabilities.length === 0 && (
-                          <div className="flex flex-col items-center justify-center w-full h-full">
-                            <p className="font-['Inter'] font-semibold leading-[1.5] text-[#171a1c] text-[18px]">No factors to display</p>
-                            <p className="font-['Inter'] font-normal leading-[1.5] text-[#555e68] text-[16px] mt-[8px]">Clear all filters or try another search term</p>
+                                  <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#171a1c]">
+                                    {highlightSearchTerm(item.label)}
+                                  </span>
+                                </div>
+                                <div className="w-[20px] h-[20px] flex-shrink-0">
+                                  <InfoIcon />
+                                </div>
+                              </button>
+                            ))}
                           </div>
                         )}
                       </div>
                     )}
 
-                    {/* Health Outcomes Tab */}
-                    {activeTab === 'health' && (
-                      <div className="basis-0 content-stretch flex flex-col grow items-start min-h-px min-w-px relative shrink-0 overflow-y-auto h-full">
-                        {filteredData.length > 0 ? filteredData.map((item, index) => (
+                    {/* Show only filtered data for specific tabs */}
+                    {activeTab !== 'all' && (
+                      <div>
+                        {filteredData.map((item, index) => (
                           <button
                             key={item.id}
                             onClick={() => toggleItem(item.id)}
-                            className={`box-border content-stretch flex flex-col gap-[8px] items-start p-[16px] relative shrink-0 w-full border-[#97c3f0] border-[0px_0px_1px] border-solid hover:bg-[#dde7ee] ${index % 2 === 0 ? 'bg-[#fbfcfe]' : 'bg-[#f0f4f8]'}`}
+                            className={`w-full p-[16px] border-b border-[#97c3f0] flex items-center justify-between hover:bg-[#dde7ee] transition-colors ${
+                              index % 2 === 0 ? 'bg-[#fbfcfe]' : 'bg-[#f0f4f8]'
+                            }`}
                           >
-                            <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-                              <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
-                                <div className="content-stretch flex gap-[10px] items-center relative shrink-0">
-                                  <div className={`relative shrink-0 size-[20px] ${selectedItems.includes(item.id) ? '' : 'bg-[#fbfcfe] border border-[#97c3f0] border-solid rounded-[4px]'}`}>
-                                    {selectedItems.includes(item.id) && (
-                                      <CheckboxCheckedIcon />
-                                    )}
-                                  </div>
-                                </div>
-                                <p className="font-['Inter'] font-normal leading-[1.42] not-italic relative shrink-0 text-[#171a1c] text-[14px] text-nowrap whitespace-pre">
-                                  {searchTerm ? (
-                                    <span dangerouslySetInnerHTML={{
-                                      __html: item.label.replace(
-                                        new RegExp(`(${searchTerm})`, 'gi'),
-                                        '<span class="font-bold">$1</span>'
-                                      )
-                                    }} />
-                                  ) : item.label}
-                                </p>
+                            <div className="flex items-center gap-[8px]">
+                              <div className={`w-[20px] h-[20px] rounded-[4px] border flex items-center justify-center ${
+                                selectedItems.includes(item.id)
+                                  ? 'bg-[#0b6bcb] border-[#0b6bcb]'
+                                  : 'bg-[#fbfcfe] border-[#97c3f0]'
+                              }`}>
+                                {selectedItems.includes(item.id) && (
+                                  <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
+                                    <path d="M1 4.5L4.5 8L11 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                  </svg>
+                                )}
                               </div>
-                              <div className="content-stretch flex items-start relative shrink-0">
-                                <div className="overflow-clip relative shrink-0 size-[20px]">
-                                  <div className="absolute inset-[8.333%]">
-                                    <InfoIcon />
-                                  </div>
-                                </div>
-                              </div>
+                              <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#171a1c]">
+                                {highlightSearchTerm(item.label)}
+                              </span>
+                            </div>
+                            <div className="w-[20px] h-[20px] flex-shrink-0">
+                              <InfoIcon />
                             </div>
                           </button>
-                        )) : (
-                          <div className="flex flex-col items-center justify-center w-full h-full">
-                            <p className="font-['Inter'] font-semibold leading-[1.5] text-[#171a1c] text-[18px]">No factors to display</p>
-                            <p className="font-['Inter'] font-normal leading-[1.5] text-[#555e68] text-[16px] mt-[8px]">Clear all filters or try another search term</p>
-                          </div>
-                        )}
+                        ))}
                       </div>
                     )}
+                  </div>
 
-                    {/* Vulnerability Factors Tab */}
-                    {activeTab === 'vulnerability' && (
-                      <div className="basis-0 content-stretch flex flex-col grow items-start min-h-px min-w-px relative shrink-0 overflow-y-auto h-full">
-                        {filteredVulnerabilities.length > 0 ? filteredVulnerabilities.map((item, index) => {
-                          const correlationInfo = getCorrelationInfo(item.id);
-                          return (
-                            <button
-                              key={item.id}
-                              onClick={() => toggleVulnerability(item.id)}
-                              className={`box-border content-stretch flex flex-col gap-[8px] items-start p-[16px] relative shrink-0 w-full border-[#97c3f0] border-[0px_0px_1px] border-solid hover:bg-[#dde7ee] ${index % 2 === 0 ? 'bg-[#fbfcfe]' : 'bg-[#f0f4f8]'}`}
-                            >
-                              <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-                                <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
-                                  <div className="content-stretch flex gap-[10px] items-center relative shrink-0">
-                                    <div className={`relative shrink-0 size-[20px] ${selectedVulnerabilities.includes(item.id) ? '' : 'bg-[#fbfcfe] border border-[#97c3f0] border-solid rounded-[4px]'}`}>
-                                      {selectedVulnerabilities.includes(item.id) && (
-                                        <CheckboxCheckedIcon />
-                                      )}
-                                    </div>
-                                  </div>
-                                  <p className="font-['Inter'] font-normal leading-[1.42] not-italic relative shrink-0 text-[#171a1c] text-[14px] text-nowrap whitespace-pre">
-                                    {searchTerm ? (
-                                      <span dangerouslySetInnerHTML={{
-                                        __html: item.label.replace(
-                                          new RegExp(`(${searchTerm})`, 'gi'),
-                                          '<span class="font-bold">$1</span>'
-                                        )
-                                      }} />
-                                    ) : item.label}
-                                  </p>
-                                </div>
-                                <div className="content-stretch flex items-start relative shrink-0">
-                                  <div className="overflow-clip relative shrink-0 size-[20px]">
-                                    <div className="absolute inset-[8.333%]">
-                                      <InfoIcon />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              {/* Correlation badge */}
-                              {correlationInfo && (
-                                <div className="bg-[#f0f4f8] border border-[#97c3f0] border-solid box-border content-baseline flex flex-wrap gap-[8px] items-baseline p-[8px] relative rounded-[4px] shrink-0 w-full">
-                                  <div className="basis-0 content-center flex flex-wrap gap-[4px] grow items-center min-h-px min-w-px not-italic relative shrink-0">
-                                    <p className="font-['Inter'] font-semibold leading-[1.66] relative shrink-0 text-[#555e68] text-[12px] text-nowrap whitespace-pre">
-                                      Based on:
-                                    </p>
-                                    <p className="font-['Inter'] font-semibold leading-[1.66] relative shrink-0 text-[12px] text-[rgba(10,71,10,0.6)] text-nowrap whitespace-pre">
-                                      {correlationInfo.strength} ({correlationInfo.value})
-                                    </p>
-                                    <p className="font-['Inter'] font-normal leading-[1.42] relative shrink-0 text-[#555e68] text-[14px]">
-                                      statistical correlation with:
-                                    </p>
-                                    <p className="font-['Inter'] font-normal leading-[1.42] relative shrink-0 text-[#171a1c] text-[14px]">
-                                      {correlationInfo.outcomeName}
-                                    </p>
-                                  </div>
-                                </div>
-                              )}
-                            </button>
-                          );
-                        }) : (
-                          <div className="flex flex-col items-center justify-center w-full h-full">
-                            <p className="font-['Inter'] font-semibold leading-[1.5] text-[#171a1c] text-[18px]">No factors to display</p>
-                            <p className="font-['Inter'] font-normal leading-[1.5] text-[#555e68] text-[16px] mt-[8px]">Clear all filters or try another search term</p>
-                          </div>
-                        )}
-                      </div>
-                    )}
+                  {/* Scrollbar */}
+                  <div className="w-[12px] bg-[#fbfcfe] border-l border-[#97c3f0] relative flex-shrink-0">
+                    <div className="absolute top-[2px] left-1/2 -translate-x-1/2 w-[6px] h-[60px] bg-[#9fa6ad] rounded-full" />
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Bottom Button */}
-            <div className="box-border content-stretch flex items-center justify-end px-[24px] py-[16px] relative shrink-0 w-full">
+            {/* Right Column - Selected Data */}
+            <div className="flex-1 bg-[#f0f4f8] border-l border-[#97c3f0] flex flex-col px-[24px] py-[16px] justify-between">
+
+              {/* Selected Items Section */}
+              <div className="flex flex-col gap-[8px]">
+                <div className="flex items-baseline justify-between">
+                  <h3 className="font-['Inter'] font-semibold text-[18px] leading-[1.66] text-[#171a1c]">
+                    Selected data
+                  </h3>
+                  {selectedItems.length > 0 && (
+                    <button
+                      onClick={clearAll}
+                      className="px-[8px] py-[6px] h-[24px] flex items-center justify-center rounded-[6px] hover:bg-[#dde7ee]"
+                    >
+                      <span className="font-['Inter'] font-semibold text-[14px] leading-[14px] text-[#0b6bcb]">
+                        Clear all
+                      </span>
+                    </button>
+                  )}
+                </div>
+
+                {/* Selected Items Display */}
+                <div className="bg-white border border-[#97c3f0] rounded-[4px] h-[548px] flex items-center justify-center">
+                  {selectedData.length === 0 ? (
+                    <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#555e68]">
+                      No data selected
+                    </span>
+                  ) : (
+                    <div className="w-full h-full p-[16px] overflow-y-auto">
+                      {/* TODO: Add selected items display */}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Compare Button */}
               <button
-                onClick={() => onClose(true)}
-                className="bg-[#0b6bcb] box-border content-stretch cursor-pointer flex gap-[8px] items-center justify-center min-h-[40px] px-[16px] py-[4px] relative rounded-[6px] shrink-0 hover:bg-[#0a5fb0] transition-colors"
+                onClick={onClose}
+                className="bg-[#0b6bcb] rounded-[6px] px-[16px] py-[4px] min-h-[40px] flex items-center justify-center gap-[8px] hover:bg-[#0a5fb0] transition-colors"
               >
-                <p className="font-['Inter'] font-semibold leading-[14px] not-italic relative shrink-0 text-[14px] text-nowrap text-white whitespace-pre">
+                <span className="font-['Inter'] font-semibold text-[14px] leading-[14px] text-white">
                   Compare
-                </p>
-                <div className="overflow-clip relative shrink-0 size-[24px]">
-                  <div className="absolute inset-[16.667%]">
-                    <ArrowRightIcon />
+                </span>
+                <div className="w-[24px] h-[24px]">
+                  <div className="w-[16px] h-[16px] mx-auto my-[4px]">
+                    <ArrowForwardIcon />
                   </div>
                 </div>
               </button>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Close Button */}
-      <button
-        onClick={() => onClose(false)}
-        className="absolute bg-white border border-[#97c3f0] border-solid box-border content-stretch flex gap-[8px] items-center right-[-24px] rounded-[1000px] top-[-24px] hover:bg-[#f0f4f8] transition-colors z-10"
-      >
-        <div className="box-border content-stretch cursor-pointer flex items-center justify-center min-h-[48px] min-w-[48px] overflow-clip p-0 relative rounded-[1000px] shrink-0">
-          <div className="content-stretch flex items-start relative shrink-0">
-            <div className="overflow-clip relative shrink-0 size-[20px]">
-              <div className="absolute inset-[20.833%]">
-                <CloseIcon />
-              </div>
-            </div>
-          </div>
-        </div>
-      </button>
           </div>
         </div>
       </div>
