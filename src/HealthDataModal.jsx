@@ -38,52 +38,58 @@ const CloseSmallIcon = () => (
   </svg>
 );
 
+const SuggestedInfoIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
+    <path d="M9.1665 5.83268H10.8332V7.49935H9.1665V5.83268ZM9.1665 9.16602H10.8332V14.166H9.1665V9.16602ZM9.99984 1.66602C5.39984 1.66602 1.6665 5.39935 1.6665 9.99935C1.6665 14.5993 5.39984 18.3327 9.99984 18.3327C14.5998 18.3327 18.3332 14.5993 18.3332 9.99935C18.3332 5.39935 14.5998 1.66602 9.99984 1.66602ZM9.99984 16.666C6.32484 16.666 3.33317 13.6743 3.33317 9.99935C3.33317 6.32435 6.32484 3.33268 9.99984 3.33268C13.6748 3.33268 16.6665 6.32435 16.6665 9.99935C16.6665 13.6743 13.6748 16.666 9.99984 16.666Z" fill="#2D7A00"/>
+  </svg>
+);
+
 // Health outcomes and behaviours data
 const HEALTH_DATA = [
-  { id: 'h1', label: 'Less than 4 ANC visits', type: 'health', category: 'maternal-health' },
-  { id: 'h2', label: 'No PNC for newborn', type: 'health', category: 'child-health' },
-  { id: 'h3', label: 'Never breastfed', type: 'health', category: 'child-health' },
-  { id: 'h4', label: 'Pregnancy ended in stillbirth', type: 'health', category: 'maternal-health' },
-  { id: 'h5', label: 'Death of a child before 1 yr', type: 'health', category: 'child-health' },
-  { id: 'h6', label: 'Death of a child before 5 yrs', type: 'health', category: 'child-health' },
-  { id: 'h7', label: 'No current modern FP use', type: 'health', category: 'family-planning' },
-  { id: 'h8', label: 'Latest birth delivered at home', type: 'health', category: 'maternal-health' },
-  { id: 'h9', label: 'Not fully immunized with DPT', type: 'health', category: 'immunisation' },
-  { id: 'h10', label: 'Not immunized with MMR', type: 'health', category: 'immunisation' },
-  { id: 'h11', label: 'Not immunized with polio', type: 'health', category: 'immunisation' },
-  { id: 'h12', label: 'Zero-dose child', type: 'health', category: 'immunisation' },
-  { id: 'h13', label: 'Overweight child', type: 'health', category: 'nutrition' },
-  { id: 'h14', label: 'Stunted child', type: 'health', category: 'nutrition' },
-  { id: 'h15', label: 'Underweight child', type: 'health', category: 'nutrition' },
-  { id: 'h16', label: 'Wasted child', type: 'health', category: 'nutrition' },
-  { id: 'h17', label: 'No. of children who have died', type: 'health', category: 'child-health' },
-  { id: 'h18', label: 'No. of children who have died (3 category)', type: 'health', category: 'child-health' },
-  { id: 'h19', label: 'Death of a child', type: 'health', category: 'child-health' },
-  { id: 'h20', label: 'No PNC for mother', type: 'health', category: 'maternal-health' },
+  { id: 'h1', label: 'Less than 4 ANC visits', type: 'health', category: 'maternal-health', definition: 'Indicates whether the participant received fewer than four antenatal care visits during pregnancy. This is below the WHO recommended minimum for adequate prenatal care.' },
+  { id: 'h2', label: 'No PNC for newborn', type: 'health', category: 'child-health', definition: 'Identifies newborns who did not receive postnatal care check-ups after birth. Early postnatal visits are critical for detecting and treating complications.' },
+  { id: 'h3', label: 'Never breastfed', type: 'health', category: 'child-health', definition: 'Indicates whether a child was never breastfed after birth. Breastfeeding provides essential nutrients and antibodies for infant development.' },
+  { id: 'h4', label: 'Pregnancy ended in stillbirth', type: 'health', category: 'maternal-health', definition: 'Records pregnancies that resulted in stillbirth, defined as fetal death at 28 weeks or later. This indicator reflects maternal and prenatal care quality.' },
+  { id: 'h5', label: 'Death of a child before 1 yr', type: 'health', category: 'child-health', definition: 'Tracks infant mortality, measuring deaths occurring in the first year of life. This is a key indicator of child health and healthcare access.' },
+  { id: 'h6', label: 'Death of a child before 5 yrs', type: 'health', category: 'child-health', definition: 'Measures under-five mortality rate, tracking child deaths before the age of five. This reflects overall child health and development conditions.' },
+  { id: 'h7', label: 'No current modern FP use', type: 'health', category: 'family-planning', definition: 'Indicates women not currently using modern contraceptive methods. This includes pills, IUDs, injectables, implants, and barrier methods.' },
+  { id: 'h8', label: 'Latest birth delivered at home', type: 'health', category: 'maternal-health', definition: 'Identifies births that occurred at home rather than in a healthcare facility. Facility births provide access to skilled attendants and emergency care.' },
+  { id: 'h9', label: 'Not fully immunized with DPT', type: 'health', category: 'immunisation', definition: 'Indicates children who did not receive the full course of diphtheria, pertussis, and tetanus vaccinations. Full immunization requires three doses.' },
+  { id: 'h10', label: 'Not immunized with MMR', type: 'health', category: 'immunisation', definition: 'Identifies children who did not receive measles, mumps, and rubella vaccination. This vaccine protects against three serious infectious diseases.' },
+  { id: 'h11', label: 'Not immunized with polio', type: 'health', category: 'immunisation', definition: 'Tracks children who did not receive polio vaccination. Polio immunization is critical for preventing this potentially paralyzing disease.' },
+  { id: 'h12', label: 'Zero-dose child', type: 'health', category: 'immunisation', definition: 'Identifies children who have not received any routine vaccinations. These children are at highest risk and indicate gaps in healthcare access.' },
+  { id: 'h13', label: 'Overweight child', type: 'health', category: 'nutrition', definition: 'Measures children with weight-for-height above two standard deviations from the median. This indicates excessive weight gain and nutritional imbalance.' },
+  { id: 'h14', label: 'Stunted child', type: 'health', category: 'nutrition', definition: 'Identifies children with low height-for-age, indicating chronic malnutrition. Stunting reflects long-term insufficient nutrition and repeated infections.' },
+  { id: 'h15', label: 'Underweight child', type: 'health', category: 'nutrition', definition: 'Measures children with low weight-for-age compared to reference standards. This indicates acute or chronic malnutrition affecting growth.' },
+  { id: 'h16', label: 'Wasted child', type: 'health', category: 'nutrition', definition: 'Identifies children with low weight-for-height, indicating acute malnutrition. Wasting reflects recent rapid weight loss or failure to gain weight.' },
+  { id: 'h17', label: 'No. of children who have died', type: 'health', category: 'child-health', definition: 'Counts the total number of children who have died in the household. This measure reflects child mortality experience at the household level.' },
+  { id: 'h18', label: 'No. of children who have died (3 category)', type: 'health', category: 'child-health', definition: 'Categorizes households by number of child deaths into three groups: none, one, or two or more. This provides a grouped measure of child mortality.' },
+  { id: 'h19', label: 'Death of a child', type: 'health', category: 'child-health', definition: 'Binary indicator of whether any child death has occurred in the household. This identifies families who have experienced child mortality.' },
+  { id: 'h20', label: 'No PNC for mother', type: 'health', category: 'maternal-health', definition: 'Indicates mothers who did not receive postnatal care after delivery. Maternal PNC is essential for detecting and treating postpartum complications.' },
 ];
 
 // Vulnerability factors data
 const VULNERABILITY_DATA = [
-  { id: 'v1', label: 'Any media exposure', type: 'vulnerability', category: 'suggested' },
-  { id: 'v2', label: 'Female circumcision', type: 'vulnerability', category: 'woman-past' },
-  { id: 'v3', label: 'Bank account (woman)', type: 'vulnerability', category: 'household-economics' },
-  { id: 'v4', label: 'HH clean cooking fuel', type: 'vulnerability', category: 'household-economics' },
-  { id: 'v5', label: 'HH electricity', type: 'vulnerability', category: 'household-economics' },
-  { id: 'v6', label: 'HH motor transport', type: 'vulnerability', category: 'household-economics' },
-  { id: 'v7', label: 'HH member of savings club', type: 'vulnerability', category: 'social-support' },
-  { id: 'v8', label: 'HW visit in last yr', type: 'vulnerability', category: 'health-mental-models' },
-  { id: 'v9', label: 'Media exposure: internet', type: 'vulnerability', category: 'suggested' },
-  { id: 'v10', label: 'Access problem: travel alone', type: 'vulnerability', category: 'woman-past' },
-  { id: 'v11', label: 'Mobile phone used for finances', type: 'vulnerability', category: 'household-economics' },
-  { id: 'v12', label: 'Not living w/ partner', type: 'vulnerability', category: 'household-relationship' },
-  { id: 'v13', label: 'Currently employed', type: 'vulnerability', category: 'woman-past' },
-  { id: 'v14', label: 'Age at first birth (3 category)', type: 'vulnerability', category: 'woman-past' },
-  { id: 'v15', label: 'Age at first sex (4 category)', type: 'vulnerability', category: 'woman-past' },
-  { id: 'v16', label: 'Decision maker: family planning', type: 'vulnerability', category: 'household-relationship' },
-  { id: 'v17', label: 'Decision maker: HH purchases', type: 'vulnerability', category: 'household-relationship' },
-  { id: 'v18', label: 'Decision maker: own income', type: 'vulnerability', category: 'household-relationship' },
-  { id: 'v19', label: 'Educational attainment', type: 'vulnerability', category: 'suggested' },
-  { id: 'v20', label: 'Preferred next birth interval', type: 'vulnerability', category: 'woman-past' },
+  { id: 'v1', label: 'Any media exposure', type: 'vulnerability', category: 'suggested', definition: 'Indicates whether the participant has regular access to any form of media including radio, television, newspapers, or internet. Media exposure influences health knowledge and behavior.' },
+  { id: 'v2', label: 'Female circumcision', type: 'vulnerability', category: 'woman-past', definition: 'Records whether the participant has undergone female genital mutilation or cutting. This practice has significant health implications and varies by cultural context.' },
+  { id: 'v3', label: 'Bank account (woman)', type: 'vulnerability', category: 'household-economics', definition: 'Indicates whether the woman has her own bank account. Financial inclusion empowers women and provides economic independence.' },
+  { id: 'v4', label: 'HH clean cooking fuel', type: 'vulnerability', category: 'household-economics', definition: 'Identifies households using clean cooking fuels like electricity or gas rather than biomass. Clean fuel reduces indoor air pollution and respiratory health risks.' },
+  { id: 'v5', label: 'HH electricity', type: 'vulnerability', category: 'household-economics', definition: 'Indicates whether the household has access to electricity. Electricity access enables better lighting, refrigeration, and information access.' },
+  { id: 'v6', label: 'HH motor transport', type: 'vulnerability', category: 'household-economics', definition: 'Records ownership of motorized transportation including cars, motorcycles, or scooters. Vehicle ownership indicates economic status and mobility.' },
+  { id: 'v7', label: 'HH member of savings club', type: 'vulnerability', category: 'social-support', definition: 'Indicates participation in savings groups or microfinance organizations. These groups provide financial support and social networks.' },
+  { id: 'v8', label: 'HW visit in last yr', type: 'vulnerability', category: 'health-mental-models', definition: 'Records whether a health worker visited the household in the past year. Home visits by health workers improve health education and care access.' },
+  { id: 'v9', label: 'Media exposure: internet', type: 'vulnerability', category: 'suggested', definition: 'Categorizes frequency of internet use by the participant on a weekly basis: everyday, at least once a week, less than once a week, or never. Internet access provides health information and social connections.' },
+  { id: 'v10', label: 'Access problem: travel alone', type: 'vulnerability', category: 'woman-past', definition: 'Identifies women who face barriers traveling to healthcare facilities without accompaniment. This reflects mobility restrictions and autonomy limitations.' },
+  { id: 'v11', label: 'Mobile phone used for finances', type: 'vulnerability', category: 'household-economics', definition: 'Indicates whether a mobile phone is used for financial transactions like mobile money or banking. Mobile financial services increase economic access and independence.' },
+  { id: 'v12', label: 'Not living w/ partner', type: 'vulnerability', category: 'household-relationship', definition: 'Identifies women not currently living with a spouse or partner. Living arrangements affect household decision-making and resource access.' },
+  { id: 'v13', label: 'Currently employed', type: 'vulnerability', category: 'woman-past', definition: 'Indicates whether the woman is currently engaged in paid employment. Employment provides economic independence and decision-making power.' },
+  { id: 'v14', label: 'Age at first birth (3 category)', type: 'vulnerability', category: 'woman-past', definition: 'Categorizes age at first childbirth into three groups: under 18, 18-24, or 25+. Early childbirth is associated with health and socioeconomic risks.' },
+  { id: 'v15', label: 'Age at first sex (4 category)', type: 'vulnerability', category: 'woman-past', definition: 'Categorizes age at sexual debut into four groups. Early sexual initiation is linked to reproductive health outcomes and education completion.' },
+  { id: 'v16', label: 'Decision maker: family planning', type: 'vulnerability', category: 'household-relationship', definition: 'Identifies who makes decisions about contraceptive use: woman alone, jointly with partner, partner alone, or others. Decision-making power affects reproductive autonomy.' },
+  { id: 'v17', label: 'Decision maker: HH purchases', type: 'vulnerability', category: 'household-relationship', definition: 'Identifies who makes decisions about major household purchases. Control over household spending reflects economic power within relationships.' },
+  { id: 'v18', label: 'Decision maker: own income', type: 'vulnerability', category: 'household-relationship', definition: 'Identifies who decides how the woman\'s earnings are spent. Control over personal income indicates economic autonomy and empowerment.' },
+  { id: 'v19', label: 'Educational attainment', type: 'vulnerability', category: 'suggested', definition: 'Measures the highest level of education completed: none, primary, secondary, or higher. Education strongly influences health knowledge and economic opportunities.' },
+  { id: 'v20', label: 'Preferred next birth interval', type: 'vulnerability', category: 'woman-past', definition: 'Records the woman\'s desired waiting time before next pregnancy. Birth spacing preferences affect maternal and child health outcomes.' },
   { id: 'v21', label: 'Partner opposition to FP use', type: 'vulnerability', category: 'household-relationship' },
   { id: 'v22', label: 'Sex of the head of HH', type: 'vulnerability', category: 'household-relationship' },
   { id: 'v23', label: 'HH received money', type: 'vulnerability', category: 'social-support' },
@@ -91,7 +97,7 @@ const VULNERABILITY_DATA = [
   { id: 'v25', label: 'HH water source interrupted', type: 'vulnerability', category: 'larger-environment' },
   { id: 'v26', label: 'Joint decision making index', type: 'vulnerability', category: 'household-relationship' },
   { id: 'v27', label: 'HH in malaria zone', type: 'vulnerability', category: 'larger-environment' },
-  { id: 'v28', label: 'Marital status', type: 'vulnerability', category: 'household-relationship' },
+  { id: 'v28', label: 'Marital status', type: 'vulnerability', category: 'household-relationship', definition: 'Categorizes if the participant is married, widowed, in a relationship, divorced/separated or never married. Marital status affects household resources and decision-making patterns.' },
   { id: 'v29', label: 'No. <5 yrs in HH (4 category)', type: 'vulnerability', category: 'household-relationship' },
   { id: 'v30', label: 'Total lifetime sex partners', type: 'vulnerability', category: 'woman-past' },
   { id: 'v31', label: 'Wife rank', type: 'vulnerability', category: 'household-relationship' },
@@ -99,7 +105,7 @@ const VULNERABILITY_DATA = [
   { id: 'v33', label: 'Education level (partner)', type: 'vulnerability', category: 'household-relationship' },
   { id: 'v34', label: 'Employment status', type: 'vulnerability', category: 'woman-past' },
   { id: 'v35', label: 'IPV justification', type: 'vulnerability', category: 'household-relationship' },
-  { id: 'v36', label: 'Religion', type: 'vulnerability', category: 'larger-environment' },
+  { id: 'v36', label: 'Religion', type: 'vulnerability', category: 'larger-environment', definition: 'Identifies the religion that the participant belongs to. Religious affiliation influences health beliefs, practices, and care-seeking behaviors.' },
   { id: 'v37', label: 'Age at first cohabitation (3 category)', type: 'vulnerability', category: 'woman-past' },
   { id: 'v38', label: 'Age at first birth', type: 'vulnerability', category: 'woman-past' },
   { id: 'v39', label: 'Age at first cohabitation', type: 'vulnerability', category: 'woman-past' },
@@ -113,11 +119,11 @@ const VULNERABILITY_DATA = [
   { id: 'v47', label: 'Child treated for diarrhea', type: 'vulnerability', category: 'health-mental-models' },
   { id: 'v48', label: 'HH member w/ disability', type: 'vulnerability', category: 'household-relationship' },
   { id: 'v49', label: 'Earnings relative to partner', type: 'vulnerability', category: 'household-economics' },
-  { id: 'v50', label: 'At least primary education', type: 'vulnerability', category: 'suggested' },
-  { id: 'v51', label: 'Educational attainment (binary)', type: 'vulnerability', category: 'suggested' },
-  { id: 'v52', label: 'Fertility preference', type: 'vulnerability', category: 'woman-past' },
-  { id: 'v53', label: 'Media exposure: news/journal', type: 'vulnerability', category: 'suggested' },
-  { id: 'v54', label: 'Media exposure: radio', type: 'vulnerability', category: 'suggested' },
+  { id: 'v50', label: 'At least primary education', type: 'vulnerability', category: 'suggested', definition: 'Binary indicator of whether the woman completed primary education or higher. Primary education is a critical threshold for health literacy and economic opportunities.' },
+  { id: 'v51', label: 'Educational attainment (binary)', type: 'vulnerability', category: 'suggested', definition: 'Simplified education measure categorizing participants as having formal education or no formal education. This captures the fundamental education divide.' },
+  { id: 'v52', label: 'Fertility preference', type: 'vulnerability', category: 'woman-past', definition: 'Records whether the woman wants more children, wants no more, or is undecided. Fertility preferences guide family planning needs and service targeting.' },
+  { id: 'v53', label: 'Media exposure: news/journal', type: 'vulnerability', category: 'suggested', definition: 'Categorizes frequency of reading newspapers or journals on a weekly basis: everyday, at least once a week, less than once a week, or never. Print media access indicates literacy and information access.' },
+  { id: 'v54', label: 'Media exposure: radio', type: 'vulnerability', category: 'suggested', definition: 'Categorizes the frequency of the participant listening to the radio on a weekly basis: everyday, at least once a week, less than once a week, or never. Radio is a primary health information source in many communities.' },
   { id: 'v55', label: 'Female circumcision: genital nicked', type: 'vulnerability', category: 'woman-past' },
   { id: 'v56', label: 'Female circumcision: genital sewn', type: 'vulnerability', category: 'woman-past' },
   { id: 'v57', label: 'Female circumcision: flesh removed', type: 'vulnerability', category: 'woman-past' },
@@ -145,9 +151,9 @@ const VULNERABILITY_DATA = [
   { id: 'v79', label: 'HH VCR/DVD/CD player', type: 'vulnerability', category: 'household-economics' },
   { id: 'v80', label: 'Polygamy status', type: 'vulnerability', category: 'household-relationship' },
   { id: 'v81', label: 'Where HH cooks food (6 category)', type: 'vulnerability', category: 'household-economics' },
-  { id: 'v82', label: 'Media exposure: TV', type: 'vulnerability', category: 'suggested' },
-  { id: 'v83', label: 'Phone ownership (woman)', type: 'vulnerability', category: 'household-economics' },
-  { id: 'v84', label: 'HH highest education', type: 'vulnerability', category: 'suggested' },
+  { id: 'v82', label: 'Media exposure: TV', type: 'vulnerability', category: 'suggested', definition: 'Categorizes the frequency of watching television on a weekly basis: everyday, at least once a week, less than once a week, or never. Television provides visual health education and behavior change messaging.' },
+  { id: 'v83', label: 'Phone ownership (woman)', type: 'vulnerability', category: 'household-economics', definition: 'Indicates whether the woman owns her own mobile phone. Phone ownership enables communication, information access, and economic independence.' },
+  { id: 'v84', label: 'HH highest education', type: 'vulnerability', category: 'suggested', definition: 'Records the highest level of education achieved by any household member. Household education level influences health knowledge and resource management.' },
   { id: 'v85', label: 'HH owns animals', type: 'vulnerability', category: 'household-economics' },
   { id: 'v86', label: 'Bank account (household)', type: 'vulnerability', category: 'household-economics' },
   { id: 'v87', label: 'HH bicycle', type: 'vulnerability', category: 'household-economics' },
@@ -171,7 +177,7 @@ const VULNERABILITY_DATA = [
   { id: 'v105', label: 'HH member receives money', type: 'vulnerability', category: 'social-support' },
   { id: 'v106', label: 'HH member sends money (binary)', type: 'vulnerability', category: 'social-support' },
   { id: 'v107', label: 'Where HH cooks food (3 category)', type: 'vulnerability', category: 'household-economics' },
-  { id: 'v108', label: 'HH highest education: 7+', type: 'vulnerability', category: 'suggested' },
+  { id: 'v108', label: 'HH highest education: 7+', type: 'vulnerability', category: 'suggested', definition: 'Indicates whether the highest education in the household is 7 or more years of schooling. This threshold represents completion of primary education and affects household health practices.' },
   { id: 'v109', label: 'Child <3yr given micronutrient', type: 'vulnerability', category: 'health-mental-models' },
   { id: 'v110', label: 'HW talked about FP', type: 'vulnerability', category: 'health-mental-models' },
   { id: 'v111', label: 'Religion: Islam', type: 'vulnerability', category: 'larger-environment' },
@@ -401,6 +407,8 @@ export default function HealthDataModal({ onClose }) {
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
   const [appliedFilters, setAppliedFilters] = useState([]);
   const [tempFilters, setTempFilters] = useState([]);
+  const [hoveredSuggested, setHoveredSuggested] = useState(null);
+  const [hoveredInfoIcon, setHoveredInfoIcon] = useState(null);
   const filterButtonRef = useRef(null);
 
   const toggleItem = (id) => {
@@ -671,8 +679,26 @@ export default function HealthDataModal({ onClose }) {
                                     {highlightSearchTerm(item.label)}
                                   </span>
                                 </div>
-                                <div className="w-[20px] h-[20px] flex-shrink-0">
+                                <div
+                                  className="w-[20px] h-[20px] flex-shrink-0 relative"
+                                  onMouseEnter={(e) => {
+                                    e.stopPropagation();
+                                    setHoveredInfoIcon(item.id);
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    e.stopPropagation();
+                                    setHoveredInfoIcon(null);
+                                  }}
+                                  onClick={(e) => e.stopPropagation()}
+                                >
                                   <InfoIcon />
+                                  {hoveredInfoIcon === item.id && item.definition && (
+                                    <div className="absolute right-0 top-full mt-[4px] z-[10000] bg-[#636b74] rounded-[6px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08),0px_2px_4px_0px_rgba(21,21,21,0.08)] px-[12px] py-[8px] w-[320px] pointer-events-none">
+                                      <p className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1]">
+                                        {item.definition}
+                                      </p>
+                                    </div>
+                                  )}
                                 </div>
                               </button>
                             ))}
@@ -707,12 +733,76 @@ export default function HealthDataModal({ onClose }) {
                                       </svg>
                                     )}
                                   </div>
-                                  <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#171a1c]">
-                                    {highlightSearchTerm(item.label)}
-                                  </span>
+                                  {item.category === 'suggested' ? (
+                                    <div className="flex items-center gap-[4px]">
+                                      <div
+                                        className="flex items-center gap-[4px] relative"
+                                        onMouseEnter={() => setHoveredSuggested(item.id)}
+                                        onMouseLeave={() => setHoveredSuggested(null)}
+                                      >
+                                        <SuggestedInfoIcon />
+                                        <span className="font-['Inter'] font-semibold text-[12px] leading-[1.66] text-[#2d7a00]">
+                                          Suggested:
+                                        </span>
+
+                                        {/* Tooltip */}
+                                        {hoveredSuggested === item.id && (
+                                          <div className="absolute left-0 top-full mt-[4px] z-[10000] bg-[#636b74] rounded-[6px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08),0px_2px_4px_0px_rgba(21,21,21,0.08)] px-[12px] py-[8px] w-[361px] pointer-events-none">
+                                            <div className="flex gap-[8px] items-baseline">
+                                              <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1] whitespace-nowrap">
+                                                Based on:
+                                              </span>
+                                              <div className="flex flex-wrap gap-[4px] items-center text-[14px] leading-[1.42]">
+                                                <span className="font-['Inter'] font-semibold text-white">
+                                                  Very strong (0.9)
+                                                </span>
+                                                <span className="font-['Inter'] text-[#cdd7e1]">
+                                                  statistical correlation with:
+                                                </span>
+                                                <span className="font-['Inter'] font-semibold text-white">
+                                                  Less than 4 ANC visits
+                                                </span>
+                                              </div>
+                                            </div>
+                                            {/* Arrow */}
+                                            <div className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[18px] h-[18px] rotate-180">
+                                              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                                <path d="M9 0L18 9L9 18L0 9L9 0Z" fill="#636b74"/>
+                                              </svg>
+                                            </div>
+                                          </div>
+                                        )}
+                                      </div>
+                                      <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#171a1c]">
+                                        {highlightSearchTerm(item.label)}
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#171a1c]">
+                                      {highlightSearchTerm(item.label)}
+                                    </span>
+                                  )}
                                 </div>
-                                <div className="w-[20px] h-[20px] flex-shrink-0">
+                                <div
+                                  className="w-[20px] h-[20px] flex-shrink-0 relative"
+                                  onMouseEnter={(e) => {
+                                    e.stopPropagation();
+                                    setHoveredInfoIcon(item.id);
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    e.stopPropagation();
+                                    setHoveredInfoIcon(null);
+                                  }}
+                                  onClick={(e) => e.stopPropagation()}
+                                >
                                   <InfoIcon />
+                                  {hoveredInfoIcon === item.id && item.definition && (
+                                    <div className="absolute right-0 top-full mt-[4px] z-[10000] bg-[#636b74] rounded-[6px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08),0px_2px_4px_0px_rgba(21,21,21,0.08)] px-[12px] py-[8px] w-[320px] pointer-events-none">
+                                      <p className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1]">
+                                        {item.definition}
+                                      </p>
+                                    </div>
+                                  )}
                                 </div>
                               </button>
                             ))}
@@ -744,12 +834,76 @@ export default function HealthDataModal({ onClose }) {
                                   </svg>
                                 )}
                               </div>
-                              <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#171a1c]">
-                                {highlightSearchTerm(item.label)}
-                              </span>
+                              {item.type === 'vulnerability' && item.category === 'suggested' ? (
+                                <div className="flex items-center gap-[4px]">
+                                  <div
+                                    className="flex items-center gap-[4px] relative"
+                                    onMouseEnter={() => setHoveredSuggested(item.id)}
+                                    onMouseLeave={() => setHoveredSuggested(null)}
+                                  >
+                                    <SuggestedInfoIcon />
+                                    <span className="font-['Inter'] font-semibold text-[12px] leading-[1.66] text-[#2d7a00]">
+                                      Suggested:
+                                    </span>
+
+                                    {/* Tooltip */}
+                                    {hoveredSuggested === item.id && (
+                                      <div className="absolute left-0 top-full mt-[4px] z-[10000] bg-[#636b74] rounded-[6px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08),0px_2px_4px_0px_rgba(21,21,21,0.08)] px-[12px] py-[8px] w-[361px] pointer-events-none">
+                                        <div className="flex gap-[8px] items-baseline">
+                                          <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1] whitespace-nowrap">
+                                            Based on:
+                                          </span>
+                                          <div className="flex flex-wrap gap-[4px] items-center text-[14px] leading-[1.42]">
+                                            <span className="font-['Inter'] font-semibold text-white">
+                                              Very strong (0.9)
+                                            </span>
+                                            <span className="font-['Inter'] text-[#cdd7e1]">
+                                              statistical correlation with:
+                                            </span>
+                                            <span className="font-['Inter'] font-semibold text-white">
+                                              Less than 4 ANC visits
+                                            </span>
+                                          </div>
+                                        </div>
+                                        {/* Arrow */}
+                                        <div className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[18px] h-[18px] rotate-180">
+                                          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                            <path d="M9 0L18 9L9 18L0 9L9 0Z" fill="#636b74"/>
+                                          </svg>
+                                        </div>
+                                      </div>
+                                    )}
+                                  </div>
+                                  <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#171a1c]">
+                                    {highlightSearchTerm(item.label)}
+                                  </span>
+                                </div>
+                              ) : (
+                                <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#171a1c]">
+                                  {highlightSearchTerm(item.label)}
+                                </span>
+                              )}
                             </div>
-                            <div className="w-[20px] h-[20px] flex-shrink-0">
+                            <div
+                              className="w-[20px] h-[20px] flex-shrink-0 relative"
+                              onMouseEnter={(e) => {
+                                e.stopPropagation();
+                                setHoveredInfoIcon(item.id);
+                              }}
+                              onMouseLeave={(e) => {
+                                e.stopPropagation();
+                                setHoveredInfoIcon(null);
+                              }}
+                              onClick={(e) => e.stopPropagation()}
+                            >
                               <InfoIcon />
+                              {hoveredInfoIcon === item.id && item.definition && (
+                                <div className="absolute right-0 top-full mt-[4px] z-[10000] bg-[#636b74] rounded-[6px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08),0px_2px_4px_0px_rgba(21,21,21,0.08)] px-[12px] py-[8px] w-[320px] pointer-events-none">
+                                  <p className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1]">
+                                    {item.definition}
+                                  </p>
+                                </div>
+                              )}
                             </div>
                           </button>
                         ))}
