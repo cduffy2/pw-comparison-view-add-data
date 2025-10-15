@@ -105,8 +105,15 @@ export default function EmptyState({ onOpenModal, onOpenTemplateModal }) {
       <div className="basis-0 box-border content-stretch flex flex-col grow items-start min-h-px min-w-px overflow-clip pb-[40px] pt-0 px-[40px] relative shrink-0 w-full z-[1]">
         <div className="basis-0 bg-white border border-[#97c3f0] border-solid box-border content-stretch flex flex-col gap-[16px] grow items-center justify-center min-h-px min-w-px p-[40px] relative rounded-[6px] shrink-0 w-full">
 
-          {/* Two Card Layout */}
-          <div className="flex gap-[24px] items-start">
+          {/* Title and Cards Container */}
+          <div className="content-stretch flex flex-col gap-[16px] items-center relative shrink-0">
+            {/* Title */}
+            <p className="font-['Inter'] font-bold leading-[1.33] text-[#171a1c] text-[30px] text-center">
+              Uncover health insights across segments
+            </p>
+
+            {/* Two Card Layout */}
+            <div className="flex gap-[24px] items-start">
             {/* Left Card - Start with a template */}
             <div
               onClick={onOpenTemplateModal}
@@ -138,6 +145,7 @@ export default function EmptyState({ onOpenModal, onOpenTemplateModal }) {
                 </p>
               </div>
             </div>
+          </div>
           </div>
 
         </div>
