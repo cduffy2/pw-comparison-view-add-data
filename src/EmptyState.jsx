@@ -1,7 +1,8 @@
 import Logo from './Logo';
-import emptyStateImage from './assets/empty-state.png';
+import templateImage from './assets/Template.png';
+import scratchImage from './assets/Scratch.png';
 
-export default function EmptyState({ onOpenModal }) {
+export default function EmptyState({ onOpenModal, onOpenTemplateModal }) {
 
   return (
     <div className="bg-[#fdf8f5] content-stretch flex flex-col isolate items-start relative size-full" data-name="Empty" data-node-id="10714:36892">
@@ -102,49 +103,43 @@ export default function EmptyState({ onOpenModal }) {
 
       {/* Main Content - Empty State */}
       <div className="basis-0 box-border content-stretch flex flex-col grow items-start min-h-px min-w-px overflow-clip pb-[40px] pt-0 px-[40px] relative shrink-0 w-full z-[1]">
-        <div className="basis-0 bg-white border border-[#97c3f0] border-solid box-border content-stretch flex flex-col gap-[16px] grow items-center justify-center min-h-px min-w-px p-[8px] relative rounded-[6px] shrink-0 w-full">
-          {/* Illustration */}
-          <img src={emptyStateImage} alt="Health data comparison illustration" className="h-[116px] w-auto" />
+        <div className="basis-0 bg-white border border-[#97c3f0] border-solid box-border content-stretch flex flex-col gap-[16px] grow items-center justify-center min-h-px min-w-px p-[40px] relative rounded-[6px] shrink-0 w-full">
 
-          {/* Text Content */}
-          <div className="content-stretch flex flex-col gap-[8px] items-center text-center max-w-[607px]">
-            <p className="font-['Inter'] font-bold leading-[1.33] text-[#171a1c] text-[30px] w-full">
-              Uncover health insights across segments
-            </p>
-            <p className="font-['Inter'] font-normal leading-[1.55] text-[#555e68] text-[20px] w-full">
-              Compare outcomes, behaviours, and vulnerability factors to gain deeper understanding of your population data
-            </p>
-          </div>
-
-          {/* CTA Button - UPDATED WITH ONCLICK */}
-          <button
-            onClick={onOpenModal}
-            className="bg-[#0b6bcb] box-border content-stretch cursor-pointer flex gap-[8px] items-center justify-center min-h-[40px] px-[16px] py-[4px] relative rounded-[6px] shrink-0 hover:bg-[#0a5fb0] transition-colors"
-          >
-            <p className="font-['Inter'] font-semibold leading-[14px] text-[14px] text-white whitespace-pre">
-              Select data to compare
-            </p>
-            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none">
-              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-
-          {/* Help Menu */}
-          <div className="content-stretch flex flex-col gap-[16px] items-center relative shrink-0">
-            <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
-              <div className="bg-[#cdd7e1] h-px shrink-0 w-[64px]" />
-              <p className="font-['Inter'] font-normal leading-[1.5] text-[#555e68] text-[16px] text-center text-nowrap whitespace-pre">or</p>
-              <div className="bg-[#cdd7e1] h-px shrink-0 w-[64px]" />
+          {/* Two Card Layout */}
+          <div className="flex gap-[24px] items-start">
+            {/* Left Card - Start with a template */}
+            <div
+              onClick={onOpenTemplateModal}
+              className="bg-[#f0f4f8] border border-[#97c3f0] rounded-[8px] p-[40px] w-[340px] h-[315px] flex flex-col gap-[24px] cursor-pointer hover:border-[#0b6bcb] transition-colors"
+            >
+              <img src={templateImage} alt="Template illustration" className="h-[116px] w-auto object-contain" />
+              <div className="flex flex-col gap-[8px]">
+                <p className="font-['Inter'] font-semibold text-[20px] leading-[1.5] text-[#171a1c]">
+                  Start with a template
+                </p>
+                <p className="font-['Inter'] font-normal text-[18px] leading-[1.55] text-[#555e68]">
+                  Curated views of data points across a wide range of topics
+                </p>
+              </div>
             </div>
-            <div className="content-stretch flex flex-col gap-[2px] items-start justify-center relative shrink-0">
-              <div className="content-stretch flex gap-[4px] items-center relative shrink-0 cursor-pointer hover:underline">
-                <svg className="w-4 h-4" viewBox="0 0 16 16" fill="#0b6bcb">
-                  <path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 10a1 1 0 110-2 1 1 0 010 2zm1-3.5v.5a1 1 0 11-2 0v-1a1 1 0 011-1 1.5 1.5 0 10-1.5-1.5 1 1 0 11-2 0A3.5 3.5 0 118 8a1 1 0 00-1 1z"/>
-                </svg>
-                <p className="font-['Inter'] font-semibold leading-[14px] text-[#0b6bcb] text-[14px] text-nowrap whitespace-pre">Learn about this page</p>
+
+            {/* Right Card - Build from scratch */}
+            <div
+              onClick={onOpenModal}
+              className="bg-[#f0f4f8] border border-[#97c3f0] rounded-[8px] p-[40px] w-[340px] h-[315px] flex flex-col gap-[24px] cursor-pointer hover:border-[#0b6bcb] transition-colors"
+            >
+              <img src={scratchImage} alt="Build from scratch illustration" className="h-[96px] w-auto object-contain" />
+              <div className="flex flex-col gap-[8px]">
+                <p className="font-['Inter'] font-semibold text-[20px] leading-[1.5] text-[#171a1c]">
+                  Build from scratch
+                </p>
+                <p className="font-['Inter'] font-normal text-[18px] leading-[1.55] text-[#555e68]">
+                  Select data points to compare yourself
+                </p>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
