@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import FilterIcon from './assets/FilterListFilled.png';
 
 // SVG Icons
 const SearchIcon = () => (
@@ -495,11 +496,18 @@ export default function HealthDataModal({ onClose }) {
   // Get filter button text
   const getFilterButtonText = () => {
     if (appliedFilters.length === 0) {
-      return 'Show all';
+      // Default text based on active tab
+      if (activeTab === 'all') {
+        return 'Health area / vulnerability domain';
+      } else if (activeTab === 'health') {
+        return 'Health area';
+      } else {
+        return 'Vulnerability domain';
+      }
     } else if (appliedFilters.length === 1) {
       const allCategories = [...HEALTH_CATEGORIES, ...VULNERABILITY_CATEGORIES];
       const filter = allCategories.find(cat => cat.id === appliedFilters[0]);
-      return filter ? filter.label : 'Show all';
+      return filter ? filter.label : getFilterButtonText();
     } else {
       return `${appliedFilters.length} selected`;
     }
@@ -614,7 +622,7 @@ export default function HealthDataModal({ onClose }) {
       <div
         className="fixed inset-0 z-40 backdrop-blur-sm"
         style={{ backgroundColor: 'rgba(0, 12, 36, 0.85)' }}
-        onClick={onClose}
+        onClick={() => onClose(false)}
       />
 
       {/* Modal */}
@@ -623,7 +631,7 @@ export default function HealthDataModal({ onClose }) {
 
           {/* Close Button */}
           <button
-            onClick={onClose}
+            onClick={() => onClose(false)}
             className="absolute right-[-24px] top-[-24px] bg-white border border-[#97c3f0] rounded-full w-[48px] h-[48px] flex items-center justify-center hover:bg-[#f0f4f8] transition-colors z-10"
           >
             <div className="w-[20px] h-[20px]">
@@ -705,7 +713,7 @@ export default function HealthDataModal({ onClose }) {
               <div className="flex-1 border border-[#97c3f0] rounded-[6px] flex flex-col min-h-0">
 
                 {/* Header with Filter */}
-                <div className="bg-[#dde7ee] border-b border-[#97c3f0] h-[32px] px-[16px] flex items-center justify-between relative" style={{ zIndex: 100 }}>
+                <div className="bg-[#dde7ee] border-b border-[#97c3f0] h-[32px] px-[16px] flex items-center justify-between relative" style={{ zIndex: 200 }}>
                   <span className="font-['Inter'] font-semibold text-[14px] leading-[1.42] text-[#555e68]">
                     {activeTab === 'all' && `All data (${ALL_DATA.length})`}
                     {activeTab === 'health' && `Health outcomes and behaviours (${HEALTH_DATA.length})`}
@@ -726,9 +734,12 @@ export default function HealthDataModal({ onClose }) {
                     )}
                   </span>
                   <div className="flex items-center gap-[4px] relative">
-                    <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#555e68]">
-                      Filter:
-                    </span>
+                    <div className="flex items-center gap-[4px]">
+                      <img src={FilterIcon} alt="Filter" className="w-[16px] h-[16px]" />
+                      <span className="font-['Inter'] font-semibold text-[14px] leading-[1.42] text-[#555e68]">
+                        Filter:
+                      </span>
+                    </div>
                     <button
                       ref={filterButtonRef}
                       onClick={handleFilterButtonClick}
@@ -1145,7 +1156,7 @@ export default function HealthDataModal({ onClose }) {
 
               {/* Compare Button */}
               <button
-                onClick={onClose}
+                onClick={() => onClose(true)}
                 className="bg-[#0b6bcb] rounded-[6px] px-[16px] py-[4px] min-h-[40px] flex items-center justify-center gap-[8px] hover:bg-[#0a5fb0] transition-colors"
               >
                 <span className="font-['Inter'] font-semibold text-[14px] leading-[14px] text-white">

@@ -20,6 +20,11 @@ function App() {
     setShowTemplateModal(true)
   }
 
+  // Handler for when topic cards are clicked - go directly to comparison view
+  const handleTopicCardClick = () => {
+    setShowComparison(true)
+  }
+
   const handleCloseModal = (shouldCompare) => {
     setShowModal(false)
     if (shouldCompare) {
@@ -48,7 +53,11 @@ function App() {
 
   return (
     <>
-      <EmptyState onOpenModal={handleOpenModal} onOpenTemplateModal={handleOpenTemplateModal} />
+      <EmptyState
+        onOpenModal={handleOpenModal}
+        onOpenTemplateModal={handleOpenTemplateModal}
+        onTopicCardClick={handleTopicCardClick}
+      />
       {showModal && <HealthDataModal onClose={handleCloseModal} />}
       {showTemplateModal && <TemplateModal isOpen={showTemplateModal} onClose={handleCloseTemplateModal} onLoadTemplate={handleLoadTemplate} />}
     </>

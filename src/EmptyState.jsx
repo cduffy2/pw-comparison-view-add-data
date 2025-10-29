@@ -1,13 +1,37 @@
 import Logo from './Logo';
-import templateImage from './assets/Template.png';
-import scratchImage from './assets/Scratch.png';
+import InfoOutlined from './assets/InfoOutlined.svg';
+import lactationIcon from './assets/lactation 1.png';
+import boyIcon from './assets/boy-0105y 1.png';
+import mobileIcon from './assets/mobile 1.png';
+import familyPlanningIcon from './assets/family-planning 1.png';
+import syringeIcon from './assets/syringe 1.png';
+import rmnhIcon from './assets/rmnh 1.png';
+import mentalHealthIcon from './assets/mental-health 1.png';
+import moreIcon from './assets/More.png';
 
-export default function EmptyState({ onOpenModal, onOpenTemplateModal }) {
+// Topic Card Component with hover state
+function TopicCard({ icon, title, onClick }) {
+  return (
+    <div
+      onClick={onClick}
+      className="bg-[#f0f4f8] border border-[#97c3f0] border-solid box-border content-stretch flex flex-col gap-[8px] h-[112px] items-center p-[16px] relative rounded-[4px] shrink-0 w-[160px] cursor-pointer transition-colors hover:bg-[#dde7ee] hover:border-[#026acc]"
+    >
+      <div className="relative shrink-0 size-[48px]">
+        <img alt={title} className="block max-w-none size-full" src={icon} />
+      </div>
+      <p className="font-['Inter'] font-semibold leading-[1.5] not-italic relative shrink-0 text-[16px] text-[#0b6bcb] text-center text-nowrap whitespace-pre">
+        {title}
+      </p>
+    </div>
+  );
+}
+
+export default function EmptyState({ onOpenModal, onTopicCardClick }) {
 
   return (
-    <div className="bg-[#fdf8f5] content-stretch flex flex-col isolate items-start relative size-full" data-name="Empty" data-node-id="10714:36892">
+    <div className="bg-[#fdf8f5] content-stretch flex flex-col isolate items-start relative size-full min-h-screen">
       {/* Top Navigation */}
-      <div className="content-stretch flex flex-col items-start relative shrink-0 w-full z-[3]" data-name="Top nav" data-node-id="10714:36893">
+      <div className="content-stretch flex flex-col items-start relative shrink-0 w-full z-[3]">
         {/* Primary Navigation */}
         <div className="bg-white border-[#97c3f0] border-[0px_0px_1px] border-solid h-[56px] relative shrink-0 w-full">
           <div className="box-border content-stretch flex items-center justify-between pl-[38px] pr-[27px] py-[8px] relative size-full">
@@ -96,56 +120,58 @@ export default function EmptyState({ onOpenModal, onOpenTemplateModal }) {
         <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-full">
           <p className="font-['Inter'] font-semibold leading-[1.5] text-[#171a1c] text-[24px] text-nowrap whitespace-pre">Comparison tool</p>
           <div className="overflow-clip relative shrink-0 size-[24px]">
-            {/* Question icon */}
+            <img src={InfoOutlined} alt="Info" className="size-full" />
           </div>
         </div>
       </div>
 
-      {/* Main Content - Empty State */}
+      {/* Main Content - Empty State with Topic Cards */}
       <div className="basis-0 box-border content-stretch flex flex-col grow items-start min-h-px min-w-px overflow-clip pb-[40px] pt-0 px-[40px] relative shrink-0 w-full z-[1]">
-        <div className="basis-0 bg-white border border-[#97c3f0] border-solid box-border content-stretch flex flex-col gap-[16px] grow items-center justify-center min-h-px min-w-px p-[40px] relative rounded-[6px] shrink-0 w-full">
+        <div className="basis-0 bg-white border border-[#97c3f0] border-solid box-border content-stretch flex flex-col gap-[40px] grow items-center min-h-px min-w-px p-[40px] relative rounded-[6px] shrink-0 w-full">
 
-          {/* Title and Cards Container */}
-          <div className="content-stretch flex flex-col gap-[16px] items-center relative shrink-0">
-            {/* Title */}
-            <p className="font-['Inter'] font-bold leading-[1.33] text-[#171a1c] text-[30px] text-center">
-              Uncover health insights across segments
-            </p>
+          {/* Main Title */}
+          <p className="font-['Inter'] font-bold leading-[1.33] min-w-full not-italic relative shrink-0 text-[30px] text-[#171a1c] text-center w-[min-content]">
+            Uncover health insights across segments
+          </p>
 
-            {/* Two Card Layout */}
-            <div className="flex gap-[24px] items-start">
-            {/* Left Card - Start with a template */}
-            <div
-              onClick={onOpenTemplateModal}
-              className="bg-[#f0f4f8] border border-[#97c3f0] rounded-[8px] p-[40px] w-[340px] h-[315px] flex flex-col gap-[24px] cursor-pointer hover:border-[#0b6bcb] transition-colors"
-            >
-              <img src={templateImage} alt="Template illustration" className="h-[116px] w-auto object-contain" />
-              <div className="flex flex-col gap-[8px]">
-                <p className="font-['Inter'] font-semibold text-[20px] leading-[1.5] text-[#171a1c]">
-                  Start with a template
-                </p>
-                <p className="font-['Inter'] font-normal text-[18px] leading-[1.55] text-[#555e68]">
-                  Curated views of data points across a wide range of topics
-                </p>
+          <div className="content-stretch flex flex-col gap-[40px] items-center relative shrink-0">
+            {/* Explore by topic section */}
+            <div className="content-stretch flex flex-col gap-[16px] items-center relative shrink-0">
+              <p className="font-['Inter'] font-semibold leading-[1.55] not-italic relative shrink-0 text-[20px] text-[#171a1c] text-center text-nowrap whitespace-pre">
+                Explore by topic
+              </p>
+
+              {/* Topic Cards Grid */}
+              <div className="content-start flex flex-wrap gap-[16px] items-start relative shrink-0 w-[688px]">
+                <TopicCard icon={lactationIcon} title="Breastfeeding" onClick={onTopicCardClick} />
+                <TopicCard icon={boyIcon} title="Child health" onClick={onTopicCardClick} />
+                <TopicCard icon={mobileIcon} title="Digital access" onClick={onTopicCardClick} />
+                <TopicCard icon={familyPlanningIcon} title="Family planning" onClick={onTopicCardClick} />
+                <TopicCard icon={syringeIcon} title="Immunisation" onClick={onTopicCardClick} />
+                <TopicCard icon={rmnhIcon} title="Maternal health" onClick={onTopicCardClick} />
+                <TopicCard icon={mentalHealthIcon} title="Mental health" onClick={onTopicCardClick} />
+                <TopicCard icon={moreIcon} title="View more" onClick={onTopicCardClick} />
               </div>
             </div>
 
-            {/* Right Card - Build from scratch */}
-            <div
+            {/* Divider with "or" */}
+            <div className="content-stretch flex gap-[16px] items-center relative shrink-0">
+              <div className="bg-[#555e68] h-px shrink-0 w-[120px]" />
+              <p className="font-['Inter'] font-semibold leading-[1.55] not-italic relative shrink-0 text-[20px] text-[#555e68] text-center text-nowrap whitespace-pre">
+                or
+              </p>
+              <div className="bg-[#555e68] h-px shrink-0 w-[120px]" />
+            </div>
+
+            {/* Select data points individually button */}
+            <button
               onClick={onOpenModal}
-              className="bg-[#f0f4f8] border border-[#97c3f0] rounded-[8px] p-[40px] w-[340px] h-[315px] flex flex-col gap-[24px] cursor-pointer hover:border-[#0b6bcb] transition-colors"
+              className="border border-[#97c3f0] border-solid box-border content-stretch flex gap-[12px] items-center justify-center min-h-[48px] px-[24px] py-[6px] relative rounded-[6px] shrink-0 hover:bg-[#f0f4f8] transition-colors"
             >
-              <img src={scratchImage} alt="Build from scratch illustration" className="h-[96px] w-auto object-contain" />
-              <div className="flex flex-col gap-[8px]">
-                <p className="font-['Inter'] font-semibold text-[20px] leading-[1.5] text-[#171a1c]">
-                  Build from scratch
-                </p>
-                <p className="font-['Inter'] font-normal text-[18px] leading-[1.55] text-[#555e68]">
-                  Select data points to compare yourself
-                </p>
-              </div>
-            </div>
-          </div>
+              <p className="font-['Inter'] font-semibold leading-[16px] not-italic relative shrink-0 text-[16px] text-[#0b6bcb] text-nowrap whitespace-pre">
+                Select data points individually
+              </p>
+            </button>
           </div>
 
         </div>
