@@ -46,31 +46,53 @@ const SuggestedInfoIcon = () => (
 );
 
 // MUI Chip component based on design system
-const Chip = ({ label, icon, onMouseEnter, onMouseLeave, showTooltip, tooltipContent }) => (
-  <div
-    className="inline-flex items-center gap-[4px] px-[8px] py-[4px] rounded-[16px] bg-[#e8f5e1] relative"
-    onMouseEnter={onMouseEnter}
-    onMouseLeave={onMouseLeave}
-  >
-    {icon && <span className="flex items-center">{icon}</span>}
-    <span className="font-['Inter'] font-medium text-[12px] leading-[1.66] text-[#2d7a00]">
-      {label}
-    </span>
+const Chip = ({ label, icon, onMouseEnter, onMouseLeave, showTooltip, tooltipContent }) => {
+  const chipRef = useRef(null);
+  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
 
-    {/* Tooltip */}
-    {showTooltip && tooltipContent && (
-      <div className="absolute left-0 top-full mt-[4px] z-[10000] bg-[#636b74] rounded-[6px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08),0px_2px_4px_0px_rgba(21,21,21,0.08)] px-[12px] py-[8px] w-[361px] pointer-events-none">
-        {tooltipContent}
-        {/* Arrow */}
-        <div className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[18px] h-[18px] rotate-180">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M9 0L18 9L9 18L0 9L9 0Z" fill="#636b74"/>
-          </svg>
-        </div>
+  useEffect(() => {
+    if (showTooltip && chipRef.current) {
+      const rect = chipRef.current.getBoundingClientRect();
+      setTooltipPosition({
+        top: rect.top - 8,
+        left: rect.left
+      });
+    }
+  }, [showTooltip]);
+
+  return (
+    <>
+      <div
+        ref={chipRef}
+        className="inline-flex items-center gap-[4px] px-[8px] py-[4px] rounded-[16px] bg-[#e8f5e1] relative"
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        {icon && <span className="flex items-center">{icon}</span>}
+        <span className="font-['Inter'] font-medium text-[12px] leading-[1.66] text-[#2d7a00]">
+          {label}
+        </span>
       </div>
-    )}
-  </div>
-);
+
+      {/* Tooltip - rendered with fixed positioning */}
+      {showTooltip && tooltipContent && (
+        <div
+          className="fixed bg-[#636b74] rounded-[6px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08),0px_2px_4px_0px_rgba(21,21,21,0.08)] px-[12px] py-[8px] w-[361px] pointer-events-none"
+          style={{
+            zIndex: 99999,
+            top: `${tooltipPosition.top}px`,
+            left: `${tooltipPosition.left}px`,
+            transform: 'translateY(-100%)'
+          }}
+        >
+          {tooltipContent}
+          {/* Arrow pointing down */}
+          <div className="absolute left-[12px] bottom-0 translate-y-1/2 w-[12px] h-[12px] rotate-45 bg-[#636b74]"></div>
+        </div>
+      )}
+    </>
+  );
+};
 
 // Domain Title Bar component - scrolls normally
 const DomainTitleBar = ({ label, domainId }) => {
@@ -110,14 +132,14 @@ const HEALTH_DATA = [
 
 // Vulnerability factors data
 const VULNERABILITY_DATA = [
-  { id: 'v1', label: 'Any media exposure', type: 'vulnerability', category: 'suggested', domain: 'human-natural-systems', definition: 'Indicates whether the participant has regular access to any form of media including radio, television, newspapers, or internet. Media exposure influences health knowledge and behavior.' },
+  { id: 'v1', label: 'Any media exposure', type: 'vulnerability', category: 'suggested', domain: 'human-natural-systems', definition: 'Indicates whether the participant has regular access to any form of media including radio, television, newspapers, or internet. Media exposure influences health knowledge and behavior.', significance: '***', associations: ['Less than 4 ANC visits', 'No PNC for newborn'] },
   { id: 'v3', label: 'Bank account (woman)', type: 'vulnerability', category: 'household-economics', domain: 'household-economics', definition: 'Indicates whether the woman has her own bank account. Financial inclusion empowers women and provides economic independence.' },
   { id: 'v4', label: 'HH clean cooking fuel', type: 'vulnerability', category: 'household-economics', domain: 'household-economics', definition: 'Identifies households using clean cooking fuels like electricity or gas rather than biomass. Clean fuel reduces indoor air pollution and respiratory health risks.' },
   { id: 'v5', label: 'HH electricity', type: 'vulnerability', category: 'household-economics', domain: 'household-economics', definition: 'Indicates whether the household has access to electricity. Electricity access enables better lighting, refrigeration, and information access.' },
   { id: 'v6', label: 'HH motor transport', type: 'vulnerability', category: 'household-economics', domain: 'household-economics', definition: 'Records ownership of motorized transportation including cars, motorcycles, or scooters. Vehicle ownership indicates economic status and mobility.' },
   { id: 'v7', label: 'HH member of savings club', type: 'vulnerability', category: 'social-support', domain: 'social-support', definition: 'Indicates participation in savings groups or microfinance organizations. These groups provide financial support and social networks.' },
   { id: 'v8', label: 'HW visit in last yr', type: 'vulnerability', category: 'health-mental-models', domain: 'health-mental-models', definition: 'Records whether a health worker visited the household in the past year. Home visits by health workers improve health education and care access.' },
-  { id: 'v9', label: 'Media exposure: internet', type: 'vulnerability', category: 'suggested', domain: 'human-natural-systems', definition: 'Categorizes frequency of internet use by the participant on a weekly basis: everyday, at least once a week, less than once a week, or never. Internet access provides health information and social connections.' },
+  { id: 'v9', label: 'Media exposure: internet', type: 'vulnerability', category: 'suggested', domain: 'human-natural-systems', definition: 'Categorizes frequency of internet use by the participant on a weekly basis: everyday, at least once a week, less than once a week, or never. Internet access provides health information and social connections.', significance: '**', associations: ['Never breastfed'] },
   { id: 'v10', label: 'Access problem: travel alone', type: 'vulnerability', category: 'woman-past', domain: 'woman-past', definition: 'Identifies women who face barriers traveling to healthcare facilities without accompaniment. This reflects mobility restrictions and autonomy limitations.' },
   { id: 'v11', label: 'Mobile phone used for finances', type: 'vulnerability', category: 'household-economics', domain: 'household-economics', definition: 'Indicates whether a mobile phone is used for financial transactions like mobile money or banking. Mobile financial services increase economic access and independence.' },
   { id: 'v12', label: 'Not living w/ partner', type: 'vulnerability', category: 'household-relationship', domain: 'household-relationship', definition: 'Identifies women not currently living with a spouse or partner. Living arrangements affect household decision-making and resource access.' },
@@ -127,7 +149,7 @@ const VULNERABILITY_DATA = [
   { id: 'v16', label: 'Decision maker: family planning', type: 'vulnerability', category: 'household-relationship', domain: 'household-relationship', definition: 'Identifies who makes decisions about contraceptive use: woman alone, jointly with partner, partner alone, or others. Decision-making power affects reproductive autonomy.' },
   { id: 'v17', label: 'Decision maker: HH purchases', type: 'vulnerability', category: 'household-relationship', domain: 'household-relationship', definition: 'Identifies who makes decisions about major household purchases. Control over household spending reflects economic power within relationships.' },
   { id: 'v18', label: 'Decision maker: own income', type: 'vulnerability', category: 'household-relationship', domain: 'household-relationship', definition: 'Identifies who decides how the woman\'s earnings are spent. Control over personal income indicates economic autonomy and empowerment.' },
-  { id: 'v19', label: 'Educational attainment', type: 'vulnerability', category: 'suggested', domain: 'woman-past', definition: 'Measures the highest level of education completed: none, primary, secondary, or higher. Education strongly influences health knowledge and economic opportunities.' },
+  { id: 'v19', label: 'Educational attainment', type: 'vulnerability', category: 'suggested', domain: 'woman-past', definition: 'Measures the highest level of education completed: none, primary, secondary, or higher. Education strongly influences health knowledge and economic opportunities.', significance: '***', associations: ['Less than 4 ANC visits'] },
   { id: 'v20', label: 'Preferred next birth interval', type: 'vulnerability', category: 'woman-past', domain: 'woman-past', definition: 'Records the woman\'s desired waiting time before next pregnancy. Birth spacing preferences affect maternal and child health outcomes.' },
   { id: 'v21', label: 'Partner opposition to FP use', type: 'vulnerability', category: 'household-relationship', domain: 'household-relationship' },
   { id: 'v22', label: 'Sex of the head of HH', type: 'vulnerability', category: 'household-relationship', domain: 'household-relationship' },
@@ -158,11 +180,11 @@ const VULNERABILITY_DATA = [
   { id: 'v47', label: 'Child treated for diarrhea', type: 'vulnerability', category: 'health-mental-models', domain: 'health-mental-models' },
   { id: 'v48', label: 'HH member w/ disability', type: 'vulnerability', category: 'household-relationship', domain: 'household-relationship' },
   { id: 'v49', label: 'Earnings relative to partner', type: 'vulnerability', category: 'household-economics', domain: 'household-economics' },
-  { id: 'v50', label: 'At least primary education', type: 'vulnerability', category: 'suggested', domain: 'woman-past', definition: 'Binary indicator of whether the woman completed primary education or higher. Primary education is a critical threshold for health literacy and economic opportunities.' },
-  { id: 'v51', label: 'Educational attainment (binary)', type: 'vulnerability', category: 'suggested', domain: 'woman-past', definition: 'Simplified education measure categorizing participants as having formal education or no formal education. This captures the fundamental education divide.' },
+  { id: 'v50', label: 'At least primary education', type: 'vulnerability', category: 'suggested', domain: 'woman-past', definition: 'Binary indicator of whether the woman completed primary education or higher. Primary education is a critical threshold for health literacy and economic opportunities.', significance: '***' },
+  { id: 'v51', label: 'Educational attainment (binary)', type: 'vulnerability', category: 'suggested', domain: 'woman-past', definition: 'Simplified education measure categorizing participants as having formal education or no formal education. This captures the fundamental education divide.', significance: '**' },
   { id: 'v52', label: 'Fertility preference', type: 'vulnerability', category: 'woman-past', domain: 'woman-past', definition: 'Records whether the woman wants more children, wants no more, or is undecided. Fertility preferences guide family planning needs and service targeting.' },
-  { id: 'v53', label: 'Media exposure: news/journal', type: 'vulnerability', category: 'suggested', domain: 'human-natural-systems', definition: 'Categorizes frequency of reading newspapers or journals on a weekly basis: everyday, at least once a week, less than once a week, or never. Print media access indicates literacy and information access.' },
-  { id: 'v54', label: 'Media exposure: radio', type: 'vulnerability', category: 'suggested', domain: 'human-natural-systems', definition: 'Categorizes the frequency of the participant listening to the radio on a weekly basis: everyday, at least once a week, less than once a week, or never. Radio is a primary health information source in many communities.' },
+  { id: 'v53', label: 'Media exposure: news/journal', type: 'vulnerability', category: 'suggested', domain: 'human-natural-systems', definition: 'Categorizes frequency of reading newspapers or journals on a weekly basis: everyday, at least once a week, less than once a week, or never. Print media access indicates literacy and information access.', significance: '*' },
+  { id: 'v54', label: 'Media exposure: radio', type: 'vulnerability', category: 'suggested', domain: 'human-natural-systems', definition: 'Categorizes the frequency of the participant listening to the radio on a weekly basis: everyday, at least once a week, less than once a week, or never. Radio is a primary health information source in many communities.', significance: '**' },
   { id: 'v58', label: 'HH received other state support', type: 'vulnerability', category: 'social-support', domain: 'social-support' },
   { id: 'v59', label: 'HH car', type: 'vulnerability', category: 'household-economics', domain: 'household-economics' },
   { id: 'v60', label: 'HH animal-drawn cart', type: 'vulnerability', category: 'household-economics', domain: 'household-economics' },
@@ -170,7 +192,7 @@ const VULNERABILITY_DATA = [
   { id: 'v62', label: 'HH child to woman ratio', type: 'vulnerability', category: 'household-relationship', domain: 'household-relationship' },
   { id: 'v63', label: 'HH motorcycle or scooter', type: 'vulnerability', category: 'household-economics', domain: 'household-economics' },
   { id: 'v64', label: 'Age at first birth (5 category)', type: 'vulnerability', category: 'woman-past', domain: 'woman-past' },
-  { id: 'v65', label: 'At least primary education', type: 'vulnerability', category: 'suggested', domain: 'woman-past' },
+  { id: 'v65', label: 'At least primary education', type: 'vulnerability', category: 'suggested', domain: 'woman-past', significance: '***' },
   { id: 'v66', label: 'HH rudimentary or natural floor', type: 'vulnerability', category: 'household-economics', domain: 'household-economics' },
   { id: 'v67', label: 'Any birth registered/declared', type: 'vulnerability', category: 'human-natural-systems', domain: 'human-natural-systems' },
   { id: 'v68', label: 'HH water not treated', type: 'vulnerability', category: 'human-natural-systems', domain: 'human-natural-systems' },
@@ -187,9 +209,9 @@ const VULNERABILITY_DATA = [
   { id: 'v79', label: 'HH VCR/DVD/CD player', type: 'vulnerability', category: 'household-economics', domain: 'household-economics' },
   { id: 'v80', label: 'Polygamy status', type: 'vulnerability', category: 'household-relationship', domain: 'household-relationship' },
   { id: 'v81', label: 'Where HH cooks food (6 category)', type: 'vulnerability', category: 'household-economics', domain: 'household-economics' },
-  { id: 'v82', label: 'Media exposure: TV', type: 'vulnerability', category: 'suggested', domain: 'human-natural-systems', definition: 'Categorizes the frequency of watching television on a weekly basis: everyday, at least once a week, less than once a week, or never. Television provides visual health education and behavior change messaging.' },
+  { id: 'v82', label: 'Media exposure: TV', type: 'vulnerability', category: 'suggested', domain: 'human-natural-systems', definition: 'Categorizes the frequency of watching television on a weekly basis: everyday, at least once a week, less than once a week, or never. Television provides visual health education and behavior change messaging.', significance: '**' },
   { id: 'v83', label: 'Phone ownership (woman)', type: 'vulnerability', category: 'household-economics', domain: 'household-economics', definition: 'Indicates whether the woman owns her own mobile phone. Phone ownership enables communication, information access, and economic independence.' },
-  { id: 'v84', label: 'HH highest education', type: 'vulnerability', category: 'suggested', domain: 'household-relationship', definition: 'Records the highest level of education achieved by any household member. Household education level influences health knowledge and resource management.' },
+  { id: 'v84', label: 'HH highest education', type: 'vulnerability', category: 'suggested', domain: 'household-relationship', definition: 'Records the highest level of education achieved by any household member. Household education level influences health knowledge and resource management.', significance: '*' },
   { id: 'v85', label: 'HH owns animals', type: 'vulnerability', category: 'household-economics', domain: 'household-economics' },
   { id: 'v86', label: 'Bank account (household)', type: 'vulnerability', category: 'household-economics', domain: 'household-economics' },
   { id: 'v87', label: 'HH bicycle', type: 'vulnerability', category: 'household-economics', domain: 'household-economics' },
@@ -213,7 +235,7 @@ const VULNERABILITY_DATA = [
   { id: 'v105', label: 'HH member receives money', type: 'vulnerability', category: 'social-support', domain: 'social-support' },
   { id: 'v106', label: 'HH member sends money (binary)', type: 'vulnerability', category: 'social-support', domain: 'social-support' },
   { id: 'v107', label: 'Where HH cooks food (3 category)', type: 'vulnerability', category: 'household-economics', domain: 'household-economics' },
-  { id: 'v108', label: 'HH highest education: 7+', type: 'vulnerability', category: 'suggested', domain: 'household-relationship', definition: 'Indicates whether the highest education in the household is 7 or more years of schooling. This threshold represents completion of primary education and affects household health practices.' },
+  { id: 'v108', label: 'HH highest education: 7+', type: 'vulnerability', category: 'suggested', domain: 'household-relationship', definition: 'Indicates whether the highest education in the household is 7 or more years of schooling. This threshold represents completion of primary education and affects household health practices.', significance: '***' },
   { id: 'v109', label: 'Child <3yr given micronutrient', type: 'vulnerability', category: 'health-mental-models', domain: 'health-mental-models' },
   { id: 'v110', label: 'HW talked about FP', type: 'vulnerability', category: 'health-mental-models', domain: 'health-mental-models' },
   { id: 'v111', label: 'Religion: Islam', type: 'vulnerability', category: 'human-natural-systems', domain: 'human-natural-systems' },
@@ -264,7 +286,7 @@ const HEALTH_CATEGORIES = [
 ];
 
 const VULNERABILITY_CATEGORIES = [
-  { id: 'suggested', label: 'Suggested' },
+  { id: 'suggested', label: 'Statistical association' },
   { id: 'woman-past', label: 'Woman and her past experiences' },
   { id: 'health-mental-models', label: 'Health mental models' },
   { id: 'household-relationship', label: 'Household relationships' },
@@ -351,7 +373,7 @@ function FilterMenu({ isOpen, onClose, activeTab, tempFilters, setTempFilters, o
                       </svg>
                     )}
                   </div>
-                  <span className="font-['Inter'] text-[16px] leading-[1.5] text-[#32383e]">
+                  <span className="font-['Inter'] text-[16px] leading-[1.5] text-[#32383e] text-left">
                     {category.label}
                   </span>
                 </button>
@@ -382,7 +404,7 @@ function FilterMenu({ isOpen, onClose, activeTab, tempFilters, setTempFilters, o
                       </svg>
                     )}
                   </div>
-                  <span className="font-['Inter'] text-[16px] leading-[1.5] text-[#32383e]">
+                  <span className="font-['Inter'] text-[16px] leading-[1.5] text-[#32383e] text-left">
                     {category.label}
                   </span>
                 </button>
@@ -456,6 +478,7 @@ export default function HealthDataModal({ onClose }) {
   const [hoveredSuggested, setHoveredSuggested] = useState(null);
   const [hoveredInfoIcon, setHoveredInfoIcon] = useState(null);
   const [currentStickyDomain, setCurrentStickyDomain] = useState(null);
+  const [showSignificanceTooltip, setShowSignificanceTooltip] = useState(false);
   const filterButtonRef = useRef(null);
   const scrollContainerRef = useRef(null);
 
@@ -620,13 +643,13 @@ export default function HealthDataModal({ onClose }) {
     <>
       {/* Overlay */}
       <div
-        className="fixed inset-0 z-40 backdrop-blur-sm"
-        style={{ backgroundColor: 'rgba(0, 12, 36, 0.85)' }}
+        className="fixed inset-0 backdrop-blur-sm"
+        style={{ backgroundColor: 'rgba(0, 12, 36, 0.85)', zIndex: 1000 }}
         onClick={() => onClose(false)}
       />
 
       {/* Modal */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none p-8">
+      <div className="fixed inset-0 flex items-center justify-center pointer-events-none p-8" style={{ zIndex: 1001 }}>
         <div className="pointer-events-auto w-full max-w-[1260px] h-[750px] bg-white rounded-[16px] border border-[#97c3f0] shadow-2xl relative">
 
           {/* Close Button */}
@@ -643,7 +666,7 @@ export default function HealthDataModal({ onClose }) {
           <div className="flex h-full rounded-[16px] overflow-hidden">
 
             {/* Left Column - Data Selection */}
-            <div className="w-[860px] flex flex-col gap-[16px] px-[24px] pt-[24px] pb-[72px]">
+            <div className="w-[860px] flex flex-col gap-[16px] px-[24px] pt-[24px] pb-[72px] relative">
 
               {/* Title + Search */}
               <div className="flex items-start justify-between w-full">
@@ -670,7 +693,10 @@ export default function HealthDataModal({ onClose }) {
               {/* Tab Buttons */}
               <div className="border border-[#97c3f0] rounded-[6px] overflow-hidden flex">
                 <button
-                  onClick={() => setActiveTab('all')}
+                  onClick={() => {
+                    setActiveTab('all');
+                    // Keep all filters when switching to 'all' tab
+                  }}
                   className={`flex-1 px-[16px] py-[4px] min-h-[40px] flex items-center justify-center ${
                     activeTab === 'all' ? 'bg-[#c7dff7]' : 'hover:bg-[#e3effb]'
                   }`}
@@ -683,7 +709,14 @@ export default function HealthDataModal({ onClose }) {
                 </button>
                 <div className="w-px bg-[#97c3f0]" />
                 <button
-                  onClick={() => setActiveTab('health')}
+                  onClick={() => {
+                    setActiveTab('health');
+                    // Clear vulnerability filters when switching to health tab
+                    setAppliedFilters(prev => prev.filter(f =>
+                      !VULNERABILITY_CATEGORIES.map(c => c.id).includes(f) &&
+                      !VULNERABILITY_DOMAINS.map(d => d.id).includes(f)
+                    ));
+                  }}
                   className={`flex-1 px-[16px] py-[4px] min-h-[40px] flex items-center justify-center ${
                     activeTab === 'health' ? 'bg-[#c7dff7]' : 'hover:bg-[#e3effb]'
                   }`}
@@ -696,7 +729,13 @@ export default function HealthDataModal({ onClose }) {
                 </button>
                 <div className="w-px bg-[#97c3f0]" />
                 <button
-                  onClick={() => setActiveTab('vulnerability')}
+                  onClick={() => {
+                    setActiveTab('vulnerability');
+                    // Clear health filters when switching to vulnerability tab
+                    setAppliedFilters(prev => prev.filter(f =>
+                      !HEALTH_CATEGORIES.map(c => c.id).includes(f)
+                    ));
+                  }}
                   className={`flex-1 px-[16px] py-[4px] min-h-[40px] flex items-center justify-center ${
                     activeTab === 'vulnerability' ? 'bg-[#c7dff7]' : 'hover:bg-[#e3effb]'
                   }`}
@@ -883,28 +922,49 @@ export default function HealthDataModal({ onClose }) {
                                     <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#171a1c]">
                                       {highlightSearchTerm(item.label)}
                                     </span>
-                                    {item.category === 'suggested' && (
+                                    {item.category === 'suggested' && item.associations && item.associations.length > 0 && (
                                       <Chip
-                                        label="Suggested"
+                                        label={item.associations.length > 1
+                                          ? `${item.associations.length} statistical associations${item.significance || ''}`
+                                          : `Statistical association${item.significance || ''}`
+                                        }
                                         icon={<SuggestedInfoIcon />}
                                         onMouseEnter={() => setHoveredSuggested(item.id)}
                                         onMouseLeave={() => setHoveredSuggested(null)}
                                         showTooltip={hoveredSuggested === item.id}
                                         tooltipContent={
-                                          <div className="flex gap-[8px] items-baseline">
-                                            <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1] whitespace-nowrap">
-                                              Based on:
+                                          <div className="flex flex-col gap-[16px]">
+                                            <span className="font-['Inter'] font-semibold text-[16px] leading-[1.5] text-white text-left">
+                                              Statistical associations
                                             </span>
-                                            <div className="flex flex-wrap gap-[4px] items-center text-[14px] leading-[1.42]">
-                                              <span className="font-['Inter'] font-semibold text-white">
-                                                Very strong (0.9)
-                                              </span>
-                                              <span className="font-['Inter'] text-[#cdd7e1]">
-                                                statistical correlation with:
-                                              </span>
-                                              <span className="font-['Inter'] font-semibold text-white">
-                                                Less than 4 ANC visits
-                                              </span>
+                                            <div className="flex flex-col gap-[16px]">
+                                            {item.associations.map((assoc, idx) => {
+                                              const getSignificanceText = (sig) => {
+                                                if (sig === '***') return 'Highly significant';
+                                                if (sig === '**') return 'Very significant';
+                                                if (sig === '*') return 'Significant';
+                                                return 'Significant';
+                                              };
+                                              const getPValue = (sig) => {
+                                                if (sig === '***') return 'p ≤ 0.001';
+                                                if (sig === '**') return 'p ≤ 0.01';
+                                                if (sig === '*') return 'p ≤ 0.05';
+                                                return 'p ≤ 0.05';
+                                              };
+                                              return (
+                                                <div key={idx} className="flex flex-wrap gap-[4px] items-baseline">
+                                                  <span className="font-['Inter'] font-semibold text-[14px] leading-[1.42] text-white whitespace-nowrap">
+                                                    {getSignificanceText(item.significance)}
+                                                  </span>
+                                                  <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1] whitespace-nowrap">
+                                                    ({getPValue(item.significance)}):
+                                                  </span>
+                                                  <span className="font-['Inter'] font-semibold text-[14px] leading-[1.42] text-white">
+                                                    {assoc}
+                                                  </span>
+                                                </div>
+                                              );
+                                            })}
                                             </div>
                                           </div>
                                         }
@@ -980,28 +1040,49 @@ export default function HealthDataModal({ onClose }) {
                                       <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#171a1c]">
                                         {highlightSearchTerm(item.label)}
                                       </span>
-                                      {item.category === 'suggested' && (
+                                      {item.category === 'suggested' && item.associations && item.associations.length > 0 && (
                                         <Chip
-                                          label="Suggested"
+                                          label={item.associations.length > 1
+                                            ? `${item.associations.length} statistical associations${item.significance || ''}`
+                                            : `Statistical association${item.significance || ''}`
+                                          }
                                           icon={<SuggestedInfoIcon />}
                                           onMouseEnter={() => setHoveredSuggested(item.id)}
                                           onMouseLeave={() => setHoveredSuggested(null)}
                                           showTooltip={hoveredSuggested === item.id}
                                           tooltipContent={
-                                            <div className="flex gap-[8px] items-baseline">
-                                              <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1] whitespace-nowrap">
-                                                Based on:
+                                            <div className="flex flex-col gap-[16px]">
+                                              <span className="font-['Inter'] font-semibold text-[16px] leading-[1.5] text-white text-left">
+                                                Statistical associations
                                               </span>
-                                              <div className="flex flex-wrap gap-[4px] items-center text-[14px] leading-[1.42]">
-                                                <span className="font-['Inter'] font-semibold text-white">
-                                                  Very strong (0.9)
-                                                </span>
-                                                <span className="font-['Inter'] text-[#cdd7e1]">
-                                                  statistical correlation with:
-                                                </span>
-                                                <span className="font-['Inter'] font-semibold text-white">
-                                                  Less than 4 ANC visits
-                                                </span>
+                                              <div className="flex flex-col gap-[16px]">
+                                              {item.associations.map((assoc, idx) => {
+                                                const getSignificanceText = (sig) => {
+                                                  if (sig === '***') return 'Highly significant';
+                                                  if (sig === '**') return 'Very significant';
+                                                  if (sig === '*') return 'Significant';
+                                                  return 'Significant';
+                                                };
+                                                const getPValue = (sig) => {
+                                                  if (sig === '***') return 'p ≤ 0.001';
+                                                  if (sig === '**') return 'p ≤ 0.01';
+                                                  if (sig === '*') return 'p ≤ 0.05';
+                                                  return 'p ≤ 0.05';
+                                                };
+                                                return (
+                                                  <div key={idx} className="flex flex-wrap gap-[4px] items-baseline">
+                                                    <span className="font-['Inter'] font-semibold text-[14px] leading-[1.42] text-white whitespace-nowrap">
+                                                      {getSignificanceText(item.significance)}
+                                                    </span>
+                                                    <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1] whitespace-nowrap">
+                                                      ({getPValue(item.significance)}):
+                                                    </span>
+                                                    <span className="font-['Inter'] font-semibold text-[14px] leading-[1.42] text-white">
+                                                      {assoc}
+                                                    </span>
+                                                  </div>
+                                                );
+                                              })}
                                               </div>
                                             </div>
                                           }
@@ -1095,6 +1176,65 @@ export default function HealthDataModal({ onClose }) {
                   {/* Scrollbar */}
                   <div className="w-[12px] bg-[#fbfcfe] border-l border-[#97c3f0] relative flex-shrink-0">
                     <div className="absolute top-[2px] left-1/2 -translate-x-1/2 w-[6px] h-[60px] bg-[#9fa6ad] rounded-full" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Significance levels key - Fixed at bottom */}
+              <div className="absolute bottom-[24px] left-[24px] right-[24px]">
+                <div className="flex items-center gap-[8px]">
+                  {/* Info icon with tooltip */}
+                  <div
+                    className="relative"
+                    onMouseEnter={() => setShowSignificanceTooltip(true)}
+                    onMouseLeave={() => setShowSignificanceTooltip(false)}
+                  >
+                    <div className="w-[16px] h-[16px]">
+                      <InfoIcon />
+                    </div>
+                    {showSignificanceTooltip && (
+                      <div className="absolute left-0 bottom-full mb-[8px] z-[10000] bg-[#636b74] rounded-[6px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08),0px_2px_4px_0px_rgba(21,21,21,0.08)] px-[12px] py-[8px] w-[400px] pointer-events-none">
+                        <p className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1]">
+                          Factors that show a statistically significant pattern with a selected health outcome or behaviour are marked with{' '}
+                          <span className="inline-flex items-center px-[8px] py-[4px] rounded-[16px] bg-[#e8f5e1]">
+                            <span className="font-['Inter'] font-medium text-[12px] leading-[1.66] text-[#2d7a00]">
+                              Statistical association***
+                            </span>
+                          </span>
+                          .
+                        </p>
+                        <p className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1] mt-[8px]">
+                          The asterisks indicate confidence level (p-values). These factors are a starting point for investigation, not proof of cause.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Significance levels text with hover */}
+                  <div
+                    className="relative cursor-help"
+                    onMouseEnter={() => setShowSignificanceTooltip(true)}
+                    onMouseLeave={() => setShowSignificanceTooltip(false)}
+                  >
+                    <span className="font-['Inter'] font-semibold text-[14px] leading-[1.42] text-[#171a1c]">
+                      Significance levels:
+                    </span>
+                  </div>
+
+                  {/* Legend items */}
+                  <div className="flex items-center gap-[12px] ml-[4px]">
+                    <div className="flex items-center gap-[4px]">
+                      <span className="font-['Inter'] text-[14px] leading-[1.66] text-[#555e68]">*</span>
+                      <span className="font-['Inter'] text-[14px] leading-[1.66] text-[#555e68]">p&lt;0.05</span>
+                    </div>
+                    <div className="flex items-center gap-[4px]">
+                      <span className="font-['Inter'] text-[14px] leading-[1.66] text-[#555e68]">**</span>
+                      <span className="font-['Inter'] text-[14px] leading-[1.66] text-[#555e68]">p&lt;0.01</span>
+                    </div>
+                    <div className="flex items-center gap-[4px]">
+                      <span className="font-['Inter'] text-[14px] leading-[1.66] text-[#555e68]">***</span>
+                      <span className="font-['Inter'] text-[14px] leading-[1.66] text-[#555e68]">p&lt;0.001</span>
+                    </div>
                   </div>
                 </div>
               </div>

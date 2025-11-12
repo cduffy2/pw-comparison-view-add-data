@@ -1,13 +1,4 @@
-import Logo from './Logo';
-import InfoOutlined from './assets/InfoOutlined.svg';
-import lactationIcon from './assets/lactation 1.png';
-import boyIcon from './assets/boy-0105y 1.png';
-import mobileIcon from './assets/mobile 1.png';
-import familyPlanningIcon from './assets/family-planning 1.png';
-import syringeIcon from './assets/syringe 1.png';
-import rmnhIcon from './assets/rmnh 1.png';
-import mentalHealthIcon from './assets/mental-health 1.png';
-import moreIcon from './assets/More.png';
+// Icons will be loaded from public folder
 
 // Topic Card Component with hover state
 function TopicCard({ icon, title, onClick }) {
@@ -26,108 +17,53 @@ function TopicCard({ icon, title, onClick }) {
   );
 }
 
-export default function EmptyState({ onOpenModal, onTopicCardClick }) {
+export default function EmptyState({ onOpenModal, onOpenTemplateModal, onTopicCardClick }) {
 
   return (
-    <div className="bg-[#fdf8f5] content-stretch flex flex-col isolate items-start relative size-full min-h-screen">
-      {/* Top Navigation */}
-      <div className="content-stretch flex flex-col items-start relative shrink-0 w-full z-[3]">
-        {/* Primary Navigation */}
-        <div className="bg-white border-[#97c3f0] border-[0px_0px_1px] border-solid h-[56px] relative shrink-0 w-full">
-          <div className="box-border content-stretch flex items-center justify-between pl-[38px] pr-[27px] py-[8px] relative size-full">
-            {/* Logo */}
-            <Logo />
+    <div className="bg-[#FCFCF6] content-stretch flex flex-col isolate items-start relative size-full min-h-screen">
 
-            {/* Nav Items */}
-            <div className="content-stretch flex gap-[24px] items-center relative shrink-0">
-              <div className="box-border content-stretch flex gap-[6px] items-center justify-center min-h-[40px] p-[12px] relative rounded-[6px] shrink-0">
-                <p className="font-['Inter'] font-semibold leading-[16px] not-italic text-[#0b6bcb] text-[16px] text-nowrap whitespace-pre">
-                  Welcome
-                </p>
-              </div>
-              <div className="box-border content-stretch flex gap-[6px] items-center justify-center min-h-[40px] p-[12px] relative rounded-[6px] shrink-0">
-                <p className="font-['Inter'] font-semibold leading-[16px] not-italic text-[#0b6bcb] text-[16px] text-nowrap whitespace-pre">
-                  Segmentations
-                </p>
-              </div>
-              <div className="box-border content-stretch flex gap-[6px] items-center justify-center min-h-[40px] p-[12px] relative rounded-[6px] shrink-0">
-                <p className="font-['Inter'] font-semibold leading-[16px] not-italic text-[#0b6bcb] text-[16px] text-nowrap whitespace-pre">
-                  News
-                </p>
-              </div>
-              <div className="box-border content-stretch flex gap-[6px] items-center justify-center min-h-[40px] p-[12px] relative rounded-[6px] shrink-0">
-                <p className="font-['Inter'] font-semibold leading-[16px] not-italic text-[#0b6bcb] text-[16px] text-nowrap whitespace-pre">
-                  Contact
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Breadcrumb */}
-        <div className="bg-white box-border content-stretch flex items-center justify-between overflow-clip px-[26px] py-[4px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08)] shrink-0 sticky top-0 w-full">
-          <div className="content-stretch flex gap-[16px] items-center relative shrink-0">
-            <div className="box-border content-stretch flex gap-[6px] items-center justify-center min-h-[32px] px-[12px] py-[2px] relative rounded-[6px] shrink-0">
-              <div className="border border-[#185ea5] border-solid relative rounded-full shrink-0 size-[20px]">
-                {/* Flag icon */}
-              </div>
-              <p className="font-['Inter'] font-semibold leading-[14px] not-italic text-[#0b6bcb] text-[14px] text-nowrap whitespace-pre">
-                Bihar, India
+      {/* Page Title and Actions */}
+      <div className="px-10 pt-10 pb-4 bg-[#FCFCF6] w-full">
+        <div className="flex items-center justify-between">
+          <h1 className="font-['Inter'] font-semibold text-[24px] text-[#171a1c]">
+            Compare segments
+          </h1>
+          <div className="flex gap-2">
+            {/* Export button - no background, no border */}
+            <button className="box-border flex items-center justify-center gap-[6px] px-[16px] py-[6px] min-h-[32px] rounded-[6px] hover:bg-[#e3effb] transition-colors">
+              <p className="font-['Inter'] font-semibold text-[14px] text-[#0b6bcb]">
+                Export
               </p>
-            </div>
-            <div className="content-stretch flex gap-[16px] items-center">
-              <p className="font-['Inter'] font-semibold leading-[1.66] text-[#636b74] text-[18px]">/</p>
-              <p className="font-['Inter'] font-normal leading-[1.42] text-[#555e68] text-[14px]">Comparison tool</p>
-            </div>
-          </div>
-          <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
-            <p className="font-['Inter'] font-normal leading-[1.42] text-[#555e68] text-[14px] text-nowrap whitespace-pre">Version:</p>
-            <div className="box-border content-stretch flex gap-[6px] h-[24px] items-center justify-center min-h-[24px] px-[2px] py-[4px] relative rounded-[6px] shrink-0">
-              <p className="font-['Inter'] font-semibold leading-[14px] text-[#0b6bcb] text-[14px] text-nowrap whitespace-pre">
-                Pathways 1.0, 2022
+              <img src="/Assets/Icons/Share view.svg" alt="" width="16" height="16" />
+            </button>
+
+            {/* Change template button - border only, no background */}
+            <button
+              onClick={onOpenTemplateModal}
+              className="border border-[#97c3f0] box-border flex items-center justify-center gap-[6px] px-[16px] py-[6px] min-h-[32px] rounded-[6px] hover:bg-[#e3effb] transition-colors"
+            >
+              <p className="font-['Inter'] font-semibold text-[14px] text-[#0b6bcb]">
+                Change template
               </p>
-            </div>
-          </div>
-        </div>
-      </div>
+            </button>
 
-      {/* Title Section */}
-      <div className="box-border content-stretch flex flex-col gap-[16px] items-start px-[40px] py-[16px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08)] shrink-0 sticky top-0 w-full z-[2]">
-        {/* Secondary Navigation */}
-        <div className="content-stretch flex gap-[16px] items-start relative shrink-0 w-full">
-          <div className="box-border content-stretch flex gap-[6px] items-center justify-center p-[12px] relative rounded-[6px] shrink-0">
-            <p className="font-['Inter'] font-semibold leading-[16px] text-[#0b6bcb] text-[16px] text-nowrap whitespace-pre">Overview</p>
-          </div>
-          <div className="box-border content-stretch flex gap-[6px] h-[40px] items-center justify-center p-[12px] relative rounded-[6px] shrink-0">
-            <p className="font-['Inter'] font-semibold leading-[16px] text-[#0b6bcb] text-[16px] text-nowrap whitespace-pre">Segments</p>
-            {/* Dropdown icon */}
-          </div>
-          <div className="bg-[#e3effb] box-border content-stretch flex gap-[6px] h-[40px] items-center justify-center min-h-[32px] p-[12px] relative rounded-[6px] shrink-0">
-            <p className="font-['Inter'] font-semibold leading-[16px] text-[#0b6bcb] text-[16px] text-nowrap whitespace-pre">Comparison tool</p>
-          </div>
-          <div className="box-border content-stretch flex gap-[6px] h-[40px] items-center justify-center p-[12px] relative rounded-[6px] shrink-0">
-            <p className="font-['Inter'] font-semibold leading-[16px] text-[#0b6bcb] text-[16px] text-nowrap whitespace-pre">Prevalence map</p>
-          </div>
-          <div className="box-border content-stretch flex gap-[6px] items-center justify-center p-[12px] relative rounded-[6px] shrink-0">
-            <p className="font-['Inter'] font-semibold leading-[16px] text-[#0b6bcb] text-[16px] text-nowrap whitespace-pre">Typing tools</p>
-          </div>
-          <div className="box-border content-stretch flex gap-[6px] items-center justify-center p-[12px] relative rounded-[6px] shrink-0">
-            <p className="font-['Inter'] font-semibold leading-[16px] text-[#0b6bcb] text-[16px] text-nowrap whitespace-pre">Additional resources</p>
-          </div>
-        </div>
-
-        {/* Page Title */}
-        <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-full">
-          <p className="font-['Inter'] font-semibold leading-[1.5] text-[#171a1c] text-[24px] text-nowrap whitespace-pre">Comparison tool</p>
-          <div className="overflow-clip relative shrink-0 size-[24px]">
-            <img src={InfoOutlined} alt="Info" className="size-full" />
+            {/* Add / remove data button */}
+            <button
+              onClick={onOpenModal}
+              className="bg-[#0b6bcb] box-border flex items-center justify-center gap-[6px] px-[16px] py-[6px] min-h-[32px] rounded-[6px] hover:bg-[#185ea5] transition-colors"
+            >
+              <img src="/Assets/Icons/_Button_/AddFilled.svg" alt="" width="16" height="16" />
+              <p className="font-['Inter'] font-semibold text-[14px] text-white">
+                Add / remove data
+              </p>
+            </button>
           </div>
         </div>
       </div>
 
       {/* Main Content - Empty State with Topic Cards */}
-      <div className="basis-0 box-border content-stretch flex flex-col grow items-start min-h-px min-w-px overflow-clip pb-[40px] pt-0 px-[40px] relative shrink-0 w-full z-[1]">
-        <div className="basis-0 bg-white border border-[#97c3f0] border-solid box-border content-stretch flex flex-col gap-[40px] grow items-center min-h-px min-w-px p-[40px] relative rounded-[6px] shrink-0 w-full">
+      <div className="box-border flex flex-col items-start pb-[40px] pt-0 px-[40px] relative w-full z-[1]" style={{ minHeight: 'calc(100vh - 56px - 88px - 64px - 40px)' }}>
+        <div className="bg-white border border-[#97c3f0] border-solid box-border flex flex-col gap-[40px] items-center p-[40px] relative rounded-[6px] w-full h-full">
 
           {/* Main Title */}
           <p className="font-['Inter'] font-bold leading-[1.33] min-w-full not-italic relative shrink-0 text-[30px] text-[#171a1c] text-center w-[min-content]">
@@ -143,14 +79,10 @@ export default function EmptyState({ onOpenModal, onTopicCardClick }) {
 
               {/* Topic Cards Grid */}
               <div className="content-start flex flex-wrap gap-[16px] items-start relative shrink-0 w-[688px]">
-                <TopicCard icon={lactationIcon} title="Breastfeeding" onClick={onTopicCardClick} />
-                <TopicCard icon={boyIcon} title="Child health" onClick={onTopicCardClick} />
-                <TopicCard icon={mobileIcon} title="Digital access" onClick={onTopicCardClick} />
-                <TopicCard icon={familyPlanningIcon} title="Family planning" onClick={onTopicCardClick} />
-                <TopicCard icon={syringeIcon} title="Immunisation" onClick={onTopicCardClick} />
-                <TopicCard icon={rmnhIcon} title="Maternal health" onClick={onTopicCardClick} />
-                <TopicCard icon={mentalHealthIcon} title="Mental health" onClick={onTopicCardClick} />
-                <TopicCard icon={moreIcon} title="View more" onClick={onTopicCardClick} />
+                <TopicCard icon="/Assets/Icons/Breastfeeding.svg" title="Breastfeeding" onClick={onTopicCardClick} />
+                <TopicCard icon="/Assets/Icons/Child Health.svg" title="Child health" onClick={onTopicCardClick} />
+                <TopicCard icon="/Assets/Icons/family-planning 1.svg" title="Family planning" onClick={onTopicCardClick} />
+                <TopicCard icon="/Assets/Icons/More.svg" title="View 3 more" onClick={onTopicCardClick} />
               </div>
             </div>
 

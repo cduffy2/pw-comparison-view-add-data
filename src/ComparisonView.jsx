@@ -1,147 +1,42 @@
-import Logo from './Logo';
-
 export default function ComparisonView({ onSelectData, onReset }) {
   return (
-    <div className="min-h-screen bg-[#fdf8f5] flex flex-col">
-      {/* Top Navigation */}
-      <div className="content-stretch flex flex-col items-start relative shrink-0 w-full z-[3]">
-        {/* Primary Navigation */}
-        <div className="bg-white border-[#97c3f0] border-[0px_0px_1px] border-solid h-[56px] relative shrink-0 w-full">
-          <div className="box-border content-stretch flex items-center justify-between pl-[38px] pr-[27px] py-[8px] relative size-full">
-            {/* Logo */}
-            <Logo />
+    <div className="min-h-screen bg-[#FCFCF6] flex flex-col">
 
-            {/* Nav Items */}
-            <div className="content-stretch flex gap-[24px] items-center relative shrink-0">
-              <div className="box-border content-stretch flex gap-[6px] items-center justify-center min-h-[40px] p-[12px] relative rounded-[6px] shrink-0">
-                <p className="font-['Inter'] font-semibold leading-[16px] not-italic text-[#0b6bcb] text-[16px] text-nowrap whitespace-pre">
-                  Welcome
-                </p>
-              </div>
-              <div className="box-border content-stretch flex gap-[6px] items-center justify-center min-h-[40px] p-[12px] relative rounded-[6px] shrink-0">
-                <p className="font-['Inter'] font-semibold leading-[16px] not-italic text-[#0b6bcb] text-[16px] text-nowrap whitespace-pre">
-                  Segmentations
-                </p>
-              </div>
-              <div className="box-border content-stretch flex gap-[6px] items-center justify-center min-h-[40px] p-[12px] relative rounded-[6px] shrink-0">
-                <p className="font-['Inter'] font-semibold leading-[16px] not-italic text-[#0b6bcb] text-[16px] text-nowrap whitespace-pre">
-                  News
-                </p>
-              </div>
-              <div className="box-border content-stretch flex gap-[6px] items-center justify-center min-h-[40px] p-[12px] relative rounded-[6px] shrink-0">
-                <p className="font-['Inter'] font-semibold leading-[16px] not-italic text-[#0b6bcb] text-[16px] text-nowrap whitespace-pre">
-                  Contact
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Breadcrumb */}
-        <div className="bg-white box-border content-stretch flex items-center justify-between overflow-clip px-[26px] py-[4px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08)] shrink-0 sticky top-0 w-full">
-          <div className="content-stretch flex gap-[16px] items-center relative shrink-0">
-            <div className="box-border content-stretch flex gap-[6px] items-center justify-center min-h-[32px] px-[12px] py-[2px] relative rounded-[6px] shrink-0">
-              <div className="border border-[#185ea5] border-solid relative rounded-full shrink-0 size-[20px]" />
-              <p className="font-['Inter'] font-semibold leading-[14px] not-italic text-[#0b6bcb] text-[14px] text-nowrap whitespace-pre">
-                Bihar, India
-              </p>
-            </div>
-            <div className="content-stretch flex gap-[16px] items-center">
-              <p className="font-['Inter'] font-semibold leading-[1.66] text-[#636b74] text-[18px]">/</p>
-              <p className="font-['Inter'] font-normal leading-[1.42] text-[#555e68] text-[14px]">Comparison tool</p>
-            </div>
-          </div>
-          <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
-            <p className="font-['Inter'] font-normal leading-[1.42] text-[#555e68] text-[14px] text-nowrap whitespace-pre">Version:</p>
-            <div className="box-border content-stretch flex gap-[6px] h-[24px] items-center justify-center min-h-[24px] px-[2px] py-[4px] relative rounded-[6px] shrink-0">
-              <p className="font-['Inter'] font-semibold leading-[14px] text-[#0b6bcb] text-[14px] text-nowrap whitespace-pre">
-                Pathways 1.0, 2022
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Secondary Navigation */}
-      <div className="px-10 py-4 shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08)]">
-        <div className="flex gap-4 mb-4">
-          <div className="box-border px-3 py-2">
-            <p className="font-['Inter'] font-semibold text-[16px] text-[#0b6bcb] cursor-pointer">Overview</p>
-          </div>
-          <div className="box-border px-3 py-2">
-            <p className="font-['Inter'] font-semibold text-[16px] text-[#0b6bcb] cursor-pointer">Segments</p>
-          </div>
-          <div className="bg-[#e3effb] px-3 py-2 rounded-[6px]">
-            <p className="font-['Inter'] font-semibold text-[16px] text-[#0b6bcb]">Comparison tool</p>
-          </div>
-          <div className="box-border px-3 py-2">
-            <p className="font-['Inter'] font-semibold text-[16px] text-[#0b6bcb] cursor-pointer">Prevalence map</p>
-          </div>
-          <div className="box-border px-3 py-2">
-            <p className="font-['Inter'] font-semibold text-[16px] text-[#0b6bcb] cursor-pointer">Typing tools</p>
-          </div>
-          <div className="box-border px-3 py-2">
-            <p className="font-['Inter'] font-semibold text-[16px] text-[#0b6bcb] cursor-pointer">Additional resources</p>
-          </div>
-        </div>
-
-        {/* Page Title and Actions */}
+      {/* Page Title and Actions */}
+      <div className="px-10 pt-10 pb-4 bg-[#FCFCF6] w-full">
         <div className="flex items-center justify-between">
           <h1 className="font-['Inter'] font-semibold text-[24px] text-[#171a1c]">
-            Comparison tool
+            Compare segments
           </h1>
           <div className="flex gap-2">
-            {/* Share this view */}
+            {/* Export button */}
             <button className="border border-[#97c3f0] bg-white box-border flex items-center justify-center gap-[6px] px-[16px] py-[6px] min-h-[32px] rounded-[6px] hover:bg-[#e3effb] transition-colors">
               <p className="font-['Inter'] font-semibold text-[14px] text-[#0b6bcb]">
-                Share this view
+                Export
               </p>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M13.3333 10.6667V13.3333H2.66667V10.6667H1.33333V13.3333C1.33333 14.0667 1.93333 14.6667 2.66667 14.6667H13.3333C14.0667 14.6667 14.6667 14.0667 14.6667 13.3333V10.6667H13.3333ZM12.6667 6L11.7267 6.94L8.66667 3.88667V12H7.33333V3.88667L4.27333 6.94L3.33333 6L8 1.33333L12.6667 6Z" fill="#0b6bcb"/>
+                <path d="M2 2H14V4H2V2ZM2 7H14V9H2V7ZM2 12H14V14H2V12Z" fill="#0b6bcb"/>
               </svg>
             </button>
 
-            {/* Download CSV */}
+            {/* Change template button */}
             <button className="border border-[#97c3f0] bg-white box-border flex items-center justify-center gap-[6px] px-[16px] py-[6px] min-h-[32px] rounded-[6px] hover:bg-[#e3effb] transition-colors">
               <p className="font-['Inter'] font-semibold text-[14px] text-[#0b6bcb]">
-                Download CSV
+                Change template
               </p>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M13.3333 10.6667V13.3333H2.66667V10.6667H1.33333V13.3333C1.33333 14.0667 1.93333 14.6667 2.66667 14.6667H13.3333C14.0667 14.6667 14.6667 14.0667 14.6667 13.3333V10.6667H13.3333ZM8.66667 8.78L11.7267 5.72667L12.6667 6.66667L8 11.3333L3.33333 6.66667L4.27333 5.72667L7.33333 8.78V1.33333H8.66667V8.78Z" fill="#0b6bcb"/>
-              </svg>
             </button>
 
-            {/* Export image */}
-            <button className="border border-[#97c3f0] bg-white box-border flex items-center justify-center gap-[6px] px-[16px] py-[6px] min-h-[32px] rounded-[6px] hover:bg-[#e3effb] transition-colors">
-              <p className="font-['Inter'] font-semibold text-[14px] text-[#0b6bcb]">
-                Export image
-              </p>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M12.6667 2H3.33333C2.6 2 2 2.6 2 3.33333V12.6667C2 13.4 2.6 14 3.33333 14H12.6667C13.4 14 14 13.4 14 12.6667V3.33333C14 2.6 13.4 2 12.6667 2ZM5.33333 11.3333L3.33333 8.66667L4.66667 7.66667L5.33333 8.53333L7.66667 5.33333L9 6.66667L5.33333 11.3333ZM12.6667 9.33333H9.33333V10.6667H12.6667V9.33333ZM12.6667 7.33333H9.33333V8.66667H12.6667V7.33333ZM12.6667 5.33333H9.33333V6.66667H12.6667V5.33333Z" fill="#0b6bcb"/>
-              </svg>
-            </button>
-
-            {/* Clear all data */}
-            <button
-              onClick={onReset}
-              className="border border-[#97c3f0] bg-white box-border flex items-center justify-center gap-[6px] px-[16px] py-[6px] min-h-[32px] rounded-[6px] hover:bg-[#e3effb] transition-colors"
-            >
-              <p className="font-['Inter'] font-semibold text-[14px] text-[#0b6bcb]">
-                Clear all data
-              </p>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M12.6667 4.27333L11.7267 3.33333L8 7.06L4.27333 3.33333L3.33333 4.27333L7.06 8L3.33333 11.7267L4.27333 12.6667L8 8.94L11.7267 12.6667L12.6667 11.7267L8.94 8L12.6667 4.27333Z" fill="#0b6bcb"/>
-              </svg>
-            </button>
-
-            {/* Add / remove data */}
+            {/* Add / remove data button */}
             <button
               onClick={onSelectData}
-              className="bg-[#0b6bcb] box-border flex items-center justify-center px-[16px] py-[6px] min-h-[32px] rounded-[6px] hover:bg-[#185ea5] transition-colors"
+              className="bg-[#0b6bcb] box-border flex items-center justify-center gap-[6px] px-[16px] py-[6px] min-h-[32px] rounded-[6px] hover:bg-[#185ea5] transition-colors"
             >
               <p className="font-['Inter'] font-semibold text-[14px] text-white">
                 Add / remove data
               </p>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M13.3333 8.66667H8.66667V13.3333H7.33333V8.66667H2.66667V7.33333H7.33333V2.66667H8.66667V7.33333H13.3333V8.66667Z" fill="white"/>
+              </svg>
             </button>
           </div>
         </div>

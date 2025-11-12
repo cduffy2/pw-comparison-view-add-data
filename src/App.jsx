@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import Navbar from './components/Navbar'
+import SecondaryNav from './components/SecondaryNav'
 import EmptyState from './EmptyState'
 import HealthDataModal from './HealthDataModal'
 import TemplateModal from './TemplateModal'
@@ -48,11 +50,19 @@ function App() {
   }
 
   if (showComparison) {
-    return <ComparisonView onSelectData={handleOpenModal} onReset={handleReset} />
+    return (
+      <>
+        <Navbar />
+        <SecondaryNav activePage="compare-segments" showSegmentCards={true} />
+        <ComparisonView onSelectData={handleOpenModal} onReset={handleReset} />
+      </>
+    )
   }
 
   return (
     <>
+      <Navbar />
+      <SecondaryNav activePage="compare-segments" showSegmentCards={true} />
       <EmptyState
         onOpenModal={handleOpenModal}
         onOpenTemplateModal={handleOpenTemplateModal}
