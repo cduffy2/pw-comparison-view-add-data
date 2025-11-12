@@ -1193,19 +1193,20 @@ export default function HealthDataModal({ onClose }) {
                       <InfoIcon />
                     </div>
                     {showSignificanceTooltip && (
-                      <div className="absolute left-0 bottom-full mb-[8px] z-[10000] bg-[#636b74] rounded-[6px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08),0px_2px_4px_0px_rgba(21,21,21,0.08)] px-[12px] py-[8px] w-[400px] pointer-events-none">
+                      <div className="absolute left-0 bottom-full mb-[8px] z-[10000] bg-[#636b74] rounded-[6px] shadow-[0px_1px_2px_0px_rgba(21,21,21,0.08),0px_2px_4px_0px_rgba(21,21,21,0.08)] px-[12px] py-[8px] w-[420px] pointer-events-none">
                         <p className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1]">
                           Factors that show a statistically significant pattern with a selected health outcome or behaviour are marked with{' '}
-                          <span className="inline-flex items-center px-[8px] py-[4px] rounded-[16px] bg-[#e8f5e1]">
+                          <span className="inline-flex items-center align-middle px-[8px] py-[2px] h-[20px] rounded-[16px] bg-[#e8f5e1]">
                             <span className="font-['Inter'] font-medium text-[12px] leading-[1.66] text-[#2d7a00]">
                               Statistical association***
                             </span>
-                          </span>
-                          .
+                          </span>.
                         </p>
                         <p className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1] mt-[8px]">
                           The asterisks indicate confidence level (p-values). These factors are a starting point for investigation, not proof of cause.
                         </p>
+                        {/* Arrow pointing down */}
+                        <div className="absolute left-[12px] bottom-0 translate-y-1/2 w-[12px] h-[12px] rotate-45 bg-[#636b74]"></div>
                       </div>
                     )}
                   </div>
