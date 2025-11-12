@@ -22,42 +22,12 @@ export default function EmptyState({ onOpenModal, onOpenTemplateModal, onTopicCa
   return (
     <div className="bg-[#FCFCF6] content-stretch flex flex-col isolate items-start relative size-full min-h-screen">
 
-      {/* Page Title and Actions */}
+      {/* Page Title */}
       <div className="px-10 pt-10 pb-4 bg-[#FCFCF6] w-full">
         <div className="flex items-center justify-between">
           <h1 className="font-['Inter'] font-semibold text-[24px] text-[#171a1c]">
             Compare segments
           </h1>
-          <div className="flex gap-2">
-            {/* Export button - no background, no border */}
-            <button className="box-border flex items-center justify-center gap-[6px] px-[16px] py-[6px] min-h-[32px] rounded-[6px] hover:bg-[#e3effb] transition-colors">
-              <p className="font-['Inter'] font-semibold text-[14px] text-[#0b6bcb]">
-                Export
-              </p>
-              <img src="/Assets/Icons/Share view.svg" alt="" width="16" height="16" />
-            </button>
-
-            {/* Change template button - border only, no background */}
-            <button
-              onClick={onOpenTemplateModal}
-              className="border border-[#97c3f0] box-border flex items-center justify-center gap-[6px] px-[16px] py-[6px] min-h-[32px] rounded-[6px] hover:bg-[#e3effb] transition-colors"
-            >
-              <p className="font-['Inter'] font-semibold text-[14px] text-[#0b6bcb]">
-                Change template
-              </p>
-            </button>
-
-            {/* Add / remove data button */}
-            <button
-              onClick={onOpenModal}
-              className="bg-[#0b6bcb] box-border flex items-center justify-center gap-[6px] px-[16px] py-[6px] min-h-[32px] rounded-[6px] hover:bg-[#185ea5] transition-colors"
-            >
-              <img src="/Assets/Icons/_Button_/AddFilled.svg" alt="" width="16" height="16" />
-              <p className="font-['Inter'] font-semibold text-[14px] text-white">
-                Add / remove data
-              </p>
-            </button>
-          </div>
         </div>
       </div>
 

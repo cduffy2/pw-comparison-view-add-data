@@ -571,9 +571,19 @@ export default function HealthDataModal({ onClose }) {
 
     // Apply category filters
     if (appliedFilters.length > 0) {
-      filtered = filtered.filter(item =>
-        item.category && appliedFilters.includes(item.category)
-      );
+      filtered = filtered.filter(item => {
+        if (!item.category) return false;
+
+        // Special handling for 'suggested' (Statistical association) filter
+        if (appliedFilters.includes('suggested')) {
+          // Only include items that have category 'suggested' AND have associations
+          if (item.category === 'suggested') {
+            return item.associations && item.associations.length > 0;
+          }
+        }
+
+        return appliedFilters.includes(item.category);
+      });
     }
 
     return filtered;
@@ -954,10 +964,13 @@ export default function HealthDataModal({ onClose }) {
                                               return (
                                                 <div key={idx} className="flex flex-wrap gap-[4px] items-baseline">
                                                   <span className="font-['Inter'] font-semibold text-[14px] leading-[1.42] text-white whitespace-nowrap">
-                                                    {getSignificanceText(item.significance)}
+                                                    {item.significance}{getSignificanceText(item.significance)}
                                                   </span>
                                                   <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1] whitespace-nowrap">
-                                                    ({getPValue(item.significance)}):
+                                                    ({getPValue(item.significance)})
+                                                  </span>
+                                                  <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1] whitespace-nowrap">
+                                                    statistical association with:
                                                   </span>
                                                   <span className="font-['Inter'] font-semibold text-[14px] leading-[1.42] text-white">
                                                     {assoc}
@@ -1072,10 +1085,13 @@ export default function HealthDataModal({ onClose }) {
                                                 return (
                                                   <div key={idx} className="flex flex-wrap gap-[4px] items-baseline">
                                                     <span className="font-['Inter'] font-semibold text-[14px] leading-[1.42] text-white whitespace-nowrap">
-                                                      {getSignificanceText(item.significance)}
+                                                      {item.significance}{getSignificanceText(item.significance)}
                                                     </span>
                                                     <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1] whitespace-nowrap">
-                                                      ({getPValue(item.significance)}):
+                                                      ({getPValue(item.significance)})
+                                                    </span>
+                                                    <span className="font-['Inter'] text-[14px] leading-[1.42] text-[#cdd7e1] whitespace-nowrap">
+                                                      statistical association with:
                                                     </span>
                                                     <span className="font-['Inter'] font-semibold text-[14px] leading-[1.42] text-white">
                                                       {assoc}
