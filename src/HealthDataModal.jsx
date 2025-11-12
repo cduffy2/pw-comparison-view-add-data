@@ -404,9 +404,17 @@ function FilterMenu({ isOpen, onClose, activeTab, tempFilters, setTempFilters, o
                       </svg>
                     )}
                   </div>
-                  <span className="font-['Inter'] text-[16px] leading-[1.5] text-[#32383e] text-left">
-                    {category.label}
-                  </span>
+                  {category.id === 'suggested' ? (
+                    <span className="inline-flex items-center h-[24px] px-[8px] py-[4px] rounded-[16px] bg-[#e8f5e1]">
+                      <span className="font-['Inter'] font-medium text-[14px] leading-[1.42] text-[#2d7a00]">
+                        {category.label}
+                      </span>
+                    </span>
+                  ) : (
+                    <span className="font-['Inter'] text-[16px] leading-[1.5] text-[#32383e] text-left">
+                      {category.label}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
@@ -436,9 +444,17 @@ function FilterMenu({ isOpen, onClose, activeTab, tempFilters, setTempFilters, o
                     </svg>
                   )}
                 </div>
-                <span className="font-['Inter'] text-[16px] leading-[1.5] text-[#32383e]">
-                  {category.label}
-                </span>
+                {category.id === 'suggested' ? (
+                  <span className="inline-flex items-center h-[24px] px-[8px] py-[4px] rounded-[16px] bg-[#e8f5e1]">
+                    <span className="font-['Inter'] font-medium text-[14px] leading-[1.42] text-[#2d7a00]">
+                      {category.label}
+                    </span>
+                  </span>
+                ) : (
+                  <span className="font-['Inter'] text-[16px] leading-[1.5] text-[#32383e]">
+                    {category.label}
+                  </span>
+                )}
               </button>
             ))}
           </div>
