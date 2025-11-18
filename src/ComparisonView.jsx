@@ -65,23 +65,33 @@ export default function ComparisonView({ onSelectData, onReset }) {
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <p className="font-['Inter'] font-normal text-[14px] text-[#555e68]">
-                  Show standard error
-                </p>
-                <div className="w-4 h-4 border border-[#97c3f0] rounded-full flex items-center justify-center text-[#555e68] text-[10px]">
-                  i
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <p className="font-['Inter'] font-normal text-[14px] text-[#555e68]">
+                    Show standard error
+                  </p>
+                  <div className="w-4 h-4 border border-[#97c3f0] rounded-full flex items-center justify-center text-[#555e68] text-[10px]">
+                    i
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-12 h-6 bg-[#cdd7e1] rounded-full relative cursor-pointer">
+                    <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 left-0.5 shadow" />
+                  </div>
+                  <p className="font-['Inter'] font-normal text-[14px] text-[#555e68]">
+                    Off
+                  </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-12 h-6 bg-[#cdd7e1] rounded-full relative cursor-pointer">
-                  <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 left-0.5 shadow" />
-                </div>
-                <p className="font-['Inter'] font-normal text-[14px] text-[#555e68]">
-                  Off
+
+              {/* Download button */}
+              <button className="flex items-center gap-[6px] hover:opacity-80 transition-opacity">
+                <p className="font-['Inter'] font-semibold text-[14px] text-[#0b6bcb]">
+                  Download
                 </p>
-              </div>
+                <img src="/Assets/Icons/Download.svg" alt="" width="16" height="16" />
+              </button>
             </div>
           </div>
         </div>
@@ -120,23 +130,11 @@ export default function ComparisonView({ onSelectData, onReset }) {
               </div>
             </div>
 
-            {/* Data Column */}
-            <div className="flex-1 flex flex-col">
-              {/* Data Header with Download button */}
-              <div className="bg-[#dde7ee] h-[48px] flex items-center justify-end px-4">
-                <button className="flex items-center gap-[6px] hover:opacity-80 transition-opacity">
-                  <p className="font-['Inter'] font-semibold text-[14px] text-[#0b6bcb]">
-                    Download
-                  </p>
-                  <img src="/Assets/Icons/Download.svg" alt="" width="16" height="16" />
-                </button>
-              </div>
-              {/* Data Placeholder */}
-              <div className="flex-1 flex items-center justify-center">
-                <p className="font-['Inter'] font-semibold text-[24px] text-red-600">
-                  data appears here
-                </p>
-              </div>
+            {/* Data Placeholder */}
+            <div className="flex-1 flex items-center justify-center">
+              <p className="font-['Inter'] font-semibold text-[24px] text-red-600">
+                data appears here
+              </p>
             </div>
           </div>
 
