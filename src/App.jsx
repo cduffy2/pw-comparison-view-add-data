@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import SecondaryNav from './components/SecondaryNav'
 import EmptyState from './EmptyState'
 import HealthDataModal from './HealthDataModal'
 import TemplateModal from './TemplateModal'
 import ComparisonView from './ComparisonView'
+import SegmentPage from './pages/SegmentPage'
 import './index.css'
 
 function App() {
@@ -49,28 +51,34 @@ function App() {
     setShowTemplateModal(false)
   }
 
-  if (showComparison) {
-    return (
-      <>
-        <Navbar />
-        <SecondaryNav activePage="compare-segments" showSegmentCards={true} />
-        <ComparisonView onSelectData={handleOpenModal} onReset={handleReset} />
-      </>
-    )
-  }
-
   return (
-    <>
-      <Navbar />
-      <SecondaryNav activePage="compare-segments" showSegmentCards={true} />
-      <EmptyState
-        onOpenModal={handleOpenModal}
-        onOpenTemplateModal={handleOpenTemplateModal}
-        onTopicCardClick={handleTopicCardClick}
-      />
-      {showModal && <HealthDataModal onClose={handleCloseModal} />}
-      {showTemplateModal && <TemplateModal isOpen={showTemplateModal} onClose={handleCloseTemplateModal} onLoadTemplate={handleLoadTemplate} />}
-    </>
+    <Routes>
+      {/* Segment profile pages */}
+      <Route path="/segment/:id" element={<SegmentPage />} />
+
+      {/* Main compare segments page */}
+      <Route path="/" element={
+        showComparison ? (
+          <>
+            <Navbar />
+            <SecondaryNav activePage="compare-segments" showSegmentCards={true} />
+            <ComparisonView onSelectData={handleOpenModal} onReset={handleReset} />
+          </>
+        ) : (
+          <>
+            <Navbar />
+            <SecondaryNav activePage="compare-segments" showSegmentCards={true} />
+            <EmptyState
+              onOpenModal={handleOpenModal}
+              onOpenTemplateModal={handleOpenTemplateModal}
+              onTopicCardClick={handleTopicCardClick}
+            />
+            {showModal && <HealthDataModal onClose={handleCloseModal} />}
+            {showTemplateModal && <TemplateModal isOpen={showTemplateModal} onClose={handleCloseTemplateModal} onLoadTemplate={handleLoadTemplate} />}
+          </>
+        )
+      } />
+    </Routes>
   )
 }
 
