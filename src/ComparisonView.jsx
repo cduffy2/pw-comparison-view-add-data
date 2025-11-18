@@ -10,7 +10,7 @@ export default function ComparisonView({ onSelectData, onReset }) {
           </h1>
           <div className="flex gap-2">
             {/* Share this view button */}
-            <button className="border border-[#97c3f0] bg-white box-border flex items-center justify-center gap-[6px] px-[16px] py-[6px] min-h-[32px] rounded-[6px] hover:bg-[#e3effb] transition-colors">
+            <button className="flex items-center justify-center gap-[6px] px-[16px] py-[6px] min-h-[32px] hover:opacity-80 transition-opacity">
               <p className="font-['Inter'] font-semibold text-[14px] text-[#0b6bcb]">
                 Share this view
               </p>
@@ -45,7 +45,7 @@ export default function ComparisonView({ onSelectData, onReset }) {
 
         {/* Filters */}
         <div className="mb-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-end justify-between">
             <div className="flex flex-col gap-2">
               <p className="font-['Inter'] font-normal text-[14px] text-[#555e68]">
                 Segments shown
@@ -90,7 +90,7 @@ export default function ComparisonView({ onSelectData, onReset }) {
                 <p className="font-['Inter'] font-semibold text-[14px] text-[#0b6bcb]">
                   Download
                 </p>
-                <img src="/Assets/Icons/Download.svg" alt="" width="16" height="16" />
+                <img src="/Assets/Icons/_Button_/DownloadFilled.svg" alt="" width="16" height="16" />
               </button>
             </div>
           </div>
