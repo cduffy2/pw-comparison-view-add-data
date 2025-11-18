@@ -35,8 +35,8 @@ export default function SecondaryNav({ activePage, showSegmentCards = true, acti
   // Line 1: Main navigation tabs
   const line1NavItems = [
     { label: 'Senegal overview', href: '/senegal-overview', icon: '/Assets/Icons/senegal.svg', hasIcon: true, page: 'senegal-overview' },
-    { label: 'Compare segments', href: '#', page: 'compare-segments' },
-    { label: 'Prevalence map', href: '/', page: 'prevalence-map' },
+    { label: 'Compare segments', href: '/', page: 'compare-segments' },
+    { label: 'Prevalence map', href: '#', page: 'prevalence-map' },
     { label: 'Typing tools', href: '#', page: 'typing-tools' },
     { label: 'Additional resources', href: '#', page: 'additional-resources' },
   ];
@@ -64,41 +64,47 @@ export default function SecondaryNav({ activePage, showSegmentCards = true, acti
       <div className="max-w-[1360px] mx-auto">
         {/* Line 1: Main Navigation Tabs */}
         <div className="flex items-start justify-center gap-4 px-7 py-3">
-          {line1NavItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className={`
-                flex items-center justify-center gap-1.5
-                px-3 py-3 h-10
-                rounded-[var(--radius-sm)]
-                font-semibold text-base leading-4
-                transition-colors
-                ${
-                  item.page === activePage
-                    ? 'bg-[var(--primary-plain-hoverbg)] text-[var(--primary-plain-color)]'
-                    : hoveredItem === item.label
-                    ? 'bg-[var(--primary-plain-hoverbg)] text-[var(--primary-plain-color)]'
-                    : 'text-[var(--primary-plain-color)]'
-                }
-              `}
-              onMouseEnter={() => setHoveredItem(item.label)}
-              onMouseLeave={() => setHoveredItem(null)}
-            >
-              {item.hasIcon && (
-                <div className="w-5 h-5 rounded-full border border-[var(--primary-600)] overflow-hidden flex items-center justify-center">
-                  <img
-                    src={item.icon}
-                    alt=""
-                    width={20}
-                    height={20}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
-              <span>{item.label}</span>
-            </a>
-          ))}
+          {line1NavItems.map((item) => {
+            const NavComponent = item.href.startsWith('#') ? 'a' : Link;
+            const linkProps = item.href.startsWith('#') ? { href: item.href } : { to: item.href };
+
+            return (
+              <NavComponent
+                key={item.label}
+                {...linkProps}
+                className={`
+                  flex items-center justify-center gap-1.5
+                  px-3 py-3 h-10
+                  rounded-[var(--radius-sm)]
+                  font-semibold text-base leading-4
+                  transition-colors
+                  ${
+                    item.page === activePage
+                      ? 'bg-[var(--primary-plain-hoverbg)] text-[var(--primary-plain-color)]'
+                      : hoveredItem === item.label
+                      ? 'bg-[var(--primary-plain-hoverbg)] text-[var(--primary-plain-color)]'
+                      : 'text-[var(--primary-plain-color)]'
+                  }
+                `}
+                style={{ textDecoration: 'none' }}
+                onMouseEnter={() => setHoveredItem(item.label)}
+                onMouseLeave={() => setHoveredItem(null)}
+              >
+                {item.hasIcon && (
+                  <div className="w-5 h-5 rounded-full border border-[var(--primary-600)] overflow-hidden flex items-center justify-center">
+                    <img
+                      src={item.icon}
+                      alt=""
+                      width={20}
+                      height={20}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                <span>{item.label}</span>
+              </NavComponent>
+            );
+          })}
         </div>
 
         {/* Line 2: Segment Cards - Conditionally shown */}

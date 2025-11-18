@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import SecondaryNav from './components/SecondaryNav'
 import EmptyState from './EmptyState'
@@ -10,9 +10,19 @@ import SegmentPage from './pages/SegmentPage'
 import './index.css'
 
 function App() {
+  const location = useLocation()
   const [showModal, setShowModal] = useState(false)
   const [showTemplateModal, setShowTemplateModal] = useState(false)
   const [showComparison, setShowComparison] = useState(false)
+
+  // Reset to empty state when navigating to root from segment pages
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setShowComparison(false)
+      setShowModal(false)
+      setShowTemplateModal(false)
+    }
+  }, [location.pathname])
 
   const handleOpenModal = () => {
     setShowComparison(false)
